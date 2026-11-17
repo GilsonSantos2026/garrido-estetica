@@ -1,0 +1,31 @@
+# Dependências e arquivos gerados (são recriados pelos comandos do build)
+node_modules/
+www/
+android/
+ios/
+
+# Build e logs
+*.apk
+*.aab
+*.log
+.gradle/
+build/
+dist/
+
+# Chaves de assinatura e segredos: NUNCA enviar para o repositório
+*.keystore
+*.jks
+keystore.properties
+.env
+.env.*
+!.env.example
+
+# Arquivos de sistema e editores
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Configuração local do Claude e pasta temporária do site
+.claude/
+site/

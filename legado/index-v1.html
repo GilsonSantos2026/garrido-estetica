@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>GARRIDO ESTÉTICA – Agenda e gestão</title>
+<style>
+:root{--bg:#f3f5f9;--sf:#fff;--tx:#1a1f2b;--mu:#667085;--bd:#dde3ee;--ac:#1e3a6e;--ac2:#e2e9f6;--ok:#2f8f5b;--wr:#c47f17;--er:#c0392b;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root:not([data-theme="light"]){}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1524;--sf:#17213a;--tx:#eef2fa;--mu:#9aa7bf;--bd:#2a3858;--ac:#6f9be0;--ac2:#1f2e4d;--ok:#5cc98c;--wr:#e5a84a;--er:#ef7a6d;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0e1524;--sf:#17213a;--tx:#eef2fa;--mu:#9aa7bf;--bd:#2a3858;--ac:#6f9be0;--ac2:#1f2e4d;--ok:#5cc98c;--wr:#e5a84a;--er:#ef7a6d;color-scheme:dark}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding-bottom:74px}
+header{position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);z-index:5;padding:14px 16px 8px;display:flex;justify-content:space-between;align-items:center}
+h1{font:600 20px Georgia,serif;margin:0;color:var(--ac)}h2{font-size:16px;margin:18px 0 8px}
+main{max-width:720px;margin:0 auto;padding:0 16px 24px}
+nav{position:fixed;bottom:0;left:0;right:0;background:var(--sf);border-top:1px solid var(--bd);display:flex;padding-bottom:env(safe-area-inset-bottom,0px);z-index:6}
+nav button{flex:1;background:none;border:0;color:var(--mu);padding:9px 2px;font-size:11px;cursor:pointer}
+nav button b{display:block;font-size:19px;font-weight:400}nav button.on{color:var(--ac);font-weight:600}
+.card{background:var(--sf);border:1px solid var(--bd);border-radius:14px;padding:12px 14px;margin:8px 0}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.mu{color:var(--mu);font-size:13px}.big{font:600 24px Georgia,serif}
+.btn{background:var(--ac);color:#fff;border:0;border-radius:10px;padding:8px 13px;font-size:14px;cursor:pointer}
+.btn.g{background:var(--ac2);color:var(--ac)}.btn.s{padding:5px 9px;font-size:12.5px}.btn.w{background:#25a244}.btn.d{background:none;color:var(--er);border:1px solid var(--bd)}
+.tag{font-size:11.5px;padding:2px 8px;border-radius:99px;background:var(--ac2);color:var(--ac)}
+.tag.ok{color:var(--ok)}.tag.wr{color:var(--wr)}.tag.er{color:var(--er)}
+.time{font:600 16px Georgia,serif;min-width:52px}
+input,select,textarea{width:100%;padding:9px 10px;border:1px solid var(--bd);border-radius:10px;background:var(--bg);color:var(--tx);font:inherit;margin:3px 0 9px}
+label{font-size:12.5px;color:var(--mu)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.bar{height:9px;border-radius:5px;background:var(--ac);margin-top:4px}
+#md{position:fixed;inset:0;background:#0008;display:none;align-items:flex-end;justify-content:center;z-index:9}
+#md>div{background:var(--sf);width:100%;max-width:520px;border-radius:18px 18px 0 0;padding:18px;max-height:88vh;overflow:auto}
+@media(min-width:600px){#md{align-items:center}#md>div{border-radius:18px}}
+.empty{text-align:center;color:var(--mu);padding:22px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 10px}.chip{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--bd);border-radius:99px;padding:4px 10px;font-size:13px;color:var(--tx);cursor:pointer;margin:0}.chip input{width:auto;margin:0}.chip:has(input:checked){background:var(--ac2);border-color:var(--ac);color:var(--ac)}
+#sg{width:100%;height:130px;border:1px dashed var(--mu);border-radius:10px;background:#fff;touch-action:none;display:block}
+.warn{background:var(--ac2);color:var(--er);border-radius:10px;padding:8px 10px;margin:8px 0;font-size:13px}
+#fab{position:fixed;right:16px;bottom:calc(74px + env(safe-area-inset-bottom,0px));z-index:7;border-radius:99px;padding:12px 18px;font-size:15px;font-weight:600;box-shadow:0 4px 14px #0004}
+</style>
+</head>
+<body>
+<header><h1>✿ GARRIDO ESTÉTICA</h1><span class="mu" id="hd"></span></header>
+<main id="app"></main>
+<nav id="nav"></nav>
+<button id="fab" class="btn" onclick="pickAn()">📋 Anamnese</button>
+<div id="md"><div id="mb"></div></div>
+<script>
+const $=s=>document.querySelector(s);
+const brl=n=>(n||0).toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
+const iso=d=>new Date(d.getTime()-d.getTimezoneOffset()*6e4).toISOString().slice(0,10);
+const today=iso(new Date());
+const uid=()=>Math.random().toString(36).slice(2,9);
+const KEY="bella-estetica-v1";
+let S;
+function seed(){return{
+ clients:[{id:"c1",nome:"Marina Souza",tel:"14991112233",alergias:"Sensibilidade a ácido glicólico",notas:"Prefere horários à tarde. Pele sensível."},{id:"c2",nome:"Camila Ribeiro",tel:"14992223344",alergias:"",notas:"Faz drenagem semanal."},{id:"c3",nome:"Juliana Prado",tel:"14993334455",alergias:"Látex",notas:""}],
+ services:[{id:"s1",nome:"Limpeza de pele",preco:150,dur:60},{id:"s2",nome:"Drenagem linfática",preco:120,dur:50},{id:"s3",nome:"Design de sobrancelha",preco:60,dur:30},{id:"s4",nome:"Peeling",preco:220,dur:45}],
+ appts:[{id:"a1",c:"c1",s:"s1",d:today,h:"09:00",st:"agendado"},{id:"a2",c:"c2",s:"s2",d:today,h:"10:30",st:"confirmado"},{id:"a3",c:"c3",s:"s3",d:today,h:"14:00",st:"agendado"},{id:"a4",c:"c2",s:"s2",d:iso(new Date(Date.now()-864e5*3)),h:"15:00",st:"concluido"}],
+ wait:[{id:"w1",nome:"Fernanda Lima",tel:"14994445566",s:"s4",obs:"Qualquer horário de manhã"}],
+ pacotes:[{id:"p1",c:"c2",s:"s2",total:10,usadas:3,preco:1000,d:today}],
+ desp:[{id:"x1",desc:"Produtos e insumos",v:180,d:today}]}}
+try{S=JSON.parse(localStorage.getItem(KEY)||"null")}catch(e){}
+if(!S)S=seed();
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const cl=id=>S.clients.find(c=>c.id===id)||{nome:"—"};
+const sv=id=>S.services.find(s=>s.id===id)||{nome:"—",preco:0};
+let tab="agenda",day=today,curMonth=today.slice(0,7);
+const TABS=[["agenda","📅","Agenda"],["clientes","👥","Clientes"],["espera","⏳","Espera"],["pacotes","🎟️","Pacotes"],["fin","💰","Financeiro"],["stats","📊","Dados"]];
+const ST={agendado:["Agendado","wr"],confirmado:["Confirmado","ok"],concluido:["Concluído","ok"],cancelado:["Cancelado","er"],faltou:["Faltou","er"]};
+const wa=(tel,msg)=>"https://wa.me/55"+tel.replace(/\D/g,"")+"?text="+encodeURIComponent(msg);
+const fmtD=d=>new Date(d+"T12:00").toLocaleDateString("pt-BR",{weekday:"long",day:"numeric",month:"long"});
+const opts=(arr,k="nome")=>arr.map(x=>`<option value="${x.id}">${x[k]}</option>`).join("");
+
+function modal(html){$("#mb").innerHTML=html;$("#md").style.display="flex"}
+function close(){$("#md").style.display="none"}
+$("#md").onclick=e=>{if(e.target.id==="md")close()};
+function commit(){save();render()}
+
+function render(){
+ $("#hd").textContent=new Date().toLocaleDateString("pt-BR",{day:"numeric",month:"short"});
+ $("#nav").innerHTML=TABS.map(t=>`<button class="${tab===t[0]?"on":""}" onclick="tab='${t[0]}';render();scrollTo(0,0)"><b>${t[1]}</b>${t[2]}</button>`).join("");
+ $("#app").innerHTML=V[tab]();
+}
+const V={};
+
+V.agenda=()=>{
+ const list=S.appts.filter(a=>a.d===day).sort((a,b)=>a.h.localeCompare(b.h));
+ const prev=S.appts.filter(a=>a.d===day&&a.st!=="cancelado");
+ const rev=prev.reduce((t,a)=>t+sv(a.s).preco,0);
+ return `<div class="row"><button class="btn g s" onclick="mv(-1)">‹</button><div style="text-align:center"><b style="text-transform:capitalize">${fmtD(day)}</b><div class="mu">${prev.length} atendimentos · previsão ${brl(rev)}</div></div><button class="btn g s" onclick="mv(1)">›</button></div>
+ <div style="margin:10px 0"><button class="btn" onclick="newAppt()">+ Novo agendamento</button></div>`+
+ (list.length?list.map(a=>{const c=cl(a.c),s=sv(a.s),t=ST[a.st];
+  const msg=`Olá, ${c.nome.split(" ")[0]}! Confirmando seu horário de ${s.nome} em ${fmtD(a.d)} às ${a.h}. Pode confirmar com um “sim”? 💛`;
+  return `<div class="card"><div class="row"><div style="display:flex;gap:10px;align-items:center"><span class="time">${a.h}</span><div><b>${c.nome}</b> ${riskOf(c).length?'<span class="tag er">⚠ atenção</span>':""}<div class="mu">${s.nome} · ${brl(s.preco)}</div></div></div><span class="tag ${t[1]}">${t[0]}</span></div>
+  <div class="row" style="margin-top:8px;justify-content:flex-start">
+  ${c.tel?`<a class="btn w s" style="text-decoration:none" target="_blank" href="${wa(c.tel,msg)}" onclick="setSt('${a.id}','confirmado',1)">WhatsApp</a>`:""}
+  ${a.st!=="concluido"?`<button class="btn s" onclick="setSt('${a.id}','concluido')">Concluir</button>`:""}
+  <button class="btn g s" onclick="setSt('${a.id}','confirmado')">Confirmar</button>
+  <button class="btn g s" onclick="anamnese('${a.c}')">📋 Anamnese</button>
+  <button class="btn d s" onclick="setSt('${a.id}','faltou')">Faltou</button>
+  <button class="btn d s" onclick="setSt('${a.id}','cancelado')">Cancelar</button></div></div>`}).join(""):`<div class="empty">Nenhum agendamento neste dia.</div>`);
+};
+function mv(n){const d=new Date(day+"T12:00");d.setDate(d.getDate()+n);day=iso(d);render()}
+function setSt(id,st,soft){const a=S.appts.find(x=>x.id===id);if(soft&&a.st!=="agendado")return;a.st=st;
+ if(st==="concluido"){const p=S.pacotes.find(p=>p.c===a.c&&p.s===a.s&&p.usadas<p.total);if(p){p.usadas++;a.pacote=p.id}}
+ commit()}
+function newAppt(pre){modal(`<h2 style="margin-top:0">Novo agendamento</h2>
+ <label>Cliente</label><select id="f1">${opts(S.clients)}</select>
+ <label>Procedimento</label><select id="f2">${opts(S.services)}</select>
+ <div class="grid"><div><label>Data</label><input type="date" id="f3" value="${day}"></div><div><label>Hora</label><input type="time" id="f4" value="09:00"></div></div>
+ <div class="row"><button class="btn g" onclick="close()">Cancelar</button><button class="btn" onclick="addAppt()">Salvar</button></div>`);
+ if(pre){$("#f1").value=pre.c;$("#f2").value=pre.s}}
+function addAppt(){const d=$("#f3").value,h=$("#f4").value;
+ if(S.appts.some(a=>a.d===d&&a.h===h&&a.st!=="cancelado")&&!confirm("Já existe um atendimento neste horário. Agendar mesmo assim?"))return;
+ S.appts.push({id:uid(),c:$("#f1").value,s:$("#f2").value,d,h,st:"agendado"});day=d;close();commit()}
+
+V.clientes=()=>`<div style="margin:6px 0"><input id="q" placeholder="Buscar cliente…" oninput="filt(this.value)"><button class="btn" onclick="newClient()">+ Novo cliente</button></div><div id="cl">${clList("")}</div>`;
+const clList=q=>S.clients.filter(c=>c.nome.toLowerCase().includes(q.toLowerCase())).map(c=>{const n=S.appts.filter(a=>a.c===c.id&&a.st==="concluido").length;
+ return `<div class="card row" onclick="ficha('${c.id}')" style="cursor:pointer"><div><b>${c.nome}</b><div class="mu">${c.tel||"sem telefone"}</div></div><span class="tag">${n} visitas</span></div>`}).join("")||`<div class="empty">Nenhum cliente.</div>`;
+function filt(v){$("#cl").innerHTML=clList(v)}
+function newClient(){modal(`<h2 style="margin-top:0">Novo cliente</h2><label>Nome</label><input id="n1"><label>WhatsApp (com DDD)</label><input id="n2" inputmode="tel"><div class="row"><button class="btn g" onclick="close()">Cancelar</button><button class="btn" onclick="addClient()">Salvar</button></div>`)}
+function addClient(){const nome=$("#n1").value.trim();if(!nome)return;S.clients.push({id:uid(),nome,tel:$("#n2").value,alergias:"",notas:""});close();commit()}
+function ficha(id){const c=cl(id);const h=S.appts.filter(a=>a.c===id).sort((a,b)=>b.d.localeCompare(a.d));
+ modal(`<h2 style="margin-top:0">${c.nome}</h2><div class="mu">${c.tel||""}</div>
+ ${riskOf(c).length?`<div class="warn">⚠ Atenção: ${riskOf(c).join(", ")}</div>`:""}<div class="row" style="margin:8px 0;justify-content:flex-start"><button class="btn s" onclick="anamnese('${id}')">📋 Anamnese ${c.an?"✓":"(pendente)"}</button><button class="btn g s" onclick="reg('${id}')">📝 Novo registro</button></div><h2>Ficha de atendimento</h2><label>Alergias / contraindicações</label><input id="fa" value="${c.alergias||""}">
+ <label>Anotações e evolução</label><textarea id="fn" rows="4">${c.notas||""}</textarea>
+ <h2>Registros de tratamento</h2>${regList(c)}<h2>Histórico</h2>${h.map(a=>`<div class="row mu"><span>${a.d.split("-").reverse().join("/")} · ${sv(a.s).nome}</span><span>${ST[a.st][0]}</span></div>`).join("")||'<div class="mu">Sem histórico.</div>'}
+ <div class="row" style="margin-top:14px"><button class="btn d" onclick="delClient('${id}')">Excluir</button><button class="btn g" onclick="newAppt({c:'${id}',s:'${S.services[0].id}'})">Agendar</button><button class="btn" onclick="saveFicha('${id}')">Salvar</button></div>`)}
+function saveFicha(id){const c=cl(id);c.alergias=$("#fa").value;c.notas=$("#fn").value;close();commit()}
+function delClient(id){if(!confirm("Excluir cliente e seus agendamentos?"))return;S.clients=S.clients.filter(c=>c.id!==id);S.appts=S.appts.filter(a=>a.c!==id);close();commit()}
+
+V.espera=()=>`<p class="mu">Clientes aguardando um horário vago. Quando abrir uma vaga, encaixe com um toque.</p><button class="btn" onclick="newWait()">+ Adicionar à lista</button>`+
+ (S.wait.map(w=>`<div class="card"><b>${w.nome}</b> <span class="tag">${sv(w.s).nome}</span><div class="mu">${w.obs||""}</div><div class="row" style="margin-top:8px;justify-content:flex-start">
+ <button class="btn s" onclick="fit('${w.id}')">Encaixar hoje</button>
+ ${w.tel?`<a class="btn w s" style="text-decoration:none" target="_blank" href="${wa(w.tel,"Olá, "+w.nome.split(" ")[0]+"! Abriu uma vaga para "+sv(w.s).nome+". Tem interesse? 💛")}">Avisar vaga</a>`:""}
+ <button class="btn d s" onclick="S.wait=S.wait.filter(x=>x.id!=='${w.id}');commit()">Remover</button></div></div>`).join("")||`<div class="empty">Lista vazia.</div>`);
+function newWait(){modal(`<h2 style="margin-top:0">Lista de espera</h2><label>Nome</label><input id="w1"><label>WhatsApp</label><input id="w2" inputmode="tel"><label>Procedimento</label><select id="w3">${opts(S.services)}</select><label>Preferência</label><input id="w4"><div class="row"><button class="btn g" onclick="close()">Cancelar</button><button class="btn" onclick="addWait()">Salvar</button></div>`)}
+function addWait(){const nome=$("#w1").value.trim();if(!nome)return;S.wait.push({id:uid(),nome,tel:$("#w2").value,s:$("#w3").value,obs:$("#w4").value});close();commit()}
+function fit(id){const w=S.wait.find(x=>x.id===id);let c=S.clients.find(c=>c.nome===w.nome);if(!c){c={id:uid(),nome:w.nome,tel:w.tel,alergias:"",notas:""};S.clients.push(c)}
+ S.wait=S.wait.filter(x=>x.id!==id);day=today;tab="agenda";newAppt({c:c.id,s:w.s});render();newAppt({c:c.id,s:w.s})}
+
+V.pacotes=()=>`<p class="mu">Venda pacotes de sessões e acompanhe o saldo. Ao concluir um atendimento, a sessão é baixada automaticamente.</p><button class="btn" onclick="newPack()">+ Vender pacote</button>`+
+ (S.pacotes.map(p=>{const pc=Math.round(p.usadas/p.total*100);return `<div class="card"><div class="row"><b>${cl(p.c).nome}</b><span class="tag ${p.usadas>=p.total?"er":"ok"}">${p.total-p.usadas} restantes</span></div><div class="mu">${p.total}× ${sv(p.s).nome} · ${brl(p.preco)}</div><div style="background:var(--bd);border-radius:5px;margin-top:6px"><div class="bar" style="width:${pc}%"></div></div></div>`}).join("")||`<div class="empty">Nenhum pacote vendido.</div>`);
+function newPack(){modal(`<h2 style="margin-top:0">Vender pacote</h2><label>Cliente</label><select id="p1">${opts(S.clients)}</select><label>Procedimento</label><select id="p2">${opts(S.services)}</select><div class="grid"><div><label>Sessões</label><input id="p3" type="number" value="10"></div><div><label>Valor (R$)</label><input id="p4" type="number" value="900"></div></div><div class="row"><button class="btn g" onclick="close()">Cancelar</button><button class="btn" onclick="addPack()">Salvar</button></div>`)}
+function addPack(){S.pacotes.push({id:uid(),c:$("#p1").value,s:$("#p2").value,total:+$("#p3").value||1,usadas:0,preco:+$("#p4").value||0,d:today});close();commit()}
+
+function fin(){const m=curMonth;
+ const ent=S.appts.filter(a=>a.st==="concluido"&&a.d.startsWith(m)&&!a.pacote).map(a=>({d:a.d,t:cl(a.c).nome+" · "+sv(a.s).nome,v:sv(a.s).preco}))
+  .concat(S.pacotes.filter(p=>p.d.startsWith(m)).map(p=>({d:p.d,t:"Pacote · "+cl(p.c).nome,v:p.preco})));
+ const sai=S.desp.filter(x=>x.d.startsWith(m));return{ent,sai,e:ent.reduce((t,x)=>t+x.v,0),s:sai.reduce((t,x)=>t+x.v,0)}}
+V.fin=()=>{const f=fin();return `<input type="month" value="${curMonth}" onchange="curMonth=this.value;render()">
+ <div class="grid"><div class="card"><div class="mu">Receitas</div><div class="big" style="color:var(--ok)">${brl(f.e)}</div></div><div class="card"><div class="mu">Despesas</div><div class="big" style="color:var(--er)">${brl(f.s)}</div></div></div>
+ <div class="card"><div class="mu">Resultado do mês</div><div class="big">${brl(f.e-f.s)}</div></div>
+ <button class="btn" onclick="newDesp()">+ Lançar despesa</button><h2>Lançamentos</h2>`+
+ f.ent.concat(f.sai.map(x=>({d:x.d,t:x.desc,v:-x.v,id:x.id}))).sort((a,b)=>b.d.localeCompare(a.d)).map(x=>`<div class="card row"><div>${x.t}<div class="mu">${x.d.split("-").reverse().join("/")}</div></div><div style="text-align:right"><b style="color:var(${x.v<0?"--er":"--ok"})">${brl(x.v)}</b>${x.id?`<br><a class="mu" href="#" onclick="S.desp=S.desp.filter(z=>z.id!=='${x.id}');commit();return false">remover</a>`:""}</div></div>`).join("")};
+function newDesp(){modal(`<h2 style="margin-top:0">Nova despesa</h2><label>Descrição</label><input id="d1"><div class="grid"><div><label>Valor (R$)</label><input id="d2" type="number"></div><div><label>Data</label><input id="d3" type="date" value="${today}"></div></div><div class="row"><button class="btn g" onclick="close()">Cancelar</button><button class="btn" onclick="addDesp()">Salvar</button></div>`)}
+function addDesp(){const v=+$("#d2").value;if(!v)return;S.desp.push({id:uid(),desc:$("#d1").value||"Despesa",v,d:$("#d3").value});close();commit()}
+
+V.stats=()=>{const done=S.appts.filter(a=>a.st==="concluido");const by={};done.forEach(a=>{const n=sv(a.s).nome;by[n]=by[n]||{q:0,v:0};by[n].q++;by[n].v+=sv(a.s).preco});
+ const arr=Object.entries(by).sort((a,b)=>b[1].v-a[1].v),mx=Math.max(1,...arr.map(x=>x[1].v));
+ const tot=S.appts.length||1,fal=S.appts.filter(a=>a.st==="faltou").length,can=S.appts.filter(a=>a.st==="cancelado").length;
+ const ticket=done.length?done.reduce((t,a)=>t+sv(a.s).preco,0)/done.length:0;
+ return `<div class="grid"><div class="card"><div class="mu">Clientes</div><div class="big">${S.clients.length}</div></div><div class="card"><div class="mu">Atendimentos</div><div class="big">${done.length}</div></div><div class="card"><div class="mu">Ticket médio</div><div class="big">${brl(ticket)}</div></div><div class="card"><div class="mu">Faltas + cancelamentos</div><div class="big">${Math.round((fal+can)/tot*100)}%</div></div></div>
+ <h2>Procedimentos mais rentáveis</h2>`+(arr.map(([n,o])=>`<div class="card"><div class="row"><span>${n}</span><span class="mu">${o.q}× · ${brl(o.v)}</span></div><div class="bar" style="width:${o.v/mx*100}%"></div></div>`).join("")||`<div class="empty">Conclua atendimentos para ver estatísticas.</div>`)+
+ `<h2>Procedimentos</h2><button class="btn g s" onclick="newServ()">+ Novo procedimento</button>`+S.services.map(s=>`<div class="card row"><span>${s.nome} <span class="mu">${s.dur} min</span></span><b>${brl(s.preco)}</b></div>`).join("")+
+ `<p class="mu" style="margin-top:20px">Os dados ficam salvos neste navegador. <a href="#" onclick="if(confirm('Apagar todos os dados?')){S=seed();commit()}return false" style="color:var(--er)">Restaurar dados de exemplo</a></p>`};
+function newServ(){modal(`<h2 style="margin-top:0">Novo procedimento</h2><label>Nome</label><input id="v1"><div class="grid"><div><label>Preço (R$)</label><input id="v2" type="number"></div><div><label>Duração (min)</label><input id="v3" type="number" value="60"></div></div><div class="row"><button class="btn g" onclick="close()">Cancelar</button><button class="btn" onclick="addServ()">Salvar</button></div>`)}
+function addServ(){const nome=$("#v1").value.trim();if(!nome)return;S.services.push({id:uid(),nome,preco:+$("#v2").value||0,dur:+$("#v3").value||60});close();commit()}
+/* ===== ANAMNESE, REGISTROS E PROTOCOLOS ===== */
+const esc=s=>(s||"").replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
+const CH=["Diabetes","Hipertensão","Gestante","Lactante","Marca-passo","Cardiopatia","Epilepsia","Tireoide","Herpes","Oncológico","Queloide","Anticoagulante","Isotretinoína","Implante metálico"];
+const QX=["Manchas","Acne","Rosácea","Melasma","Rugas","Flacidez","Celulite","Gordura localizada","Estrias","Poros dilatados"];
+const riskOf=c=>(c.an&&c.an.ch)||[];
+const chips=(arr,sel,n)=>`<div class="chips">${arr.map(x=>`<label class="chip"><input type="checkbox" name="${n}" value="${x}" ${(sel||[]).includes(x)?"checked":""}>${x}</label>`).join("")}</div>`;
+const sel=(id,arr,v)=>`<select id="${id}">${arr.map(x=>`<option ${x===v?"selected":""}>${x}</option>`).join("")}</select>`;
+const chk=n=>[...document.querySelectorAll(`input[name=${n}]:checked`)].map(i=>i.value);
+function anamnese(id){const c=cl(id),a=c.an||{};
+ modal(`<h2 style="margin-top:0">Anamnese · ${esc(c.nome)}</h2>
+ <div class="grid"><div><label>Nascimento</label><input type="date" id="an_nasc" value="${a.nasc||""}"></div><div><label>Profissão</label><input id="an_prof" value="${esc(a.prof)}"></div></div>
+ <label>Queixa principal</label><input id="an_queixa" value="${esc(a.queixa)}">
+ <label>Expectativa / objetivo do tratamento</label><input id="an_obj" value="${esc(a.obj)}">
+ <h2>Histórico de saúde</h2>${chips(CH,a.ch,"an_ch")}
+ <label>Medicamentos em uso</label><input id="an_med" value="${esc(a.med)}">
+ <label>Alergias</label><input id="an_al" value="${esc(c.alergias)}">
+ <h2>Pele e queixas estéticas</h2>
+ <div class="grid"><div><label>Tipo de pele</label>${sel("an_pele",["Normal","Seca","Oleosa","Mista","Sensível"],a.pele)}</div><div><label>Fototipo</label>${sel("an_foto",["I","II","III","IV","V","VI"],a.foto)}</div></div>
+ <label>Queixas</label>${chips(QX,a.qx,"an_qx")}
+ <h2>Hábitos</h2>
+ <div class="grid"><div><label>Fuma</label>${sel("an_fuma",["Não","Sim","Ex-fumante"],a.fuma)}</div><div><label>Álcool</label>${sel("an_alc",["Não","Social","Frequente"],a.alc)}</div>
+ <div><label>Água por dia</label>${sel("an_agua",["Menos de 1 L","1 a 2 L","Mais de 2 L"],a.agua)}</div><div><label>Atividade física</label>${sel("an_ativ",["Sedentário","1–2×/semana","3×/semana ou mais"],a.ativ)}</div></div>
+ <label>Protetor solar</label>${sel("an_sol",["Diariamente","Às vezes","Nunca"],a.sol)}
+ <label>Procedimentos estéticos anteriores</label><textarea id="an_prev" rows="2">${esc(a.prev)}</textarea>
+ <label>Cuidados em casa (produtos utilizados)</label><textarea id="an_casa" rows="2">${esc(a.casa)}</textarea>
+ <h2>Termo de consentimento</h2><p class="mu">Declaro que as informações acima são verdadeiras, que fui informado(a) sobre o procedimento, seus riscos e cuidados, e autorizo a sua realização.</p>
+ <canvas id="sg"></canvas><div class="row" style="margin:6px 0 14px"><span class="mu">Assine acima${a.date?" · assinada em "+a.date.split("-").reverse().join("/"):""}</span><a href="#" class="mu" onclick="clearSig();return false">limpar</a></div>
+ <div class="row"><button class="btn g" onclick="ficha('${id}')">Voltar</button><button class="btn" onclick="saveAn('${id}')">Salvar anamnese</button></div>`);
+ initSig(a.sig)}
+let sigDirty=false;
+function initSig(img){const cv=$("#sg"),r=cv.getBoundingClientRect();cv.width=r.width*2;cv.height=r.height*2;const x=cv.getContext("2d");x.scale(2,2);x.lineWidth=2;x.lineCap="round";x.strokeStyle="#222";sigDirty=false;
+ if(img){const i=new Image();i.onload=()=>x.drawImage(i,0,0,r.width,r.height);i.src=img}
+ let on=false;const p=e=>{const b=cv.getBoundingClientRect();return[e.clientX-b.left,e.clientY-b.top]};
+ cv.onpointerdown=e=>{on=true;sigDirty=true;delete cv.dataset.empty;const[a,b]=p(e);x.beginPath();x.moveTo(a,b);cv.setPointerCapture(e.pointerId)};
+ cv.onpointermove=e=>{if(!on)return;const[a,b]=p(e);x.lineTo(a,b);x.stroke()};
+ cv.onpointerup=()=>on=false;
+ window.clearSig=()=>{x.clearRect(0,0,r.width,r.height);sigDirty=true;cv.dataset.empty=1}}
+function saveAn(id){const c=cl(id),old=c.an||{},cv=$("#sg"),v=k=>$("#an_"+k).value;
+ let sig=old.sig||"";if(sigDirty)sig=cv.dataset.empty?"":cv.toDataURL();
+ c.an={nasc:v("nasc"),prof:v("prof"),queixa:v("queixa"),obj:v("obj"),ch:chk("an_ch"),med:v("med"),pele:v("pele"),foto:v("foto"),qx:chk("an_qx"),fuma:v("fuma"),alc:v("alc"),agua:v("agua"),ativ:v("ativ"),sol:v("sol"),prev:v("prev"),casa:v("casa"),sig,date:sig?(old.sig&&!sigDirty?old.date:today):""};
+ c.alergias=v("al");save();render();ficha(id)}
+const PROT={
+"Limpeza de pele":["Higienização e demaquilagem","Avaliação da pele e esfoliação suave","Vapor de ozônio (3–5 min)","Extração, se necessário","Alta frequência","Máscara calmante e protetor solar"],
+"Drenagem linfática":["Avaliação e medidas","Ativação dos linfonodos principais","Manobras de bombeamento e rotação","Finalização com deslizamento suave","Orientar hidratação e repouso"],
+"Peeling":["Checar contraindicações e fototipo","Higienização e desengorduramento","Aplicação do ácido e controle de tempo","Neutralização e remoção","Calmante e protetor solar FPS 50+"],
+"Microagulhamento":["Assepsia e anestésico tópico","Definir profundidade da agulha por área","Deslizamentos em várias direções","Ativos pós-procedimento","Orientar cuidados e evitar sol por 7 dias"],
+"Massagem modeladora":["Avaliação corporal e medidas","Óleo ou creme de deslizamento","Manobras profundas nas áreas-alvo","Finalização relaxante","Orientar hidratação"]};
+function reg(id){const c=cl(id);modal(`<h2 style="margin-top:0">Registro de sessão · ${esc(c.nome)}</h2>
+ <label>Procedimento</label><select id="r1">${opts(S.services)}</select>
+ <label>Data</label><input type="date" id="r2" value="${today}">
+ <label>Protocolo</label><select id="r3" onchange="fillProt(this.value)"><option value="">— sem protocolo —</option>${Object.keys(PROT).map(k=>`<option>${k}</option>`).join("")}</select>
+ <label>Descrição / evolução da sessão</label><textarea id="r4" rows="7"></textarea>
+ <label>Reações e observações pós-procedimento</label><input id="r5">
+ <div class="row"><button class="btn g" onclick="ficha('${id}')">Voltar</button><button class="btn" onclick="addReg('${id}')">Salvar</button></div>`)}
+function fillProt(k){$("#r4").value=k?"Protocolo: "+k+"\n"+PROT[k].map((s,i)=>(i+1)+". "+s).join("\n"):""}
+function addReg(id){const c=cl(id);(c.reg=c.reg||[]).push({id:uid(),s:$("#r1").value,d:$("#r2").value,txt:$("#r4").value,obs:$("#r5").value});save();render();ficha(id)}
+function delReg(cid,rid){const c=cl(cid);c.reg=c.reg.filter(r=>r.id!==rid);save();render();ficha(cid)}
+const regList=c=>(c.reg||[]).slice().sort((a,b)=>b.d.localeCompare(a.d)).map(r=>`<div class="card"><div class="row"><b>${sv(r.s).nome}</b><span class="mu">${r.d.split("-").reverse().join("/")}</span></div><div class="mu" style="white-space:pre-wrap">${esc(r.txt)}</div>${r.obs?`<div class="mu">Pós: ${esc(r.obs)}</div>`:""}<a href="#" class="mu" onclick="delReg('${c.id}','${r.id}');return false">remover</a></div>`).join("")||'<div class="mu">Nenhum registro ainda.</div>';
+function pickAn(){const l=S.clients.slice().sort((a,b)=>(!!a.an-!!b.an)||a.nome.localeCompare(b.nome));
+ modal(`<h2 style="margin-top:0">Anamnese · escolha o cliente</h2><input id="pq" placeholder="Buscar cliente…" oninput="pickF(this.value)"><div id="pl">${pickL(l)}</div><div class="row"><button class="btn g" onclick="close()">Fechar</button><button class="btn" onclick="newClient()">+ Novo cliente</button></div>`)}
+const pickL=l=>l.map(c=>`<div class="card row" style="cursor:pointer" onclick="anamnese('${c.id}')"><b>${esc(c.nome)}</b><span class="tag ${c.an?"ok":"wr"}">${c.an?"Preenchida":"Pendente"}</span></div>`).join("")||'<div class="empty">Nenhum cliente.</div>';
+function pickF(q){$("#pl").innerHTML=pickL(S.clients.filter(c=>c.nome.toLowerCase().includes(q.toLowerCase())))}
+render();
+</script>
+</body>
+</html>
