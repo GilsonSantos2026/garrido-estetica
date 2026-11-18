@@ -31,11 +31,10 @@ jobs:
           java-version: 21
       - run: npm ci --ignore-scripts
       - run: npm test
+      # Usa .env.production (banco real, chave pública). Trava se alguma chave secreta escapar.
       - run: npm run build
-        env:
-          # Opcional: sem estes segredos, site e APK rodam no modo protótipo (dados em cada aparelho)
-          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
-          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+      - name: Conferir que nenhuma chave secreta foi para o site
+        run: "! grep -rlE 'sb_secret_[A-Za-z0-9_-]{10,}' www .env.production"
       - name: Gerar APK (teste, assinado com chave de depuração)
         run: |
           npx cap add android

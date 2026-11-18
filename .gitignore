@@ -19,6 +19,7 @@ keystore.properties
 .env
 .env.*
 !.env.example
+!.env.production
 
 # Arquivos de sistema e editores
 .DS_Store
