@@ -40,11 +40,11 @@ export default function AppointmentDetails({ id, onClose }) {
           <Info label="Profissional"><span className="inline-flex items-center gap-1.5"><Avatar name={p.name} color={p.color} size={22} />{p.name}</span></Info>
           <Info label="Valor">{brl(a.price)}{a.paymentMethod && <span className="text-graphite-500"> · {PAYMENT_METHODS[a.paymentMethod]}</span>}</Info>
           <Info label="Origem">
-            <span className="inline-flex items-center gap-1">{a.source === 'online' ? <><Globe className="h-4 w-4 text-rose-500" />Portal do cliente</> : <><Building2 className="h-4 w-4" />Clínica</>}</span>
+            <span className="inline-flex items-center gap-1">{a.source === 'online' ? <><Globe className="h-4 w-4 text-brand-500" />Portal do cliente</> : <><Building2 className="h-4 w-4" />Clínica</>}</span>
           </Info>
         </div>
 
-        {a.notes && <p className="rounded-xl bg-nude-50 p-3 text-sm text-graphite-600">“{a.notes}”</p>}
+        {a.notes && <p className="rounded-xl bg-mist-50 p-3 text-sm text-graphite-600">“{a.notes}”</p>}
 
         {(alerts.length > 0 || missingConsent || (pkgs.length > 0 && !final)) && (
           <div className="space-y-2">
@@ -58,7 +58,7 @@ export default function AppointmentDetails({ id, onClose }) {
         <div>
           <div className="label mb-2 flex items-center justify-between">Status <StatusBadge status={a.status} /></div>
           <div className="mb-3 flex gap-1">
-            {STATUS_FLOW.map((st, i) => <div key={st} className={cx('h-1.5 flex-1 rounded-full', i <= stepIdx ? 'bg-rose-400' : 'bg-nude-200')} />)}
+            {STATUS_FLOW.map((st, i) => <div key={st} className={cx('h-1.5 flex-1 rounded-full', i <= stepIdx ? 'bg-brand-400' : 'bg-mist-200')} />)}
           </div>
           {!final ? (
             <div className="flex flex-wrap gap-2">
@@ -91,10 +91,10 @@ export default function AppointmentDetails({ id, onClose }) {
 }
 
 const Info = ({ label, children }) => (
-  <div className="rounded-xl bg-nude-50 p-3"><div className="label">{label}</div><div className="text-graphite-800">{children}</div></div>
+  <div className="rounded-xl bg-mist-50 p-3"><div className="label">{label}</div><div className="text-graphite-800">{children}</div></div>
 );
 
 function Alert({ icon: Icon, tone, children }) {
-  const tones = { red: 'bg-red-50 text-red-800', amber: 'bg-amber-50 text-amber-900', rose: 'bg-rose-50 text-rose-800' };
+  const tones = { red: 'bg-red-50 text-red-800', amber: 'bg-amber-50 text-amber-900', rose: 'bg-brand-50 text-brand-800' };
   return <div className={cx('flex items-start gap-2 rounded-xl px-3 py-2 text-sm', tones[tone])}><Icon className="mt-0.5 h-4 w-4 shrink-0" />{children}</div>;
 }

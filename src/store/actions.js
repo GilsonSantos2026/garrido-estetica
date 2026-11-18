@@ -273,7 +273,7 @@ export function saveService(db, { id, ...data }) {
 export function saveProfessional(db, { id, ...data }) {
   need(data.name?.trim(), 'Informe o nome.');
   if (id) return ok([{ op: 'update', table: 'professionals', id, patch: data }]);
-  return ok([{ op: 'insert', table: 'professionals', row: { id: uid(), active: true, serviceIds: [], color: '#bd7765', ...data } }]);
+  return ok([{ op: 'insert', table: 'professionals', row: { id: uid(), active: true, serviceIds: [], color: '#1e3a6e', ...data } }]);
 }
 
 export function addTimeBlock(db, { professionalId, date, start, end, reason }) {

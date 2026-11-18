@@ -49,10 +49,10 @@ export default function App() {
 
   return (
     <div className="min-h-screen">
-      <header className="sticky top-0 z-40 border-b border-nude-200 bg-nude-50/95 backdrop-blur" style={{ top: 'env(safe-area-inset-top)' }}>
+      <header className="sticky top-0 z-40 border-b border-mist-200 bg-mist-50/95 backdrop-blur" style={{ top: 'env(safe-area-inset-top)' }}>
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-x-3 gap-y-2 px-4 py-2.5">
           <div className="min-w-0 leading-tight">
-            <div className="truncate font-serif text-xl font-bold text-rose-500"><span aria-hidden="true">✿ </span>{db.settings.clinicName}</div>
+            <div className="truncate font-serif text-xl font-bold text-brand-500"><span aria-hidden="true">✿ </span>{db.settings.clinicName}</div>
             <div className="hidden text-[11px] text-graphite-400 sm:block">
               {view === 'admin' ? 'Painel da clínica' : 'Agendamento online'} · {new Date().toLocaleDateString('pt-BR', { day: 'numeric', month: 'short' }).replace('.', '')}
             </div>
@@ -66,7 +66,7 @@ export default function App() {
           </div>
         </div>
         {backendKind === 'local' ? (
-          <div className="flex items-center justify-center gap-2 bg-rose-50 px-4 py-1 text-[11px] text-rose-700">
+          <div className="flex items-center justify-center gap-2 bg-brand-50 px-4 py-1 text-[11px] text-brand-700">
             <FlaskConical className="h-3.5 w-3.5 shrink-0" /> <span>Sistema de testes<span className="hidden sm:inline"> · dados fictícios salvos neste navegador</span></span>
             <button type="button" className="inline-flex items-center gap-1 underline" onClick={() => window.confirm('Apagar tudo e voltar aos dados de exemplo?') && act.reset()}>
               <RotateCcw className="h-3 w-3" />restaurar

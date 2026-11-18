@@ -56,13 +56,13 @@ export default function AdminApp() {
     <AdminCtx.Provider value={nav}>
       <div className="mx-auto flex max-w-7xl">
         {/* Menu lateral (computador) */}
-        <aside className="sticky top-[86px] hidden h-[calc(100vh-86px)] w-56 shrink-0 flex-col gap-1 border-r border-nude-200 px-3 py-5 lg:flex">
+        <aside className="sticky top-[86px] hidden h-[calc(100vh-86px)] w-56 shrink-0 flex-col gap-1 border-r border-mist-200 px-3 py-5 lg:flex">
           {[...PAGES, ...SIDE_EXTRA].map((p) => (
             <button key={p.id} type="button" onClick={() => nav.go(p.id)}
               className={cx('flex items-center gap-3 rounded-xl px-3 py-2.5 text-[15px] font-medium transition',
-                page === p.id ? 'bg-rose-100 text-rose-800' : 'text-graphite-600 hover:bg-nude-100')}>
+                page === p.id ? 'bg-brand-100 text-brand-800' : 'text-graphite-600 hover:bg-mist-100')}>
               <p.icon className="h-5 w-5" strokeWidth={1.7} />{p.label}
-              {p.id === 'espera' && pending > 0 && <span className="ml-auto rounded-full bg-rose-500 px-1.5 text-[11px] text-white">{pending}</span>}
+              {p.id === 'espera' && pending > 0 && <span className="ml-auto rounded-full bg-brand-500 px-1.5 text-[11px] text-white">{pending}</span>}
             </button>
           ))}
         </aside>
@@ -79,12 +79,12 @@ export default function AdminApp() {
       </div>
 
       {/* Menu inferior (celular) */}
-      <nav className="fixed inset-x-0 bottom-0 z-40 flex border-t border-nude-200 bg-white/95 backdrop-blur lg:hidden" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
+      <nav className="fixed inset-x-0 bottom-0 z-40 flex border-t border-mist-200 bg-white/95 backdrop-blur lg:hidden" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
         {PAGES.map((p) => (
           <button key={p.id} type="button" onClick={() => nav.go(p.id)}
-            className={cx('relative flex flex-1 flex-col items-center gap-0.5 py-2 text-[10.5px] font-medium', page === p.id || (p.id === 'dados' && page === 'config') ? 'text-rose-500' : 'text-graphite-400')}>
+            className={cx('relative flex flex-1 flex-col items-center gap-0.5 py-2 text-[10.5px] font-medium', page === p.id || (p.id === 'dados' && page === 'config') ? 'text-brand-500' : 'text-graphite-400')}>
             <p.icon className="h-[22px] w-[22px]" strokeWidth={page === p.id ? 2 : 1.6} />{p.label}
-            {p.id === 'espera' && pending > 0 && <span className="absolute right-[calc(50%-18px)] top-1 h-2 w-2 rounded-full bg-rose-500" />}
+            {p.id === 'espera' && pending > 0 && <span className="absolute right-[calc(50%-18px)] top-1 h-2 w-2 rounded-full bg-brand-500" />}
           </button>
         ))}
       </nav>

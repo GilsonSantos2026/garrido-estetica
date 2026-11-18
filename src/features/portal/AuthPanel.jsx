@@ -68,7 +68,7 @@ export default function AuthPanel({ onAuth, compact }) {
         </form>
       )}
       {backendKind === 'local' && (
-        <div className="mt-4 border-t border-nude-100 pt-4 text-center">
+        <div className="mt-4 border-t border-mist-100 pt-4 text-center">
           <Button variant="soft" size="sm" icon={Sparkles} onClick={() => run(authApi.signInDemo)}>Entrar como cliente de demonstração</Button>
           <p className="mt-2 text-xs text-graphite-400">Modo de testes: entra como Marina Souza, sem senha.</p>
         </div>

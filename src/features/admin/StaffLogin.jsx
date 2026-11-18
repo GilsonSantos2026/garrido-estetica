@@ -24,7 +24,7 @@ export default function StaffLogin() {
     <div className="flex min-h-[70vh] items-center justify-center px-4">
       <form onSubmit={submit} className="card w-full max-w-sm space-y-4 p-6">
         <div className="text-center">
-          <span className="mx-auto mb-2 flex h-11 w-11 items-center justify-center rounded-full bg-rose-100 text-rose-600"><Lock className="h-5 w-5" /></span>
+          <span className="mx-auto mb-2 flex h-11 w-11 items-center justify-center rounded-full bg-brand-100 text-brand-600"><Lock className="h-5 w-5" /></span>
           <h1 className="text-2xl font-bold">Acesso da equipe</h1>
           <p className="text-sm text-graphite-500">Agenda, prontuários e financeiro.</p>
         </div>

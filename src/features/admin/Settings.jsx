@@ -44,7 +44,7 @@ function ClinicSettings() {
         <Field label="Cancelar até (h)" hint="antes, pelo portal"><Input {...num('minCancelHours')} /></Field>
         <Field label="Janela (dias)" hint="agendamento futuro"><Input {...num('bookingWindowDays')} /></Field>
       </div>
-      <SectionTitle><span className="inline-flex items-center gap-2"><ShieldCheck className="h-5 w-5 text-rose-500" />Texto do termo de consentimento</span></SectionTitle>
+      <SectionTitle><span className="inline-flex items-center gap-2"><ShieldCheck className="h-5 w-5 text-brand-500" />Texto do termo de consentimento</span></SectionTitle>
       <Textarea rows={5} value={f.consentText} onChange={(e) => setF({ ...f, consentText: e.target.value })} />
       <div className="flex justify-end"><Button icon={Save} onClick={save}>Salvar</Button></div>
     </Card>
@@ -59,18 +59,18 @@ function Hours() {
     <Card className="p-5">
       <div className="space-y-2">
         {[1, 2, 3, 4, 5, 6, 0].map((d) => (
-          <div key={d} className="grid grid-cols-[96px_1fr] items-center gap-3 rounded-xl border border-nude-100 p-2.5 sm:grid-cols-[110px_90px_1fr]">
+          <div key={d} className="grid grid-cols-[96px_1fr] items-center gap-3 rounded-xl border border-mist-100 p-2.5 sm:grid-cols-[110px_90px_1fr]">
             <span className="font-medium">{WEEKDAYS[d]}</span>
-            <label className="inline-flex items-center gap-2 text-sm text-graphite-600"><input type="checkbox" className="accent-rose-500" checked={!h[d].closed} onChange={(e) => upd(d, 'closed', !e.target.checked)} />aberto</label>
+            <label className="inline-flex items-center gap-2 text-sm text-graphite-600"><input type="checkbox" className="accent-brand-500" checked={!h[d].closed} onChange={(e) => upd(d, 'closed', !e.target.checked)} />aberto</label>
             {!h[d].closed && (
               <div className="col-span-2 flex flex-wrap items-center gap-2 text-sm sm:col-span-1">
-                <input type="time" className="rounded-lg border border-nude-300 px-2 py-1" value={h[d].open} onChange={(e) => upd(d, 'open', e.target.value)} aria-label="Abre" />
+                <input type="time" className="rounded-lg border border-mist-300 px-2 py-1" value={h[d].open} onChange={(e) => upd(d, 'open', e.target.value)} aria-label="Abre" />
                 até
-                <input type="time" className="rounded-lg border border-nude-300 px-2 py-1" value={h[d].close} onChange={(e) => upd(d, 'close', e.target.value)} aria-label="Fecha" />
+                <input type="time" className="rounded-lg border border-mist-300 px-2 py-1" value={h[d].close} onChange={(e) => upd(d, 'close', e.target.value)} aria-label="Fecha" />
                 <span className="text-graphite-400">· almoço</span>
-                <input type="time" className="rounded-lg border border-nude-300 px-2 py-1" value={h[d].breakStart || ''} onChange={(e) => upd(d, 'breakStart', e.target.value)} aria-label="Início do intervalo" />
+                <input type="time" className="rounded-lg border border-mist-300 px-2 py-1" value={h[d].breakStart || ''} onChange={(e) => upd(d, 'breakStart', e.target.value)} aria-label="Início do intervalo" />
                 –
-                <input type="time" className="rounded-lg border border-nude-300 px-2 py-1" value={h[d].breakEnd || ''} onChange={(e) => upd(d, 'breakEnd', e.target.value)} aria-label="Fim do intervalo" />
+                <input type="time" className="rounded-lg border border-mist-300 px-2 py-1" value={h[d].breakEnd || ''} onChange={(e) => upd(d, 'breakEnd', e.target.value)} aria-label="Fim do intervalo" />
               </div>
             )}
           </div>
@@ -91,7 +91,7 @@ export function Services() {
   return (
     <>
       <div className="mb-3 flex justify-end"><Button size="sm" icon={Plus} onClick={() => setEdit({ name: '', category: 'Facial', price: '', durationMin: 60, requiresConsent: false, active: true, description: '' })}>Novo procedimento</Button></div>
-      <Card className="divide-y divide-nude-100">
+      <Card className="divide-y divide-mist-100">
         {db.services.map((s) => (
           <div key={s.id} className="flex flex-wrap items-center gap-3 px-4 py-3 text-sm">
             <div className="min-w-0 flex-1">
@@ -99,7 +99,7 @@ export function Services() {
               <div className="text-xs text-graphite-500">{s.category} · {fmtDuration(s.durationMin)}</div>
             </div>
             <span className="font-semibold tabular-nums">{brl(s.price)}</span>
-            <button type="button" onClick={() => setEdit(s)} className="rounded-full p-1.5 text-graphite-400 hover:bg-nude-100" aria-label="Editar"><Pencil className="h-4 w-4" /></button>
+            <button type="button" onClick={() => setEdit(s)} className="rounded-full p-1.5 text-graphite-400 hover:bg-mist-100" aria-label="Editar"><Pencil className="h-4 w-4" /></button>
           </div>
         ))}
       </Card>
@@ -113,8 +113,8 @@ export function Services() {
               <Field label="Duração (min)"><Input type="number" value={edit.durationMin} onChange={(e) => setEdit({ ...edit, durationMin: e.target.value })} /></Field>
             </div>
             <Field label="Descrição (aparece no portal)"><Input value={edit.description} onChange={(e) => setEdit({ ...edit, description: e.target.value })} /></Field>
-            <label className="flex items-center gap-2 text-sm"><input type="checkbox" className="accent-rose-500" checked={edit.requiresConsent} onChange={(e) => setEdit({ ...edit, requiresConsent: e.target.checked })} />Procedimento invasivo: exige termo de consentimento</label>
-            <label className="flex items-center gap-2 text-sm"><input type="checkbox" className="accent-rose-500" checked={edit.active} onChange={(e) => setEdit({ ...edit, active: e.target.checked })} />Ativo (aparece no portal)</label>
+            <label className="flex items-center gap-2 text-sm"><input type="checkbox" className="accent-brand-500" checked={edit.requiresConsent} onChange={(e) => setEdit({ ...edit, requiresConsent: e.target.checked })} />Procedimento invasivo: exige termo de consentimento</label>
+            <label className="flex items-center gap-2 text-sm"><input type="checkbox" className="accent-brand-500" checked={edit.active} onChange={(e) => setEdit({ ...edit, active: e.target.checked })} />Ativo (aparece no portal)</label>
           </div>
         )}
       </Modal>
@@ -131,14 +131,14 @@ function Team() {
   const nameToId = Object.fromEntries(db.services.map((s) => [s.name, s.id]));
   return (
     <>
-      <div className="mb-3 flex justify-end"><Button size="sm" icon={Plus} onClick={() => setEdit({ name: '', title: '', color: '#a15f4e', serviceIds: [] })}>Novo profissional</Button></div>
+      <div className="mb-3 flex justify-end"><Button size="sm" icon={Plus} onClick={() => setEdit({ name: '', title: '', color: '#2f5597', serviceIds: [] })}>Novo profissional</Button></div>
       <div className="grid gap-3 md:grid-cols-2">
         {db.professionals.map((p) => (
           <Card key={p.id} className="p-4">
             <div className="flex items-center gap-3">
               <Avatar name={p.name} color={p.color} size={42} />
               <div className="min-w-0 flex-1"><div className="font-medium">{p.name}</div><div className="text-xs text-graphite-500">{p.title}</div></div>
-              <button type="button" onClick={() => setEdit(p)} className="rounded-full p-1.5 text-graphite-400 hover:bg-nude-100" aria-label="Editar"><Pencil className="h-4 w-4" /></button>
+              <button type="button" onClick={() => setEdit(p)} className="rounded-full p-1.5 text-graphite-400 hover:bg-mist-100" aria-label="Editar"><Pencil className="h-4 w-4" /></button>
             </div>
             <div className="mt-3 flex flex-wrap gap-1">{p.serviceIds.map((id) => <Badge key={id}>{L.service(id).name}</Badge>)}</div>
           </Card>
@@ -146,11 +146,11 @@ function Team() {
       </div>
 
       <SectionTitle action={<Button size="sm" variant="soft" icon={Plus} onClick={() => setBlock({ professionalId: db.professionals[0]?.id, date: todayISO(), start: '14:00', end: '16:00', reason: '' })}>Bloquear horário</Button>}>Folgas e bloqueios</SectionTitle>
-      <Card className="divide-y divide-nude-100">
+      <Card className="divide-y divide-mist-100">
         {blocks.length ? blocks.map((b) => (
           <div key={b.id} className="flex items-center gap-3 px-4 py-3 text-sm">
             <div className="flex-1"><b className="font-medium">{L.professional(b.professionalId).name}</b> · {fmtBR(b.date)} {b.start}–{b.end}<div className="text-xs text-graphite-500">{b.reason}</div></div>
-            <button type="button" onClick={() => tryAct('removeRow', { table: 'timeBlocks', id: b.id }, 'Bloqueio removido.')} className="rounded-full p-1.5 text-graphite-400 hover:bg-nude-100" aria-label="Remover"><Trash2 className="h-4 w-4" /></button>
+            <button type="button" onClick={() => tryAct('removeRow', { table: 'timeBlocks', id: b.id }, 'Bloqueio removido.')} className="rounded-full p-1.5 text-graphite-400 hover:bg-mist-100" aria-label="Remover"><Trash2 className="h-4 w-4" /></button>
           </div>
         )) : <p className="px-4 py-3 text-sm text-graphite-500">Nenhum bloqueio futuro.</p>}
       </Card>
@@ -162,7 +162,7 @@ function Team() {
             <div className="grid grid-cols-[1fr_1fr_70px] gap-3">
               <Field label="Nome"><Input value={edit.name} onChange={(e) => setEdit({ ...edit, name: e.target.value })} /></Field>
               <Field label="Especialidade"><Input value={edit.title} onChange={(e) => setEdit({ ...edit, title: e.target.value })} /></Field>
-              <Field label="Cor"><input type="color" className="h-[42px] w-full rounded-xl border border-nude-300" value={edit.color} onChange={(e) => setEdit({ ...edit, color: e.target.value })} /></Field>
+              <Field label="Cor"><input type="color" className="h-[42px] w-full rounded-xl border border-mist-300" value={edit.color} onChange={(e) => setEdit({ ...edit, color: e.target.value })} /></Field>
             </div>
             <Field label="Procedimentos que realiza">
               <Chips options={db.services.map((s) => s.name)} value={edit.serviceIds.map((id) => L.service(id).name)} onChange={(names) => setEdit({ ...edit, serviceIds: names.map((n) => nameToId[n]) })} />

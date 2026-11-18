@@ -5,11 +5,11 @@ import { STATUS, SOURCE } from '../domain/constants.js';
 export const cx = (...c) => c.filter(Boolean).join(' ');
 
 const VARIANTS = {
-  primary: 'bg-rose-500 text-white hover:bg-rose-600 shadow-sm',
+  primary: 'bg-brand-500 text-white hover:bg-brand-600 shadow-sm',
   dark: 'bg-graphite-800 text-white hover:bg-graphite-900',
-  soft: 'bg-rose-50 text-rose-700 hover:bg-rose-100',
-  ghost: 'text-graphite-600 hover:bg-nude-100',
-  outline: 'border border-nude-300 bg-white text-graphite-700 hover:border-rose-300',
+  soft: 'bg-brand-50 text-brand-700 hover:bg-brand-100',
+  ghost: 'text-graphite-600 hover:bg-mist-100',
+  outline: 'border border-mist-300 bg-white text-graphite-700 hover:border-brand-300',
   danger: 'border border-red-200 bg-white text-red-600 hover:bg-red-50',
   whatsapp: 'bg-[#15803d] text-white hover:bg-[#126b33]',
 };
@@ -83,13 +83,13 @@ export function SourceDot({ source, withLabel }) {
 
 export function Badge({ tone = 'nude', children, className }) {
   const tones = {
-    nude: 'bg-nude-100 text-graphite-600', rose: 'bg-rose-100 text-rose-700', green: 'bg-emerald-50 text-emerald-700',
+    nude: 'bg-mist-100 text-graphite-600', rose: 'bg-brand-100 text-brand-700', green: 'bg-emerald-50 text-emerald-700',
     amber: 'bg-amber-50 text-amber-800', red: 'bg-red-50 text-red-700', dark: 'bg-graphite-800 text-white',
   };
   return <span className={cx('inline-flex items-center gap-1 whitespace-nowrap rounded-full px-2.5 py-0.5 text-xs font-medium', tones[tone], className)}>{children}</span>;
 }
 
-export function Avatar({ name, color = '#bd7765', size = 36 }) {
+export function Avatar({ name, color = '#1e3a6e', size = 36 }) {
   const initials = (name || '?').split(' ').filter(Boolean).slice(0, 2).map((p) => p[0]).join('').toUpperCase();
   return (
     <span className="inline-flex shrink-0 items-center justify-center rounded-full font-medium text-white" style={{ background: color, width: size, height: size, fontSize: size * 0.38 }}>
@@ -101,7 +101,7 @@ export function Avatar({ name, color = '#bd7765', size = 36 }) {
 /** Abas segmentadas. options: [{value, label, icon}] */
 export function Segmented({ value, onChange, options, className, size = 'md' }) {
   return (
-    <div className={cx('inline-flex rounded-xl bg-nude-100 p-1', className)}>
+    <div className={cx('inline-flex rounded-xl bg-mist-100 p-1', className)}>
       {options.map((o) => (
         <button
           key={o.value} type="button" onClick={() => onChange(o.value)}
@@ -119,15 +119,15 @@ export function Segmented({ value, onChange, options, className, size = 'md' }) 
 export function Tabs({ value, onChange, options }) {
   return (
     <div className="scrollbar-thin -mx-4 overflow-x-auto px-4 sm:mx-0 sm:px-0">
-      <div className="flex min-w-max gap-1 border-b border-nude-200">
+      <div className="flex min-w-max gap-1 border-b border-mist-200">
         {options.map((o) => (
           <button
             key={o.value} type="button" onClick={() => onChange(o.value)}
             className={cx('-mb-px inline-flex items-center gap-1.5 border-b-2 px-3 py-2.5 text-sm font-medium transition',
-              value === o.value ? 'border-rose-500 text-rose-700' : 'border-transparent text-graphite-500 hover:text-graphite-800')}
+              value === o.value ? 'border-brand-500 text-brand-700' : 'border-transparent text-graphite-500 hover:text-graphite-800')}
           >
             {o.icon && <o.icon className="h-4 w-4" strokeWidth={1.8} />}{o.label}
-            {o.count !== undefined && <span className="rounded-full bg-nude-100 px-1.5 text-[11px] text-graphite-500">{o.count}</span>}
+            {o.count !== undefined && <span className="rounded-full bg-mist-100 px-1.5 text-[11px] text-graphite-500">{o.count}</span>}
           </button>
         ))}
       </div>
@@ -162,15 +162,15 @@ export function Modal({ open, onClose, title, subtitle, children, footer, wide }
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center bg-graphite-900/40 backdrop-blur-[2px] sm:items-center sm:p-6" onMouseDown={(e) => e.target === e.currentTarget && onClose?.()}>
       <div className={cx('flex max-h-[92vh] w-full flex-col rounded-t-3xl bg-white shadow-2xl sm:rounded-3xl', wide ? 'sm:max-w-3xl' : 'sm:max-w-lg')} role="dialog" aria-modal="true" aria-label={title}>
-        <div className="flex items-start justify-between gap-3 border-b border-nude-100 px-5 pb-3 pt-5">
+        <div className="flex items-start justify-between gap-3 border-b border-mist-100 px-5 pb-3 pt-5">
           <div className="min-w-0">
             <h2 className="text-2xl font-bold leading-tight">{title}</h2>
             {subtitle && <p className="mt-0.5 text-sm text-graphite-500">{subtitle}</p>}
           </div>
-          <button type="button" onClick={onClose} className="rounded-full p-1.5 text-graphite-400 hover:bg-nude-100" aria-label="Fechar"><X className="h-5 w-5" /></button>
+          <button type="button" onClick={onClose} className="rounded-full p-1.5 text-graphite-400 hover:bg-mist-100" aria-label="Fechar"><X className="h-5 w-5" /></button>
         </div>
         <div className="overflow-y-auto px-5 py-4">{children}</div>
-        {footer && <div className="flex flex-wrap justify-end gap-2 border-t border-nude-100 px-5 py-3" style={{ paddingBottom: 'max(12px, env(safe-area-inset-bottom))' }}>{footer}</div>}
+        {footer && <div className="flex flex-wrap justify-end gap-2 border-t border-mist-100 px-5 py-3" style={{ paddingBottom: 'max(12px, env(safe-area-inset-bottom))' }}>{footer}</div>}
       </div>
     </div>
   );
@@ -179,7 +179,7 @@ export function Modal({ open, onClose, title, subtitle, children, footer, wide }
 export function EmptyState({ icon: Icon, title, children }) {
   return (
     <div className="flex flex-col items-center px-6 py-10 text-center">
-      {Icon && <div className="mb-3 rounded-full bg-rose-50 p-3 text-rose-400"><Icon className="h-6 w-6" strokeWidth={1.6} /></div>}
+      {Icon && <div className="mb-3 rounded-full bg-brand-50 p-3 text-brand-400"><Icon className="h-6 w-6" strokeWidth={1.6} /></div>}
       <p className="font-medium text-graphite-700">{title}</p>
       {children && <div className="mt-1 text-sm text-graphite-500">{children}</div>}
     </div>
@@ -225,7 +225,7 @@ export function SignaturePad({ onChange }) {
     ctx.scale(ratio, ratio);
     ctx.lineWidth = 2.2;
     ctx.lineCap = 'round';
-    ctx.strokeStyle = '#2a282d';
+    ctx.strokeStyle = '#1d2430';
     let drawing = false;
     const pos = (e) => {
       const b = cv.getBoundingClientRect();
@@ -257,7 +257,7 @@ export function SignaturePad({ onChange }) {
   };
   return (
     <div>
-      <canvas ref={ref} className="h-36 w-full touch-none rounded-xl border border-dashed border-graphite-300 bg-nude-50" />
+      <canvas ref={ref} className="h-36 w-full touch-none rounded-xl border border-dashed border-graphite-300 bg-mist-50" />
       <div className="mt-1 flex justify-between text-xs text-graphite-400">
         <span>{empty ? 'Assine dentro do quadro' : 'Assinatura registrada'}</span>
         <button type="button" onClick={clear} className="underline">limpar</button>
@@ -267,7 +267,7 @@ export function SignaturePad({ onChange }) {
 }
 
 export function Stat({ label, value, hint, icon: Icon, tone = 'rose', valueClass }) {
-  const tones = { rose: 'bg-rose-50 text-rose-500', green: 'bg-emerald-50 text-emerald-600', dark: 'bg-graphite-800 text-white', amber: 'bg-amber-50 text-amber-600', red: 'bg-red-50 text-red-500' };
+  const tones = { rose: 'bg-brand-50 text-brand-500', green: 'bg-emerald-50 text-emerald-600', dark: 'bg-graphite-800 text-white', amber: 'bg-amber-50 text-amber-600', red: 'bg-red-50 text-red-500' };
   return (
     <Card className="min-w-0 p-3.5 sm:p-4">
       <div className="flex items-start justify-between gap-2">

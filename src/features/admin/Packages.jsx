@@ -31,7 +31,7 @@ export default function Packages() {
       <div className="pt-4">
         {tab === 'vendidos' && (
           <>
-            <select className="mb-3 rounded-lg border border-nude-300 bg-white px-2 py-1.5 text-sm" value={filter} onChange={(e) => setFilter(e.target.value)} aria-label="Filtro">
+            <select className="mb-3 rounded-lg border border-mist-300 bg-white px-2 py-1.5 text-sm" value={filter} onChange={(e) => setFilter(e.target.value)} aria-label="Filtro">
               <option value="ativos">Com saldo</option><option value="todos">Todos</option>
             </select>
             {list.length === 0 ? <Card><EmptyState icon={Package} title="Nenhum pacote" /></Card> : (
@@ -46,10 +46,10 @@ export default function Packages() {
                         <Avatar name={c.name} size={32} /><div><div className="font-medium">{c.name}</div><div className="text-xs text-graphite-500">{L.service(p.serviceId).name}</div></div>
                       </button>
                       <div className="mt-3 flex items-end justify-between">
-                        <span className="font-serif text-3xl font-bold text-rose-700">{bal}<span className="text-base text-graphite-400"> de {p.totalSessions}</span></span>
+                        <span className="font-serif text-3xl font-bold text-brand-700">{bal}<span className="text-base text-graphite-400"> de {p.totalSessions}</span></span>
                         {bal === 0 ? <Badge tone="dark">concluído</Badge> : p.expiresAt && p.expiresAt < today ? <Badge tone="red">vencido</Badge> : <Badge tone="green">ativo</Badge>}
                       </div>
-                      <div className="mt-2 flex gap-1">{Array.from({ length: p.totalSessions }, (_, i) => <span key={i} className={`h-2 flex-1 rounded-full ${i < p.usedSessions ? 'bg-graphite-300' : 'bg-rose-400'}`} />)}</div>
+                      <div className="mt-2 flex gap-1">{Array.from({ length: p.totalSessions }, (_, i) => <span key={i} className={`h-2 flex-1 rounded-full ${i < p.usedSessions ? 'bg-graphite-300' : 'bg-brand-400'}`} />)}</div>
                       <div className="mt-2 text-xs text-graphite-500">{brl(p.pricePaid)} · {PAYMENT_METHODS[p.paymentMethod] || '—'} · vendido {fmtBR(p.soldAt)}{p.expiresAt && ` · vence ${fmtBR(p.expiresAt)}`}</div>
                       {used.length > 0 && <div className="mt-2 text-xs text-graphite-400">Sessões: {used.map((a) => fmtBR(a.date).slice(0, 5)).join(', ')}</div>}
                     </Card>
@@ -68,7 +68,7 @@ export default function Packages() {
                 const full = s.price * pp.sessions;
                 return (
                   <Card key={pp.id} className="p-4">
-                    <div className="flex items-start justify-between gap-2"><div className="font-medium">{pp.name}</div><button type="button" onClick={() => setPlan(pp)} className="rounded-full p-1 text-graphite-400 hover:bg-nude-100" aria-label="Editar"><Pencil className="h-4 w-4" /></button></div>
+                    <div className="flex items-start justify-between gap-2"><div className="font-medium">{pp.name}</div><button type="button" onClick={() => setPlan(pp)} className="rounded-full p-1 text-graphite-400 hover:bg-mist-100" aria-label="Editar"><Pencil className="h-4 w-4" /></button></div>
                     <div className="mt-2 font-serif text-3xl font-bold">{brl(pp.price)}</div>
                     <div className="text-xs text-graphite-500">{pp.sessions}× {s.name} · {brl(pp.price / pp.sessions)} por sessão{full > pp.price && ` · ${Math.round((1 - pp.price / full) * 100)}% de desconto`}</div>
                     {pp.validityDays && <div className="mt-1 text-xs text-graphite-400">Validade: {pp.validityDays} dias</div>}

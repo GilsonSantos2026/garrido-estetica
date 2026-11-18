@@ -70,14 +70,14 @@ export default function Gallery({ clientId }) {
           <div className="label mb-2">{fmtBR(d)}</div>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
             {list.map((p) => (
-              <div key={p.id} className={cx('card overflow-hidden', selected.includes(p.id) && 'ring-2 ring-rose-400')}>
-                <button type="button" className="block aspect-[4/5] w-full bg-nude-100" onClick={() => setZoom(p)}>
+              <div key={p.id} className={cx('card overflow-hidden', selected.includes(p.id) && 'ring-2 ring-brand-400')}>
+                <button type="button" className="block aspect-[4/5] w-full bg-mist-100" onClick={() => setZoom(p)}>
                   <img src={p.dataUrl} alt={`${p.kind} ${p.area}`} className="h-full w-full object-cover" />
                 </button>
                 <div className="p-2.5">
                   <div className="flex items-center justify-between gap-1">
                     <Badge tone={p.kind === 'antes' ? 'nude' : 'rose'}>{p.kind}</Badge>
-                    <label className="inline-flex items-center gap-1 text-xs text-graphite-500"><input type="checkbox" className="accent-rose-500" checked={selected.includes(p.id)} onChange={() => toggle(p.id)} />comparar</label>
+                    <label className="inline-flex items-center gap-1 text-xs text-graphite-500"><input type="checkbox" className="accent-brand-500" checked={selected.includes(p.id)} onChange={() => toggle(p.id)} />comparar</label>
                   </div>
                   <div className="mt-1 truncate text-xs text-graphite-600">{p.area}</div>
                 </div>
@@ -136,7 +136,7 @@ function CompareSlider({ before, after }) {
           <div className="absolute inset-y-0 w-0.5 bg-white shadow" style={{ left: `${pos}%` }} />
           <span className="absolute left-2 top-2 rounded-full bg-white/85 px-2 py-0.5 text-xs">Antes · {fmtBR(before.takenAt)}</span>
           <span className="absolute right-2 top-2 rounded-full bg-white/85 px-2 py-0.5 text-xs">Depois · {fmtBR(after.takenAt)}</span>
-          <input type="range" min="0" max="100" value={pos} onChange={(e) => setPos(Number(e.target.value))} className="absolute inset-x-4 bottom-3 accent-rose-500" aria-label="Divisor antes e depois" />
+          <input type="range" min="0" max="100" value={pos} onChange={(e) => setPos(Number(e.target.value))} className="absolute inset-x-4 bottom-3 accent-brand-500" aria-label="Divisor antes e depois" />
         </div>
       )}
     </div>

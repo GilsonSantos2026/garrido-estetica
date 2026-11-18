@@ -2,9 +2,9 @@ export const STATUS = {
   agendado: { label: 'Agendado', cls: 'bg-amber-50 text-amber-800 ring-amber-200' },
   confirmado: { label: 'Confirmado', cls: 'bg-emerald-50 text-emerald-800 ring-emerald-200' },
   em_atendimento: { label: 'Em atendimento', cls: 'bg-sky-50 text-sky-800 ring-sky-200' },
-  concluido: { label: 'Concluído', cls: 'bg-nude-100 text-graphite-700 ring-nude-300' },
+  concluido: { label: 'Concluído', cls: 'bg-mist-100 text-graphite-700 ring-mist-300' },
   faltou: { label: 'Faltou', cls: 'bg-red-50 text-red-700 ring-red-200' },
-  cancelado: { label: 'Cancelado', cls: 'bg-nude-100 text-graphite-500 ring-nude-300 line-through' },
+  cancelado: { label: 'Cancelado', cls: 'bg-mist-100 text-graphite-500 ring-mist-300 line-through' },
 };
 
 /** Fluxo normal de um atendimento. Faltou/cancelado são saídas laterais. */
@@ -14,8 +14,8 @@ export const STATUS_FLOW = ['agendado', 'confirmado', 'em_atendimento', 'conclui
 export const ACTIVE_STATUS = ['agendado', 'confirmado', 'em_atendimento', 'concluido'];
 
 export const SOURCE = {
-  online: { label: 'Online (portal)', dot: 'bg-rose-500', block: 'bg-rose-100 border-rose-400 text-rose-800' },
-  interno: { label: 'Interno (clínica)', dot: 'bg-graphite-600', block: 'bg-nude-100 border-graphite-500 text-graphite-800' },
+  online: { label: 'Online (portal)', dot: 'bg-brand-500', block: 'bg-brand-100 border-brand-400 text-brand-800' },
+  interno: { label: 'Interno (clínica)', dot: 'bg-graphite-600', block: 'bg-mist-100 border-graphite-500 text-graphite-800' },
 };
 
 export const PAYMENT_METHODS = {

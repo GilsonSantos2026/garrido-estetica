@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Rotina de atendimento · Garrido Estética</title>
+<style>
+  @page { size: A4; margin: 16mm 15mm 16mm 15mm; }
+  :root {
+    --marinho:#1e3a6e; --marinho-escuro:#12254a; --marinho-claro:#e4eaf4; --marinho-suave:#f2f5fa; --azul:#2f5597;
+    --fundo:#f4f6f8; --borda:#e1e5eb; --texto:#1d2430; --suave:#5f6875; --verde:#15803d; --verde-claro:#e9f6ee;
+    --ambar:#92560b; --ambar-claro:#fdf3e1; --vermelho:#b42318; --vermelho-claro:#fdecea;
+  }
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body { margin: 0; color: var(--texto); font: 9.8pt/1.42 Arial, "Segoe UI", sans-serif; }
+  h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; color: var(--marinho-escuro); margin: 0; }
+  h2 { font-size: 18pt; margin: 0 0 3mm; }
+  h3 { font-size: 12.5pt; margin: 0 0 1.5mm; }
+  p { margin: 0 0 2.5mm; }
+  .pagina { break-after: page; }
+  .pagina:last-child { break-after: auto; }
+  .kicker { font-size: 8.5pt; letter-spacing: .14em; text-transform: uppercase; color: var(--azul); font-weight: 700; margin-bottom: 1.5mm; }
+  .lead { color: var(--suave); font-size: 10.5pt; margin-bottom: 4.5mm; }
+
+  /* Capa */
+  .capa { height: 262mm; display: flex; flex-direction: column; justify-content: space-between; }
+  .capa-topo { background: var(--marinho); color: #fff; border-radius: 6mm; padding: 16mm 14mm 14mm; }
+  .capa-topo .marca { font: 700 13pt Georgia, serif; opacity: .9; }
+  .capa-topo h1 { color: #fff; font-size: 34pt; line-height: 1.1; margin: 12mm 0 5mm; }
+  .capa-topo p { color: #c9d5ea; font-size: 12.5pt; max-width: 150mm; }
+  .capa-indice { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; }
+  .capa-indice div { border: 1px solid var(--borda); border-radius: 4mm; padding: 4mm 5mm; }
+  .capa-indice b { display: block; font: 700 12pt Georgia, serif; color: var(--marinho-escuro); }
+  .capa-indice span { color: var(--suave); font-size: 9.5pt; }
+  .capa-rodape { color: var(--suave); font-size: 9pt; border-top: 1px solid var(--borda); padding-top: 3mm; }
+
+  /* Papéis */
+  .papeis { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; margin-bottom: 6mm; }
+  .papel { border-radius: 4mm; padding: 5mm; }
+  .papel.cli { background: var(--marinho-suave); border: 1px solid var(--marinho-claro); }
+  .papel.pro { background: var(--fundo); border: 1px solid var(--borda); }
+  .papel h3 { display: flex; align-items: center; gap: 2mm; }
+  .ico { display: inline-flex; width: 6.5mm; height: 6.5mm; border-radius: 50%; background: var(--marinho); color: #fff; align-items: center; justify-content: center; font: 700 8.5pt Arial; flex-shrink: 0; margin-right: 1.5mm; vertical-align: -1.6mm; }
+  .cartao h3 .ico { width: 6.5mm; height: 6.5mm; font-size: 7pt; }
+  .papel ul { margin: 2mm 0 0; padding-left: 5mm; }
+  .papel li { margin: 1mm 0; }
+
+  /* Linha do tempo */
+  .fases { display: grid; grid-template-columns: repeat(5, 1fr); gap: 2mm; margin: 2mm 0 6mm; }
+  .fase { background: var(--marinho); color: #fff; border-radius: 3mm; padding: 3mm 2.5mm; text-align: center; font-size: 9pt; position: relative; }
+  .fase b { display: block; font: 700 15pt Georgia, serif; }
+  .fase:not(:last-child)::after { content: "›"; position: absolute; right: -2.3mm; top: 50%; transform: translateY(-55%); color: var(--azul); font: 700 14pt Arial; }
+
+  /* Passos */
+  .passo { display: grid; grid-template-columns: 10mm 1fr; gap: 3.5mm; margin-bottom: 3.2mm; break-inside: avoid; }
+  .num { width: 10mm; height: 10mm; border-radius: 50%; background: var(--marinho); color: #fff; display: flex; align-items: center; justify-content: center; font: 700 12pt Georgia, serif; }
+  .tag { display: inline-block; font-size: 7.5pt; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; border-radius: 99px; padding: .5mm 2.4mm; margin-right: 1.5mm; vertical-align: 1px; }
+  .tag.cli { background: var(--marinho-claro); color: var(--marinho-escuro); }
+  .tag.pro { background: #e6e9ee; color: #363d47; }
+  .tag.auto { background: var(--verde-claro); color: var(--verde); }
+  .passo ul { margin: 1mm 0 0; padding-left: 4.5mm; }
+  .passo li { margin: .3mm 0; }
+  .ui { font-weight: 700; color: var(--marinho-escuro); }
+
+  .caixa { border-radius: 3.5mm; padding: 2.8mm 4mm; margin: 2.5mm 0 3.5mm; font-size: 9.8pt; break-inside: avoid; }
+  .caixa.info { background: var(--marinho-suave); border-left: 1.4mm solid var(--azul); }
+  .caixa.ok { background: var(--verde-claro); border-left: 1.4mm solid var(--verde); }
+  .caixa.alerta { background: var(--ambar-claro); border-left: 1.4mm solid #d08a1c; }
+  .caixa b:first-child { color: var(--marinho-escuro); }
+  .msg { font-family: Georgia, serif; font-style: italic; background: var(--marinho-suave); border: 1px solid var(--marinho-claro); border-radius: 3mm; padding: 1.8mm 3.2mm; margin: 1.2mm 0; color: #363d47; }
+
+  /* Status */
+  .status { display: flex; align-items: center; gap: 2mm; flex-wrap: wrap; margin: 2mm 0 3mm; }
+  .st { border-radius: 99px; padding: 1.2mm 3.5mm; font-size: 9pt; font-weight: 700; }
+  .st.ag { background: var(--ambar-claro); color: var(--ambar); }
+  .st.co { background: var(--verde-claro); color: var(--verde); }
+  .st.em { background: #e5f1fb; color: #1d5f93; }
+  .st.cn { background: #e6e9ee; color: #363d47; }
+  .st.fa { background: var(--vermelho-claro); color: var(--vermelho); }
+  .st.ca { background: #eef0f3; color: var(--suave); text-decoration: line-through; }
+  .seta { color: var(--azul); font-weight: 700; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 9.6pt; margin: 2mm 0 5mm; break-inside: avoid; }
+  th { text-align: left; background: var(--marinho); color: #fff; font-weight: 700; padding: 1.8mm 3mm; }
+  th:first-child { border-radius: 2.5mm 0 0 0; } th:last-child { border-radius: 0 2.5mm 0 0; }
+  td { padding: 1.6mm 3mm; border-bottom: 1px solid var(--borda); vertical-align: top; }
+  tr:nth-child(even) td { background: var(--fundo); }
+
+  .duas { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; }
+  .cartao { border: 1px solid var(--borda); border-radius: 3.5mm; padding: 4mm; break-inside: avoid; }
+  .cartao h3 { font-size: 11.5pt; }
+  .cartao ol, .cartao ul { margin: 1mm 0 0; padding-left: 4.5mm; }
+  .cartao li { margin: .7mm 0; }
+  .rodape { margin-top: 4mm; color: var(--suave); font-size: 8.5pt; border-top: 1px solid var(--borda); padding-top: 2.5mm; }
+</style>
+</head>
+<body>
+
+<!-- ============ CAPA ============ -->
+<section class="pagina capa">
+  <div class="capa-topo">
+    <div class="marca">✿ Garrido Estética</div>
+    <h1>Rotina de atendimento<br>cliente &amp; profissional</h1>
+    <p>Passo a passo de cada atendimento no aplicativo: do agendamento online até o lançamento no caixa, com o que a cliente faz, o que a clínica faz e o que o sistema faz sozinho.</p>
+  </div>
+  <div class="capa-indice">
+    <div><b>1. Quem faz o quê</b><span>Portal da cliente × painel da clínica</span></div>
+    <div><b>2. Antes do atendimento</b><span>Agendar, confirmar, lembrar, remarcar</span></div>
+    <div><b>3. No dia do atendimento</b><span>Chegada, ficha, sessão e fotos</span></div>
+    <div><b>4. Ao finalizar</b><span>Concluir, receber e baixar pacote</span></div>
+    <div><b>5. Situações do dia a dia</b><span>Falta, cancelamento, encaixe, pacote</span></div>
+    <div><b>6. Regras e status</b><span>Antecedência, horários e significados</span></div>
+  </div>
+  <div class="capa-rodape">Versão de 18/11/2026 · Referente ao app em teste (link dos testadores) e ao app ligado ao banco de dados da clínica.</div>
+</section>
+
+<!-- ============ 1. PAPÉIS ============ -->
+<section class="pagina">
+  <div class="kicker">Parte 1</div>
+  <h2>Quem faz o quê</h2>
+  <p class="lead">O mesmo aplicativo tem duas áreas. No topo da tela, o botão <span class="ui">Alternar visão: Profissional / Cliente</span> troca entre elas.</p>
+
+  <div class="papeis">
+    <div class="papel cli">
+      <h3><span class="ico">C</span>Cliente · Portal de agendamento</h3>
+      <p>Abre o link da clínica no celular, sem instalar nada.</p>
+      <ul>
+        <li>Escolhe procedimento, profissional, dia e horário</li>
+        <li>Cria a conta na primeira vez (nome, WhatsApp, e-mail, nascimento e senha)</li>
+        <li>Aceita o termo de consentimento quando o procedimento exige</li>
+        <li>Em <span class="ui">Meus agendamentos</span>: vê os horários, remarca ou cancela e acompanha o saldo de pacotes</li>
+      </ul>
+    </div>
+    <div class="papel pro">
+      <h3><span class="ico">P</span>Profissional · Painel da clínica</h3>
+      <p>Acesso com login da equipe. Menu: Agenda, Clientes, Espera, Pacotes, Financeiro e Dados.</p>
+      <ul>
+        <li>Recebe os agendamentos online e lança os feitos por telefone ou balcão</li>
+        <li>Confirma e lembra pelo WhatsApp com um toque</li>
+        <li>Preenche anamnese, termo, fotos e evolução da sessão</li>
+        <li>Conclui o atendimento e registra o pagamento, que vai direto para o caixa</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>A jornada de um atendimento</h3>
+  <div class="fases">
+    <div class="fase"><b>1</b>Agendamento</div>
+    <div class="fase"><b>2</b>Confirmação</div>
+    <div class="fase"><b>3</b>Chegada</div>
+    <div class="fase"><b>4</b>Atendimento</div>
+    <div class="fase"><b>5</b>Pagamento</div>
+  </div>
+
+  <div class="caixa info"><b>Cores na agenda.</b> Agendamentos feitos pela própria cliente no portal aparecem com a faixa <b>azul</b> (online). Os lançados pela clínica aparecem com a faixa <b>cinza</b> (interno). Assim a profissional sabe na hora o que chegou pela internet.</div>
+
+  <h3>Legenda dos passos</h3>
+  <p><span class="tag cli">Cliente</span> o que a cliente faz no portal &nbsp; <span class="tag pro">Clínica</span> o que a profissional faz no painel &nbsp; <span class="tag auto">Automático</span> o que o sistema faz sozinho</p>
+</section>
+
+<!-- ============ 2. ANTES ============ -->
+<section class="pagina">
+  <div class="kicker">Parte 2</div>
+  <h2>Antes do atendimento</h2>
+
+  <div class="passo"><div class="num">1</div><div>
+    <h3><span class="tag cli">Cliente</span>Agenda pelo portal</h3>
+    <ul>
+      <li>Abre o link e toca em <span class="ui">Agendar</span>. Escolhe o procedimento (valor e duração aparecem no cartão).</li>
+      <li>Se mais de uma profissional faz o procedimento, escolhe uma ou <span class="ui">Sem preferência</span>.</li>
+      <li>No calendário, só os dias com vaga ficam destacados. Ao tocar no dia, aparecem os horários livres separados em manhã, tarde e noite.</li>
+      <li>Na confirmação, cria a conta (na primeira vez) e, em procedimentos invasivos como peeling e microagulhamento, marca o aceite do <b>termo de consentimento</b>.</li>
+      <li>Toca em <span class="ui">Confirmar agendamento</span>.</li>
+    </ul>
+  </div></div>
+
+  <div class="passo"><div class="num">2</div><div>
+    <h3><span class="tag auto">Automático</span>O sistema garante o horário</h3>
+    <ul>
+      <li>Calcula as vagas pelo horário de funcionamento, almoço, folgas da profissional, duração do procedimento e agendamentos que já existem.</li>
+      <li>Bloqueia horário duplicado: se duas pessoas tentarem o mesmo horário ao mesmo tempo, só a primeira consegue.</li>
+      <li>O agendamento entra como <span class="st ag">Agendado</span>, marcado como <b>online</b>, e aparece na agenda da clínica.</li>
+    </ul>
+  </div></div>
+
+  <div class="passo"><div class="num">↺</div><div>
+    <h3><span class="tag pro">Clínica</span>Ou: a clínica agenda pela cliente</h3>
+    <p>Para quem marca por telefone, WhatsApp ou no balcão: <span class="ui">Agenda → Novo agendamento</span> → busca ou cadastra a cliente → procedimento → profissional → data → toca num horário livre. Para um encaixe fora da grade, marque <span class="ui">encaixe manual</span> e digite a hora.</p>
+  </div></div>
+
+  <div class="passo"><div class="num">3</div><div>
+    <h3><span class="tag pro">Clínica</span>Pede a confirmação (na véspera)</h3>
+    <ul>
+      <li>Na <span class="ui">Agenda → Lista</span>, cada atendimento tem o botão verde <span class="ui">WhatsApp</span>, que abre a conversa com a mensagem pronta:</li>
+    </ul>
+    <div class="msg">“Olá, Marina! Aqui é da Garrido Estética. Confirmando seu horário de Limpeza de pele profunda em quinta-feira, 20 de novembro às 14:00. Podemos confirmar? Responda SIM 💗”</div>
+    <ul><li>Quando a cliente responder, toque em <span class="ui">Confirmar</span>: o status vira <span class="st co">Confirmado</span>.</li></ul>
+  </div></div>
+
+  <div class="passo"><div class="num">4</div><div>
+    <h3><span class="tag pro">Clínica</span>Envia o lembrete (no dia)</h3>
+    <p>Para quem já confirmou, o mesmo botão <span class="ui">WhatsApp</span> envia o lembrete:</p>
+    <div class="msg">“Oi, Marina! Passando para lembrar do seu Limpeza de pele profunda hoje às 14:00 na Garrido Estética. Até logo! ✨”</div>
+  </div></div>
+
+  <div class="passo"><div class="num">5</div><div>
+    <h3><span class="tag cli">Cliente</span>Se precisar, remarca ou cancela</h3>
+    <ul>
+      <li>Em <span class="ui">Meus agendamentos</span>: <span class="ui">Remarcar</span> (escolhe outro dia e horário livre) ou <span class="ui">Cancelar</span>.</li>
+      <li>Só é possível pelo portal com <b>pelo menos 24 horas</b> de antecedência. Depois disso aparece o botão <span class="ui">Falar com a clínica</span> (WhatsApp).</li>
+      <li>Ao cancelar, o horário volta a ficar livre na hora, para outra cliente ou para um encaixe da lista de espera.</li>
+    </ul>
+  </div></div>
+</section>
+
+<!-- ============ 3. NO DIA ============ -->
+<section class="pagina">
+  <div class="kicker">Parte 3</div>
+  <h2>No dia do atendimento</h2>
+
+  <div class="passo"><div class="num">6</div><div>
+    <h3><span class="tag pro">Clínica</span>A cliente chegou</h3>
+    <ul>
+      <li>Toque no atendimento na agenda e em <span class="ui">Iniciar atendimento</span>: o status vira <span class="st em">Em atendimento</span>.</li>
+      <li>A janela do atendimento já avisa, em vermelho, <b>alergias e condições de saúde</b> da ficha, e, em amarelo, se falta o <b>termo de consentimento</b>.</li>
+      <li>Se a cliente tem pacote com saldo para aquele procedimento, aparece o aviso de quantas sessões restam.</li>
+    </ul>
+  </div></div>
+
+  <div class="passo"><div class="num">7</div><div>
+    <h3><span class="tag pro">Clínica</span>Na primeira visita: ficha completa</h3>
+    <p>Botão <span class="ui">Ficha do cliente</span> → abas do prontuário:</p>
+    <table>
+      <tr><th style="width:32%">Aba</th><th>O que registrar</th></tr>
+      <tr><td><b>Anamnese</b></td><td>Histórico de saúde · Alergias e medicamentos · Hábitos (sono, água, sol, fumo) · Avaliação facial (tipo de pele, fototipo) · Avaliação corporal (medidas)</td></tr>
+      <tr><td><b>Termos</b></td><td><span class="ui">Registrar aceite</span>: escolha o procedimento, a cliente lê o texto e <b>assina com o dedo na tela</b>. Fica guardado com data e hora.</td></tr>
+      <tr><td><b>Antes e depois</b></td><td><span class="ui">Adicionar foto</span> (abre a câmera): marque “Antes”, a área e a data.</td></tr>
+      <tr><td><b>Resumo</b></td><td>Ficha rápida: alergias e anotações de preferências, sempre à mão.</td></tr>
+    </table>
+    <div class="caixa alerta"><b>Termo de consentimento.</b> Se a cliente aceitou o termo ao agendar pelo portal, ele já aparece na aba Termos como “portal”. Se não, registre na clínica antes de procedimentos invasivos.</div>
+  </div></div>
+
+  <div class="passo"><div class="num">8</div><div>
+    <h3><span class="tag pro">Clínica</span>Durante e depois da sessão</h3>
+    <ul>
+      <li><span class="ui">Sessões → Registrar sessão</span>: escolha um protocolo pronto (limpeza, drenagem, peeling, microagulhamento, modeladora) para preencher os passos, ajuste o texto e anote reações pós-procedimento.</li>
+      <li><span class="ui">Antes e depois → Adicionar foto</span> com “Depois”. Para mostrar o resultado à cliente, marque duas fotos e toque em <span class="ui">Comparar</span> (divisor deslizante ou lado a lado).</li>
+    </ul>
+  </div></div>
+</section>
+
+<!-- ============ 4. FINALIZAR ============ -->
+<section class="pagina">
+  <div class="kicker">Parte 4</div>
+  <h2>Ao finalizar: concluir e receber</h2>
+
+  <div class="passo"><div class="num">9</div><div>
+    <h3><span class="tag pro">Clínica</span>Toque em <span class="ui">Concluir</span></h3>
+    <p>Na agenda (cartão do atendimento) ou na janela do atendimento: <span class="ui">Concluir e receber</span>. O sistema pede a forma de pagamento:</p>
+    <table>
+      <tr><th style="width:28%">Escolha</th><th>O que acontece</th></tr>
+      <tr><td><b>Pix · Crédito · Débito · Dinheiro</b></td><td>Confira o valor (vem o preço da tabela, dá para ajustar um desconto) e toque em <span class="ui">Concluir e lançar</span>. A entrada vai <b>automaticamente para o caixa</b> do dia.</td></tr>
+      <tr><td><b>Abater de pacote</b></td><td>Aparece só se a cliente tem pacote com saldo para esse procedimento (já vem selecionado). <b>Baixa 1 sessão</b> e não lança dinheiro, porque o pacote foi pago na venda.</td></tr>
+    </table>
+  </div></div>
+
+  <div class="passo"><div class="num">10</div><div>
+    <h3><span class="tag auto">Automático</span>Depois do “Concluir”</h3>
+    <ul>
+      <li>O status vira <span class="st cn">Concluído</span> e o atendimento conta na ficha da cliente (visitas e total investido).</li>
+      <li>O <span class="ui">Financeiro</span> atualiza receitas do dia e do mês, resultado e ticket médio.</li>
+      <li>Em <span class="ui">Dados</span> entram os procedimentos mais rentáveis e a taxa de faltas.</li>
+      <li>No portal, a cliente vê o atendimento no histórico e o novo saldo do pacote.</li>
+    </ul>
+  </div></div>
+
+  <div class="caixa ok"><b>Errou o pagamento?</b> Abra o atendimento e toque em <span class="ui">Reabrir</span>. O lançamento no caixa (ou a sessão do pacote) é desfeito, e você conclui de novo do jeito certo.</div>
+
+  <h3 style="margin-top:4mm">O caminho de cada status</h3>
+  <div class="status">
+    <span class="st ag">Agendado</span><span class="seta">→</span>
+    <span class="st co">Confirmado</span><span class="seta">→</span>
+    <span class="st em">Em atendimento</span><span class="seta">→</span>
+    <span class="st cn">Concluído</span>
+    <span style="margin-left:4mm;color:var(--suave)">saídas:</span>
+    <span class="st fa">Faltou</span>
+    <span class="st ca">Cancelado</span>
+  </div>
+  <table>
+    <tr><th style="width:24%">Status</th><th style="width:38%">Quando usar</th><th>Efeito</th></tr>
+    <tr><td><span class="st ag">Agendado</span></td><td>Acabou de ser marcado (portal ou clínica)</td><td>Ocupa o horário na agenda</td></tr>
+    <tr><td><span class="st co">Confirmado</span></td><td>A cliente respondeu à confirmação</td><td>Botão de WhatsApp passa a enviar lembrete</td></tr>
+    <tr><td><span class="st em">Em atendimento</span></td><td>A cliente chegou e a sessão começou</td><td>Mostra quem está na sala agora</td></tr>
+    <tr><td><span class="st cn">Concluído</span></td><td>Sessão terminada e paga (ou abatida do pacote)</td><td>Lança no caixa ou baixa o pacote</td></tr>
+    <tr><td><span class="st fa">Faltou</span></td><td>A cliente não veio e não avisou</td><td>Libera o horário e entra na taxa de faltas</td></tr>
+    <tr><td><span class="st ca">Cancelado</span></td><td>Desmarcado pela cliente ou pela clínica</td><td>Libera o horário na hora</td></tr>
+  </table>
+</section>
+
+<!-- ============ 5. SITUAÇÕES ============ -->
+<section class="pagina">
+  <div class="kicker">Parte 5</div>
+  <h2>Situações do dia a dia</h2>
+
+  <div class="duas">
+    <div class="cartao">
+      <h3><span class="ico">!</span>A cliente faltou</h3>
+      <ol>
+        <li>Abra o atendimento e toque em <span class="ui">Faltou</span>.</li>
+        <li>O horário fica livre e a falta aparece na ficha dela e em <span class="ui">Dados</span>.</li>
+        <li>Se quiser, use o botão de WhatsApp da ficha para remarcar.</li>
+      </ol>
+    </div>
+    <div class="cartao">
+      <h3><span class="ico">+</span>Desistência: encaixar alguém</h3>
+      <ol>
+        <li>Menu <span class="ui">Espera</span>: cada pessoa da lista mostra se há <b>vaga compatível</b> hoje ou amanhã.</li>
+        <li><span class="ui">Avisar vaga</span> abre o WhatsApp com a mensagem pronta.</li>
+        <li>Se ela aceitar, toque em <span class="ui">Encaixar</span> e escolha o horário. Ela sai da lista e, se não tinha cadastro, vira cliente.</li>
+      </ol>
+    </div>
+    <div class="cartao">
+      <h3><span class="ico">10×</span>Venda de pacote</h3>
+      <ol>
+        <li>Menu <span class="ui">Pacotes → Vender pacote</span>: cliente, pacote (ex.: Drenagem – 10 sessões), valor e forma de pagamento.</li>
+        <li>O valor entra no caixa no dia da venda.</li>
+        <li>A cada atendimento concluído com <span class="ui">Abater de pacote</span>, baixa uma sessão. A cliente vê o saldo no portal.</li>
+      </ol>
+    </div>
+    <div class="cartao">
+      <h3><span class="ico">↻</span>Cliente pediu para remarcar</h3>
+      <ol>
+        <li>Faltando mais de 24 h, ela mesma remarca pelo portal.</li>
+        <li>Faltando menos, abra o atendimento na agenda e toque em <span class="ui">Remarcar</span>: escolha a nova data e o horário.</li>
+      </ol>
+    </div>
+    <div class="cartao">
+      <h3><span class="ico">R$</span>Despesas e contas</h3>
+      <ol>
+        <li><span class="ui">Financeiro → Lançar despesa</span>: descrição, categoria (insumos, aluguel, comissões…), valor e data.</li>
+        <li>Marque <b>“A pagar”</b> para uma conta futura: ela aparece em <span class="ui">Contas a pagar</span> e, ao pagar, toque em <span class="ui">Paguei</span>.</li>
+      </ol>
+    </div>
+    <div class="cartao">
+      <h3><span class="ico">—</span>Folga ou curso da profissional</h3>
+      <ol>
+        <li><span class="ui">Ajustes → Equipe e bloqueios → Bloquear horário</span>: profissional, data, início, fim e motivo.</li>
+        <li>O portal deixa de oferecer esses horários na hora.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6. REGRAS ============ -->
+<section class="pagina">
+  <div class="kicker">Parte 6</div>
+  <h2>Regras da agenda</h2>
+  <p class="lead">Valores atuais, todos ajustáveis em <span class="ui">Dados → Abrir ajustes → Clínica e regras</span>.</p>
+  <table>
+    <tr><th style="width:36%">Regra</th><th style="width:18%">Valor</th><th>O que significa</th></tr>
+    <tr><td>Grade de horários</td><td><b>15 min</b></td><td>O portal oferece horários de 15 em 15 minutos (09:00, 09:15, 09:30…)</td></tr>
+    <tr><td>Folga entre atendimentos</td><td><b>10 min</b></td><td>Tempo livre reservado depois de cada sessão para limpar e preparar a sala</td></tr>
+    <tr><td>Antecedência mínima para agendar online</td><td><b>60 min</b></td><td>A cliente não consegue marcar para daqui a menos de uma hora</td></tr>
+    <tr><td>Cancelar ou remarcar pelo portal</td><td><b>até 24 h antes</b></td><td>Depois disso, só pela clínica (botão de WhatsApp no portal)</td></tr>
+    <tr><td>Janela de agendamento</td><td><b>60 dias</b></td><td>A cliente vê e marca horários até dois meses à frente</td></tr>
+    <tr><td>Horário de funcionamento</td><td><b>Seg–Sex 9h–19h</b><br>Sáb 9h–14h</td><td>Almoço das 12h às 13h nos dias úteis; domingo fechado (ajuste em <span class="ui">Horário de funcionamento</span>)</td></tr>
+  </table>
+
+  <h3>Resumo de um atendimento em 10 passos</h3>
+  <table>
+    <tr><th style="width:8%">#</th><th style="width:18%">Quem</th><th>Ação</th></tr>
+    <tr><td>1</td><td><span class="tag cli">Cliente</span></td><td>Agenda pelo portal (ou <span class="tag pro">Clínica</span> lança no painel)</td></tr>
+    <tr><td>2</td><td><span class="tag auto">Sistema</span></td><td>Garante o horário e mostra na agenda como Agendado</td></tr>
+    <tr><td>3</td><td><span class="tag pro">Clínica</span></td><td>Véspera: WhatsApp de confirmação → <span class="ui">Confirmar</span></td></tr>
+    <tr><td>4</td><td><span class="tag pro">Clínica</span></td><td>No dia: WhatsApp de lembrete</td></tr>
+    <tr><td>5</td><td><span class="tag cli">Cliente</span></td><td>Se precisar, remarca ou cancela (até 24 h antes)</td></tr>
+    <tr><td>6</td><td><span class="tag pro">Clínica</span></td><td>Chegada: <span class="ui">Iniciar atendimento</span> e conferir alertas da ficha</td></tr>
+    <tr><td>7</td><td><span class="tag pro">Clínica</span></td><td>1ª visita: anamnese, termo assinado e foto “antes”</td></tr>
+    <tr><td>8</td><td><span class="tag pro">Clínica</span></td><td>Registrar a sessão (protocolo) e foto “depois”</td></tr>
+    <tr><td>9</td><td><span class="tag pro">Clínica</span></td><td><span class="ui">Concluir e receber</span>: forma de pagamento ou abater pacote</td></tr>
+    <tr><td>10</td><td><span class="tag auto">Sistema</span></td><td>Lança no caixa, atualiza ficha, financeiro, dados e saldo do pacote</td></tr>
+  </table>
+
+  <div class="caixa info"><b>Versão de teste × uso real.</b> No link dos testadores, os dados são fictícios e ficam só no aparelho de cada pessoa. No app ligado ao banco de dados da clínica, tudo fica salvo na nuvem: o que a cliente agenda no celular aparece na hora no painel da clínica.</div>
+
+  <div class="rodape">Garrido Estética · Rotina de atendimento · 18/11/2026</div>
+</section>
+
+</body>
+</html>

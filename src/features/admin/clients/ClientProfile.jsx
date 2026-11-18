@@ -104,9 +104,9 @@ export default function ClientProfile({ id, onBack }) {
         {tab === 'termos' && <ConsentTab clientId={id} />}
         {tab === 'historico' && (
           appts.length ? (
-            <Card className="divide-y divide-nude-100">
+            <Card className="divide-y divide-mist-100">
               {appts.map((a) => (
-                <button key={a.id} type="button" onClick={() => nav.openAppointment(a.id)} className="flex w-full items-center justify-between gap-3 px-4 py-3 text-left text-sm hover:bg-nude-50">
+                <button key={a.id} type="button" onClick={() => nav.openAppointment(a.id)} className="flex w-full items-center justify-between gap-3 px-4 py-3 text-left text-sm hover:bg-mist-50">
                   <div>
                     <div className="font-medium">{L.service(a.serviceId).name}</div>
                     <div className="text-xs text-graphite-500">{fmtBR(a.date)} · {a.start} · {L.professional(a.professionalId).name}{a.paymentMethod && ` · ${PAYMENT_METHODS[a.paymentMethod]}`}</div>
@@ -123,8 +123,8 @@ export default function ClientProfile({ id, onBack }) {
               <div className="grid gap-3 sm:grid-cols-2">
                 {pkgs.map((p) => (
                   <Card key={p.id} className="p-4">
-                    <div className="flex justify-between"><b className="font-medium">{L.service(p.serviceId).name}</b><span className="font-serif text-2xl font-bold text-rose-700">{packageBalance(p)}/{p.totalSessions}</span></div>
-                    <div className="mt-2 h-2 rounded-full bg-nude-100"><div className="h-2 rounded-full bg-rose-400" style={{ width: `${(p.usedSessions / p.totalSessions) * 100}%` }} /></div>
+                    <div className="flex justify-between"><b className="font-medium">{L.service(p.serviceId).name}</b><span className="font-serif text-2xl font-bold text-brand-700">{packageBalance(p)}/{p.totalSessions}</span></div>
+                    <div className="mt-2 h-2 rounded-full bg-mist-100"><div className="h-2 rounded-full bg-brand-400" style={{ width: `${(p.usedSessions / p.totalSessions) * 100}%` }} /></div>
                     <div className="mt-2 text-xs text-graphite-500">Vendido em {fmtBR(p.soldAt)} por {brl(p.pricePaid)}{p.expiresAt && ` · validade ${fmtBR(p.expiresAt)}`}</div>
                   </Card>
                 ))}

@@ -50,7 +50,7 @@ export default function CompleteDialog({ id, onClose }) {
           return (
             <button key={k} type="button" disabled={disabled} onClick={() => setMethod(k)}
               className={cx('flex flex-col items-center gap-1 rounded-2xl border p-3 text-sm font-medium transition disabled:opacity-35',
-                method === k ? 'border-rose-500 bg-rose-50 text-rose-800' : 'border-nude-300 bg-white text-graphite-600 hover:border-rose-300')}>
+                method === k ? 'border-brand-500 bg-brand-50 text-brand-800' : 'border-mist-300 bg-white text-graphite-600 hover:border-brand-300')}>
               <Icon className="h-5 w-5" strokeWidth={1.7} />{label}
               {k === 'pacote' && <span className="text-[11px] font-normal">{pkgs.length ? `${packageBalance(pkgs[0])} sessões` : 'sem saldo'}</span>}
             </button>
@@ -67,7 +67,7 @@ export default function CompleteDialog({ id, onClose }) {
               </select>
             </Field>
           ) : (
-            <p className="rounded-xl bg-nude-50 p-3 text-sm text-graphite-600">Será baixada 1 sessão do pacote. Nada entra no caixa agora, porque o pacote já foi pago na venda.</p>
+            <p className="rounded-xl bg-mist-50 p-3 text-sm text-graphite-600">Será baixada 1 sessão do pacote. Nada entra no caixa agora, porque o pacote já foi pago na venda.</p>
           )
         ) : (
           <Field label="Valor recebido (R$)" hint={`Preço de tabela: ${brl(s.price)}`}>

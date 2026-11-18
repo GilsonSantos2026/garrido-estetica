@@ -49,7 +49,7 @@ export default function AnamnesisForm({ clientId }) {
       <div className="flex gap-2 overflow-x-auto lg:flex-col">
         {SECTIONS.map((s) => (
           <button key={s.id} type="button" onClick={() => setSec(s.id)}
-            className={cx('flex shrink-0 items-center gap-2 rounded-xl px-3 py-2 text-left text-sm font-medium', sec === s.id ? 'bg-rose-100 text-rose-800' : 'text-graphite-600 hover:bg-nude-100')}>
+            className={cx('flex shrink-0 items-center gap-2 rounded-xl px-3 py-2 text-left text-sm font-medium', sec === s.id ? 'bg-brand-100 text-brand-800' : 'text-graphite-600 hover:bg-mist-100')}>
             <s.icon className="h-4 w-4" strokeWidth={1.8} />{s.label}
           </button>
         ))}
@@ -116,7 +116,7 @@ export default function AnamnesisForm({ clientId }) {
             </>
           )}
         </div>
-        <div className="mt-5 flex justify-end border-t border-nude-100 pt-4"><Button icon={Save} onClick={save}>Salvar anamnese</Button></div>
+        <div className="mt-5 flex justify-end border-t border-mist-100 pt-4"><Button icon={Save} onClick={save}>Salvar anamnese</Button></div>
       </Card>
     </div>
   );

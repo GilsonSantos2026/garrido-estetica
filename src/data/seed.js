@@ -75,8 +75,8 @@ export function buildSeed(today = todayISO(), nowMin = nowMinutes()) {
   const nowStamp = new Date().toISOString();
 
   db.professionals = [
-    { id: 'p1', name: 'Larissa Mendes', title: 'Esteticista facial', color: '#bd7765', serviceIds: ['s1', 's3', 's4', 's5', 's7'], active: true },
-    { id: 'p2', name: 'Bianca Rocha', title: 'Terapeuta corporal', color: '#6b6870', serviceIds: ['s2', 's6', 's7'], active: true },
+    { id: 'p1', name: 'Larissa Mendes', title: 'Esteticista facial', color: '#1e3a6e', serviceIds: ['s1', 's3', 's4', 's5', 's7'], active: true },
+    { id: 'p2', name: 'Bianca Rocha', title: 'Terapeuta corporal', color: '#5f6875', serviceIds: ['s2', 's6', 's7'], active: true },
   ];
 
   db.services = [

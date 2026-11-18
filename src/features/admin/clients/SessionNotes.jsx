@@ -28,7 +28,7 @@ export default function SessionNotes({ clientId }) {
             <Card key={n.id} className="p-4">
               <div className="flex items-start justify-between gap-2">
                 <div><div className="font-medium">{L.service(n.serviceId).name}</div><div className="text-xs text-graphite-500">{fmtBR(n.date)}</div></div>
-                <button type="button" onClick={() => window.confirm('Excluir este registro?') && tryAct('removeRow', { table: 'sessionNotes', id: n.id })} className="rounded-full p-1.5 text-graphite-400 hover:bg-nude-100" aria-label="Excluir"><Trash2 className="h-4 w-4" /></button>
+                <button type="button" onClick={() => window.confirm('Excluir este registro?') && tryAct('removeRow', { table: 'sessionNotes', id: n.id })} className="rounded-full p-1.5 text-graphite-400 hover:bg-mist-100" aria-label="Excluir"><Trash2 className="h-4 w-4" /></button>
               </div>
               <p className="mt-2 whitespace-pre-wrap text-sm text-graphite-700">{n.text}</p>
               {n.reactions && <p className="mt-2 text-sm text-graphite-500"><b className="font-medium">Pós-procedimento:</b> {n.reactions}</p>}

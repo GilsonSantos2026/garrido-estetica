@@ -99,12 +99,12 @@ export default function BookingWizard({ user, onAuth, reschedule, onDone, onCanc
     <div ref={topRef} className="mx-auto max-w-3xl scroll-mt-28">
       {/* Progresso */}
       <div className="mb-5 flex items-center gap-2">
-        <button type="button" onClick={back} className="rounded-full p-2 text-graphite-500 hover:bg-nude-100" aria-label="Voltar"><ChevronLeft className="h-5 w-5" /></button>
+        <button type="button" onClick={back} className="rounded-full p-2 text-graphite-500 hover:bg-mist-100" aria-label="Voltar"><ChevronLeft className="h-5 w-5" /></button>
         <div className="flex flex-1 gap-1.5">
           {visibleSteps.map((s, i) => (
             <div key={s} className="flex-1">
-              <div className={cx('h-1.5 rounded-full', i <= current ? 'bg-rose-400' : 'bg-nude-200')} />
-              <div className={cx('mt-1 hidden text-[11px] sm:block', i === current ? 'font-medium text-rose-700' : 'text-graphite-400')}>{s}</div>
+              <div className={cx('h-1.5 rounded-full', i <= current ? 'bg-brand-400' : 'bg-mist-200')} />
+              <div className={cx('mt-1 hidden text-[11px] sm:block', i === current ? 'font-medium text-brand-700' : 'text-graphite-400')}>{s}</div>
             </div>
           ))}
         </div>
@@ -125,10 +125,10 @@ export default function BookingWizard({ user, onAuth, reschedule, onDone, onCanc
               <div className="label mb-2">{cat}</div>
               <div className="grid gap-3 sm:grid-cols-2">
                 {db.services.filter((s) => s.active && (s.category || 'Outros') === cat && professionalsFor(db, s.id).length).map((s) => (
-                  <button key={s.id} type="button" onClick={() => chooseService(s.id)} className="card group p-4 text-left transition hover:border-rose-300 hover:shadow-md">
+                  <button key={s.id} type="button" onClick={() => chooseService(s.id)} className="card group p-4 text-left transition hover:border-brand-300 hover:shadow-md">
                     <div className="flex items-start justify-between gap-3">
                       <div className="font-medium text-graphite-900">{s.name}</div>
-                      <div className="shrink-0 font-serif text-xl font-bold text-rose-700">{brl(s.price)}</div>
+                      <div className="shrink-0 font-serif text-xl font-bold text-brand-700">{brl(s.price)}</div>
                     </div>
                     <p className="mt-1 text-sm text-graphite-500">{s.description}</p>
                     <div className="mt-3 flex flex-wrap items-center gap-2 text-xs text-graphite-500">
@@ -148,12 +148,12 @@ export default function BookingWizard({ user, onAuth, reschedule, onDone, onCanc
           <h2 className="mb-1 text-3xl font-bold">Com quem?</h2>
           <p className="mb-4 text-sm text-graphite-500">{service.name} · {fmtDuration(service.durationMin)}</p>
           <div className="grid gap-3 sm:grid-cols-2">
-            <button type="button" onClick={() => { setProf('any'); setStep(2); }} className="card flex items-center gap-3 p-4 text-left hover:border-rose-300">
-              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-rose-100 text-rose-600"><Users className="h-5 w-5" /></span>
+            <button type="button" onClick={() => { setProf('any'); setStep(2); }} className="card flex items-center gap-3 p-4 text-left hover:border-brand-300">
+              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-brand-100 text-brand-600"><Users className="h-5 w-5" /></span>
               <div><div className="font-medium">Sem preferência</div><div className="text-sm text-graphite-500">Mostra mais horários disponíveis</div></div>
             </button>
             {capable.map((p) => (
-              <button key={p.id} type="button" onClick={() => { setProf(p.id); setStep(2); }} className="card flex items-center gap-3 p-4 text-left hover:border-rose-300">
+              <button key={p.id} type="button" onClick={() => { setProf(p.id); setStep(2); }} className="card flex items-center gap-3 p-4 text-left hover:border-brand-300">
                 <Avatar name={p.name} color={p.color} size={44} />
                 <div><div className="font-medium">{p.name}</div><div className="text-sm text-graphite-500">{p.title}</div></div>
               </button>
@@ -181,7 +181,7 @@ export default function BookingWizard({ user, onAuth, reschedule, onDone, onCanc
             <Card className="p-4">
               {!date ? (
                 <div className="flex h-full min-h-40 flex-col items-center justify-center text-center text-sm text-graphite-400">
-                  <CalendarCheck2 className="mb-2 h-7 w-7 text-rose-300" />Toque num dia destacado para ver os horários livres.
+                  <CalendarCheck2 className="mb-2 h-7 w-7 text-brand-300" />Toque num dia destacado para ver os horários livres.
                 </div>
               ) : (
                 <>
@@ -195,7 +195,7 @@ export default function BookingWizard({ user, onAuth, reschedule, onDone, onCanc
                           {grouped[p].map((s) => (
                             <button key={s.time} type="button" onClick={() => setSlot(s)}
                               className={cx('rounded-xl border py-2 text-sm font-medium tabular-nums transition',
-                                slot?.time === s.time ? 'border-rose-500 bg-rose-500 text-white' : 'border-nude-300 bg-white text-graphite-700 hover:border-rose-300')}>
+                                slot?.time === s.time ? 'border-brand-500 bg-brand-500 text-white' : 'border-mist-300 bg-white text-graphite-700 hover:border-brand-300')}>
                               {s.time}
                             </button>
                           ))}
@@ -208,7 +208,7 @@ export default function BookingWizard({ user, onAuth, reschedule, onDone, onCanc
               )}
             </Card>
           </div>
-          <div className="sticky bottom-0 mt-4 flex justify-end bg-gradient-to-t from-nude-50 via-nude-50 to-transparent py-3">
+          <div className="sticky bottom-0 mt-4 flex justify-end bg-gradient-to-t from-mist-50 via-mist-50 to-transparent py-3">
             <Button size="lg" disabled={!slot} onClick={() => setStep(3)}>Continuar</Button>
           </div>
         </>
@@ -217,7 +217,7 @@ export default function BookingWizard({ user, onAuth, reschedule, onDone, onCanc
       {step === 3 && slot && (
         <>
           <h2 className="mb-4 text-3xl font-bold">{reschedule ? 'Confirme o novo horário' : 'Confirme seu agendamento'}</h2>
-          <Card className="mb-4 divide-y divide-nude-100">
+          <Card className="mb-4 divide-y divide-mist-100">
             {[
               ['Procedimento', `${service.name} · ${fmtDuration(service.durationMin)}`],
               ['Profissional', prof === 'any' ? `${L.professional(pickProfessional(slot.professionalIds, date, db.appointments)).name} (sem preferência)` : L.professional(prof).name],
@@ -245,7 +245,7 @@ export default function BookingWizard({ user, onAuth, reschedule, onDone, onCanc
                   <div className="mb-2 flex items-center gap-2 font-medium text-amber-900"><ShieldCheck className="h-4 w-4" />Termo de consentimento</div>
                   <p className="max-h-36 overflow-y-auto text-sm leading-relaxed text-graphite-600">{db.settings.consentText}</p>
                   <label className="mt-3 flex cursor-pointer items-start gap-2 text-sm">
-                    <input type="checkbox" className="mt-0.5 h-4 w-4 accent-rose-500" checked={consent} onChange={(e) => setConsent(e.target.checked)} />
+                    <input type="checkbox" className="mt-0.5 h-4 w-4 accent-brand-500" checked={consent} onChange={(e) => setConsent(e.target.checked)} />
                     Li e aceito o termo para {service.name}.
                   </label>
                 </Card>

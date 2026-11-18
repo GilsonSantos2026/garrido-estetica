@@ -33,14 +33,14 @@ export default function PortalApp() {
   return (
     <div className="pb-16">
       {/* Boas-vindas */}
-      <section className="bg-gradient-to-b from-rose-100/70 to-nude-50 px-4 pb-6 pt-8">
+      <section className="bg-gradient-to-b from-brand-100/70 to-mist-50 px-4 pb-6 pt-8">
         <div className="mx-auto max-w-3xl">
-          <p className="text-sm uppercase tracking-[.2em] text-rose-600">Agende online</p>
+          <p className="text-sm uppercase tracking-[.2em] text-brand-600">Agende online</p>
           <h1 className="mt-1 text-4xl font-bold leading-tight sm:text-5xl">
             {client ? `Olá, ${firstName(client.name)}!` : 'Seu momento de cuidado começa aqui'}
           </h1>
           <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm text-graphite-500">
-            <span className="inline-flex items-center gap-1"><MapPin className="h-4 w-4" />{db.settings.address}</span>
+            {db.settings.address && <span className="inline-flex items-center gap-1"><MapPin className="h-4 w-4" />{db.settings.address}</span>}
             <a className="inline-flex items-center gap-1 underline" href={waLink(db.settings.whatsapp, 'Olá! Gostaria de tirar uma dúvida.')} target="_blank" rel="noopener noreferrer"><MessageCircle className="h-4 w-4" />Falar no WhatsApp</a>
           </div>
           <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
@@ -63,7 +63,7 @@ export default function PortalApp() {
 
         {tab === 'agendar' && done && (
           <Card className="mx-auto max-w-md p-6 text-center">
-            <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-rose-100 text-rose-600"><PartyPopper className="h-7 w-7" /></div>
+            <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-brand-100 text-brand-600"><PartyPopper className="h-7 w-7" /></div>
             <h2 className="text-3xl font-bold">Tudo certo!</h2>
             <p className="mt-2 text-graphite-600">
               {L.service(done.serviceId).name} com {L.professional(done.professionalId).name}<br />

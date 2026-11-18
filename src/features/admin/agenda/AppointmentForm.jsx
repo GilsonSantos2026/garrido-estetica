@@ -77,7 +77,7 @@ export default function AppointmentForm({ prefill = {}, reschedule, onClose }) {
           <div className="label mb-2 flex items-center justify-between">
             Horários livres
             <label className="inline-flex items-center gap-1.5 normal-case tracking-normal text-graphite-500">
-              <input type="checkbox" className="accent-rose-500" checked={manual} onChange={(e) => setManual(e.target.checked)} />encaixe manual
+              <input type="checkbox" className="accent-brand-500" checked={manual} onChange={(e) => setManual(e.target.checked)} />encaixe manual
             </label>
           </div>
           {manual ? (
@@ -85,16 +85,16 @@ export default function AppointmentForm({ prefill = {}, reschedule, onClose }) {
               <Input type="time" value={start} onChange={(e) => setStart(e.target.value)} />
             </Field>
           ) : !service ? (
-            <p className="rounded-xl bg-nude-50 p-4 text-sm text-graphite-500">Escolha o procedimento para ver os horários.</p>
+            <p className="rounded-xl bg-mist-50 p-4 text-sm text-graphite-500">Escolha o procedimento para ver os horários.</p>
           ) : slots.length ? (
             <div className="grid max-h-72 grid-cols-4 gap-2 overflow-y-auto pr-1">
               {slots.map((t) => (
                 <button key={t} type="button" onClick={() => setStart(t)}
-                  className={cx('rounded-xl border py-2 text-sm font-medium tabular-nums', start === t ? 'border-rose-500 bg-rose-500 text-white' : 'border-nude-300 bg-white hover:border-rose-300')}>{t}</button>
+                  className={cx('rounded-xl border py-2 text-sm font-medium tabular-nums', start === t ? 'border-brand-500 bg-brand-500 text-white' : 'border-mist-300 bg-white hover:border-brand-300')}>{t}</button>
               ))}
             </div>
           ) : (
-            <p className="rounded-xl bg-nude-50 p-4 text-sm text-graphite-500">Sem horários livres neste dia para {L.professional(pid).name}. Tente outra data, outro profissional ou o encaixe manual.</p>
+            <p className="rounded-xl bg-mist-50 p-4 text-sm text-graphite-500">Sem horários livres neste dia para {L.professional(pid).name}. Tente outra data, outro profissional ou o encaixe manual.</p>
           )}
         </div>
       </div>
@@ -114,7 +114,7 @@ export function ClientPicker({ value, onChange }) {
     const c = L.client(value);
     return (
       <Field label="Cliente">
-        <div className="flex items-center justify-between rounded-xl border border-rose-200 bg-rose-50 px-3 py-2">
+        <div className="flex items-center justify-between rounded-xl border border-brand-200 bg-brand-50 px-3 py-2">
           <span className="flex items-center gap-2"><Avatar name={c.name} size={26} /><span><b className="font-medium">{c.name}</b><span className="block text-xs text-graphite-500">{c.whatsapp}</span></span></span>
           <button type="button" onClick={() => onChange('')} className="rounded-full p-1 hover:bg-white" aria-label="Trocar cliente"><X className="h-4 w-4" /></button>
         </div>
@@ -128,7 +128,7 @@ export function ClientPicker({ value, onChange }) {
     };
     return (
       <Field label="Novo cliente">
-        <div className="space-y-2 rounded-xl border border-nude-200 p-3">
+        <div className="space-y-2 rounded-xl border border-mist-200 p-3">
           <Input placeholder="Nome" value={nc.name} onChange={(e) => setNc({ ...nc, name: e.target.value })} />
           <Input placeholder="WhatsApp com DDD" inputMode="tel" value={nc.whatsapp} onChange={(e) => setNc({ ...nc, whatsapp: e.target.value })} />
           <div className="flex justify-end gap-2"><Button size="sm" variant="ghost" onClick={() => setCreating(false)}>Voltar</Button><Button size="sm" onClick={create}>Cadastrar</Button></div>
@@ -146,11 +146,11 @@ export function ClientPicker({ value, onChange }) {
       </div>
       <div className="mt-2 max-h-48 space-y-1 overflow-y-auto">
         {matches.map((c) => (
-          <button key={c.id} type="button" onClick={() => onChange(c.id)} className="flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-left text-sm hover:bg-nude-100">
+          <button key={c.id} type="button" onClick={() => onChange(c.id)} className="flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-left text-sm hover:bg-mist-100">
             <Avatar name={c.name} size={24} />{c.name}<span className="ml-auto text-xs text-graphite-400">{c.whatsapp}</span>
           </button>
         ))}
-        <button type="button" onClick={() => { setCreating(true); setNc({ name: q, whatsapp: '' }); }} className="flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-left text-sm text-rose-700 hover:bg-rose-50">
+        <button type="button" onClick={() => { setCreating(true); setNc({ name: q, whatsapp: '' }); }} className="flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-left text-sm text-brand-700 hover:bg-brand-50">
           <UserPlus className="h-4 w-4" />Cadastrar novo cliente
         </button>
       </div>

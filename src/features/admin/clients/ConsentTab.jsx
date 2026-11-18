@@ -30,9 +30,9 @@ export default function ConsentTab({ clientId }) {
       )}
       <div className="mb-4 flex justify-end"><Button size="sm" icon={FilePlus2} onClick={() => { setServiceId(pending[0]?.id || invasive[0]?.id || ''); setOpen(true); }}>Registrar aceite</Button></div>
       {terms.length ? (
-        <Card className="divide-y divide-nude-100">
+        <Card className="divide-y divide-mist-100">
           {terms.map((t) => (
-            <button key={t.id} type="button" onClick={() => setView(t)} className="flex w-full items-center justify-between gap-3 px-4 py-3 text-left text-sm hover:bg-nude-50">
+            <button key={t.id} type="button" onClick={() => setView(t)} className="flex w-full items-center justify-between gap-3 px-4 py-3 text-left text-sm hover:bg-mist-50">
               <div className="flex items-center gap-3">
                 <ShieldCheck className="h-5 w-5 text-emerald-600" />
                 <div><div className="font-medium">{t.serviceId ? L.service(t.serviceId).name : 'Termo geral'}</div><div className="text-xs text-graphite-500">Aceito em {fmtStamp(t.acceptedAt)}</div></div>
@@ -49,7 +49,7 @@ export default function ConsentTab({ clientId }) {
           <Field label="Procedimento">
             <Select value={serviceId} onChange={(e) => setServiceId(e.target.value)} options={[{ value: '', label: 'Termo geral (todos os procedimentos)' }, ...db.services.map((s) => ({ value: s.id, label: s.name }))]} />
           </Field>
-          <p className="rounded-xl bg-nude-50 p-3 text-sm leading-relaxed text-graphite-700">{db.settings.consentText}</p>
+          <p className="rounded-xl bg-mist-50 p-3 text-sm leading-relaxed text-graphite-700">{db.settings.consentText}</p>
           <Field label="Assinatura do cliente"><SignaturePad onChange={setSignature} /></Field>
         </div>
       </Modal>
@@ -58,7 +58,7 @@ export default function ConsentTab({ clientId }) {
         {view && (
           <>
             <p className="text-sm leading-relaxed text-graphite-700">{view.termText}</p>
-            {view.signature ? <img src={view.signature} alt="Assinatura" className="mt-4 h-28 rounded-xl border border-nude-200 bg-nude-50" /> : <p className="mt-4 text-xs text-graphite-400">Aceite registrado sem assinatura desenhada.</p>}
+            {view.signature ? <img src={view.signature} alt="Assinatura" className="mt-4 h-28 rounded-xl border border-mist-200 bg-mist-50" /> : <p className="mt-4 text-xs text-graphite-400">Aceite registrado sem assinatura desenhada.</p>}
           </>
         )}
       </Modal>

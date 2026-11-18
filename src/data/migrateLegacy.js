@@ -15,7 +15,7 @@ export function migrateLegacy(old) {
     id: s.id, name: s.nome, category: '', description: '', price: Number(s.preco) || 0,
     durationMin: Number(s.dur) || 60, requiresConsent: /peeling|microagulh/i.test(s.nome || ''), active: true,
   }));
-  db.professionals = [{ id: 'p1', name: 'Profissional', title: 'Esteticista', color: '#bd7765', serviceIds: db.services.map((s) => s.id), active: true }];
+  db.professionals = [{ id: 'p1', name: 'Profissional', title: 'Esteticista', color: '#1e3a6e', serviceIds: db.services.map((s) => s.id), active: true }];
   const svc = (id) => db.services.find((s) => s.id === id) || { durationMin: 60, price: 0, name: 'Procedimento' };
 
   for (const c of old.clients || []) {

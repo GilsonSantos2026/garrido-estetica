@@ -16,9 +16,9 @@ export function MonthCalendar({ month, onMonthChange, selected, onSelect, availa
   return (
     <div className="select-none">
       <div className="mb-3 flex items-center justify-between">
-        <button type="button" onClick={() => onMonthChange(shift(month, -1))} disabled={minMonth && month <= minMonth} className="rounded-full p-2 text-graphite-500 hover:bg-nude-100 disabled:opacity-30" aria-label="Mês anterior"><ChevronLeft className="h-5 w-5" /></button>
+        <button type="button" onClick={() => onMonthChange(shift(month, -1))} disabled={minMonth && month <= minMonth} className="rounded-full p-2 text-graphite-500 hover:bg-mist-100 disabled:opacity-30" aria-label="Mês anterior"><ChevronLeft className="h-5 w-5" /></button>
         <span className="font-serif text-xl font-bold">{fmtMonth(month)}</span>
-        <button type="button" onClick={() => onMonthChange(shift(month, 1))} disabled={maxMonth && month >= maxMonth} className="rounded-full p-2 text-graphite-500 hover:bg-nude-100 disabled:opacity-30" aria-label="Próximo mês"><ChevronRight className="h-5 w-5" /></button>
+        <button type="button" onClick={() => onMonthChange(shift(month, 1))} disabled={maxMonth && month >= maxMonth} className="rounded-full p-2 text-graphite-500 hover:bg-mist-100 disabled:opacity-30" aria-label="Próximo mês"><ChevronRight className="h-5 w-5" /></button>
       </div>
       <div className="grid grid-cols-7 gap-1 text-center text-[11px] font-medium uppercase text-graphite-400">
         {['seg', 'ter', 'qua', 'qui', 'sex', 'sáb', 'dom'].map((d) => <div key={d} className="py-1">{d}</div>)}
@@ -32,12 +32,12 @@ export function MonthCalendar({ month, onMonthChange, selected, onSelect, availa
             <button
               key={d} type="button" disabled={!ok} onClick={() => onSelect(d)}
               className={cx('relative aspect-square rounded-xl text-sm transition',
-                isSel ? 'bg-rose-500 font-semibold text-white shadow' : ok ? 'bg-rose-50 font-medium text-rose-800 hover:bg-rose-100' : 'text-graphite-300',
+                isSel ? 'bg-brand-500 font-semibold text-white shadow' : ok ? 'bg-brand-50 font-medium text-brand-800 hover:bg-brand-100' : 'text-graphite-300',
                 d === today && !isSel && 'underline decoration-2 underline-offset-4')}
               aria-label={ok ? `Dia ${Number(d.slice(8))}, com horários` : `Dia ${Number(d.slice(8))}, sem horários`}
             >
               {Number(d.slice(8))}
-              {ok && !isSel && <span className="absolute bottom-1.5 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-rose-400" />}
+              {ok && !isSel && <span className="absolute bottom-1.5 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-brand-400" />}
             </button>
           );
         })}

@@ -6,24 +6,24 @@
   :root { color-scheme: light; }
   html { -webkit-tap-highlight-color: transparent; }
   body {
-    @apply bg-nude-50 text-graphite-800 font-sans antialiased;
+    @apply bg-mist-50 text-graphite-800 font-sans antialiased;
     padding-top: env(safe-area-inset-top, 0px);
   }
   h1, h2, h3 { @apply font-serif font-bold text-graphite-900; }
 }
 
 @layer components {
-  .card { @apply bg-white rounded-2xl border border-nude-200; }
+  .card { @apply bg-white rounded-2xl border border-mist-200; }
   .input {
-    @apply w-full rounded-xl border border-nude-300 bg-white px-3 py-2.5 text-[15px] text-graphite-800
-      placeholder:text-graphite-300 focus:border-rose-400 focus:outline-none focus:ring-2 focus:ring-rose-200;
+    @apply w-full rounded-xl border border-mist-300 bg-white px-3 py-2.5 text-[15px] text-graphite-800
+      placeholder:text-graphite-300 focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-200;
   }
   .label { @apply mb-1 block text-xs font-medium uppercase tracking-wide text-graphite-500; }
   .chip {
-    @apply inline-flex cursor-pointer select-none items-center gap-1.5 rounded-full border border-nude-300 bg-white px-3 py-1.5
-      text-sm text-graphite-700 transition hover:border-rose-300;
+    @apply inline-flex cursor-pointer select-none items-center gap-1.5 rounded-full border border-mist-300 bg-white px-3 py-1.5
+      text-sm text-graphite-700 transition hover:border-brand-300;
   }
-  .chip-on { @apply border-rose-400 bg-rose-50 text-rose-700; }
+  .chip-on { @apply border-brand-400 bg-brand-50 text-brand-700; }
 }
 
 .scrollbar-thin::-webkit-scrollbar { height: 6px; width: 6px; }

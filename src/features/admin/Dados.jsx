@@ -29,7 +29,7 @@ export default function Dados() {
     <div>
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <div><h1 className="text-3xl">Dados e procedimentos</h1><p className="text-sm text-graphite-500">Entenda o que mais rende · {fmtMonth(month)}</p></div>
-        <input type="month" value={month} onChange={(e) => e.target.value && setMonth(e.target.value)} className="rounded-lg border border-nude-300 bg-white px-2 py-1.5 text-sm" aria-label="Mês" />
+        <input type="month" value={month} onChange={(e) => e.target.value && setMonth(e.target.value)} className="rounded-lg border border-mist-300 bg-white px-2 py-1.5 text-sm" aria-label="Mês" />
       </div>
 
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">

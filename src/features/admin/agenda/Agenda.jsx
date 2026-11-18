@@ -34,22 +34,22 @@ export default function Agenda() {
     <div>
       {/* Navegação do dia, como na prévia: ‹ data › com resumo logo abaixo */}
       <div className="mb-3 flex items-center justify-between gap-2">
-        <button type="button" className="rounded-full bg-rose-100 p-1.5 text-rose-600 hover:bg-rose-200" onClick={() => setDate(addDays(date, -step))} aria-label="Anterior"><ChevronLeft className="h-5 w-5" /></button>
+        <button type="button" className="rounded-full bg-brand-100 p-1.5 text-brand-600 hover:bg-brand-200" onClick={() => setDate(addDays(date, -step))} aria-label="Anterior"><ChevronLeft className="h-5 w-5" /></button>
         <div className="min-w-0 text-center">
           <h1 className="font-sans text-[17px] font-bold leading-tight sm:font-serif sm:text-2xl">{title}</h1>
           <p className="text-sm text-graphite-500">
             {mode !== 'semana' ? `${active.length} atendimentos · previsão ${brl(forecast)}${online ? ` · ${online} online` : ''}` : 'Visão da semana'}
           </p>
         </div>
-        <button type="button" className="rounded-full bg-rose-100 p-1.5 text-rose-600 hover:bg-rose-200" onClick={() => setDate(addDays(date, step))} aria-label="Próximo"><ChevronRight className="h-5 w-5" /></button>
+        <button type="button" className="rounded-full bg-brand-100 p-1.5 text-brand-600 hover:bg-brand-200" onClick={() => setDate(addDays(date, step))} aria-label="Próximo"><ChevronRight className="h-5 w-5" /></button>
       </div>
 
       <div className="mb-3 flex flex-wrap items-center gap-2">
         <Button icon={Plus} onClick={() => nav.newAppointment({ date })}>Novo agendamento</Button>
         {date !== today && <Button size="sm" variant="outline" onClick={() => setDate(today)}>Hoje</Button>}
-        <input type="date" value={date} onChange={(e) => e.target.value && setDate(e.target.value)} className="hidden rounded-lg border border-nude-300 bg-white px-2 py-1.5 text-sm sm:block" aria-label="Ir para data" />
+        <input type="date" value={date} onChange={(e) => e.target.value && setDate(e.target.value)} className="hidden rounded-lg border border-mist-300 bg-white px-2 py-1.5 text-sm sm:block" aria-label="Ir para data" />
         <div className="flex w-full flex-wrap items-center gap-2 sm:ml-auto sm:w-auto">
-          <select value={profFilter} onChange={(e) => setProfFilter(e.target.value)} className="min-w-0 flex-1 rounded-lg border border-nude-300 bg-white px-2 py-1.5 text-sm sm:flex-none" aria-label="Profissional">
+          <select value={profFilter} onChange={(e) => setProfFilter(e.target.value)} className="min-w-0 flex-1 rounded-lg border border-mist-300 bg-white px-2 py-1.5 text-sm sm:flex-none" aria-label="Profissional">
             <option value="todos">Todos</option>
             {db.professionals.filter((p) => p.active).map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}
           </select>
@@ -60,8 +60,8 @@ export default function Agenda() {
       </div>
 
       <div className="mb-3 flex flex-wrap gap-x-4 gap-y-1 text-xs text-graphite-500">
-        <span className="inline-flex items-center gap-1.5"><span className="h-3 w-3 rounded border-l-4 border-rose-400 bg-rose-100" /><Globe className="h-3.5 w-3.5" />Agendado pelo cliente (online)</span>
-        <span className="inline-flex items-center gap-1.5"><span className="h-3 w-3 rounded border-l-4 border-graphite-500 bg-nude-100" /><Building2 className="h-3.5 w-3.5" />Lançado pela clínica</span>
+        <span className="inline-flex items-center gap-1.5"><span className="h-3 w-3 rounded border-l-4 border-brand-400 bg-brand-100" /><Globe className="h-3.5 w-3.5" />Agendado pelo cliente (online)</span>
+        <span className="inline-flex items-center gap-1.5"><span className="h-3 w-3 rounded border-l-4 border-graphite-500 bg-mist-100" /><Building2 className="h-3.5 w-3.5" />Lançado pela clínica</span>
       </div>
 
       {mode === 'dia' && <DayView date={date} profs={profs} />}
@@ -101,10 +101,10 @@ function DayView({ date, profs }) {
     <Card className="overflow-hidden">
       <div className="scrollbar-thin overflow-x-auto">
         <div style={{ minWidth: 56 + profs.length * 170 }}>
-          <div className="flex border-b border-nude-200 bg-nude-50/60">
+          <div className="flex border-b border-mist-200 bg-mist-50/60">
             <div className="w-14 shrink-0" />
             {profs.map((p) => (
-              <div key={p.id} className="flex flex-1 items-center gap-2 border-l border-nude-200 px-3 py-2 text-sm font-medium">
+              <div key={p.id} className="flex flex-1 items-center gap-2 border-l border-mist-200 px-3 py-2 text-sm font-medium">
                 <Avatar name={p.name} color={p.color} size={26} />{p.name}
               </div>
             ))}
@@ -128,10 +128,10 @@ function DayView({ date, profs }) {
               if (cur < close) gaps.push([cur, close]);
               const list = db.appointments.filter((a) => a.date === date && a.professionalId === p.id).sort((a, b) => a.start.localeCompare(b.start));
               return (
-                <div key={p.id} className="relative flex-1 border-l border-nude-200">
-                  {hours.map((m) => <div key={m} className="border-b border-nude-100" style={{ height: 60 * PX }} />)}
+                <div key={p.id} className="relative flex-1 border-l border-mist-200">
+                  {hours.map((m) => <div key={m} className="border-b border-mist-100" style={{ height: 60 * PX }} />)}
                   {gaps.map(([s, e]) => (
-                    <div key={s} className="absolute inset-x-0 bg-[repeating-linear-gradient(135deg,#f5eee7_0,#f5eee7_6px,#fbf8f5_6px,#fbf8f5_12px)]" style={{ top: (s - open) * PX, height: (e - s) * PX }} title="Fora do expediente / bloqueio" />
+                    <div key={s} className="absolute inset-x-0 bg-[repeating-linear-gradient(135deg,#edf0f4_0,#edf0f4_6px,#f4f6f8_6px,#f4f6f8_12px)]" style={{ top: (s - open) * PX, height: (e - s) * PX }} title="Fora do expediente / bloqueio" />
                   ))}
                   {list.map((a) => {
                     const top = (toMin(a.start) - open) * PX;
@@ -154,8 +154,8 @@ function DayView({ date, profs }) {
               );
             })}
             {date === todayISO() && now >= open && now <= close && (
-              <div className="pointer-events-none absolute left-14 right-0 z-10 border-t-2 border-rose-500" style={{ top: (now - open) * PX }}>
-                <span className="absolute -left-1.5 -top-[5px] h-2 w-2 rounded-full bg-rose-500" />
+              <div className="pointer-events-none absolute left-14 right-0 z-10 border-t-2 border-brand-500" style={{ top: (now - open) * PX }}>
+                <span className="absolute -left-1.5 -top-[5px] h-2 w-2 rounded-full bg-brand-500" />
               </div>
             )}
           </div>
@@ -180,8 +180,8 @@ function WeekView({ date, profs }) {
           const list = db.appointments.filter((a) => a.date === d && ids.has(a.professionalId)).sort((a, b) => a.start.localeCompare(b.start));
           const closed = db.settings.businessHours[weekday(d)]?.closed;
           return (
-            <div key={d} className={cx('card min-h-[200px] p-2', d === todayISO() && 'ring-2 ring-rose-300')}>
-              <button type="button" onClick={() => { nav.setAgendaDate(d); }} className="mb-2 w-full rounded-lg px-1 py-1 text-left hover:bg-nude-100">
+            <div key={d} className={cx('card min-h-[200px] p-2', d === todayISO() && 'ring-2 ring-brand-300')}>
+              <button type="button" onClick={() => { nav.setAgendaDate(d); }} className="mb-2 w-full rounded-lg px-1 py-1 text-left hover:bg-mist-100">
                 <div className="text-[11px] uppercase text-graphite-400">{fmtWeekdayShort(d)}</div>
                 <div className="font-serif text-xl font-bold leading-none">{d.slice(8)}</div>
                 <div className="text-[11px] text-graphite-400">{closed ? 'fechado' : `${list.filter((a) => ACTIVE_STATUS.includes(a.status)).length} atend.`}</div>
@@ -222,7 +222,7 @@ function ListView({ date, profs }) {
   return (
     <div>
       <label className="mb-3 inline-flex items-center gap-2 text-sm text-graphite-600">
-        <input type="checkbox" className="accent-rose-500" checked={hideClosed} onChange={(e) => setHideClosed(e.target.checked)} />Mostrar só os pendentes
+        <input type="checkbox" className="accent-brand-500" checked={hideClosed} onChange={(e) => setHideClosed(e.target.checked)} />Mostrar só os pendentes
       </label>
       {Object.keys(groups).length === 0 && <Card><EmptyState icon={List} title="Nenhum agendamento nos próximos 14 dias" /></Card>}
       {Object.entries(groups).map(([d, list]) => (
@@ -238,7 +238,7 @@ function ListView({ date, profs }) {
               const p = L.professional(a.professionalId);
               const open = !['concluido', 'faltou', 'cancelado'].includes(a.status);
               return (
-                <Card key={a.id} className={cx('border-l-4 p-3.5', a.source === 'online' ? 'border-l-rose-400' : 'border-l-graphite-300', !open && 'opacity-75')}>
+                <Card key={a.id} className={cx('border-l-4 p-3.5', a.source === 'online' ? 'border-l-brand-400' : 'border-l-graphite-300', !open && 'opacity-75')}>
                   <button type="button" onClick={() => nav.openAppointment(a.id)} className="flex w-full items-start gap-3 text-left">
                     <span className="w-12 shrink-0 pt-0.5 font-serif text-[17px] font-bold tabular-nums">{a.start}</span>
                     <span className="min-w-0 flex-1">

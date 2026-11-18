@@ -38,7 +38,7 @@ export default function Finance() {
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <div><h1 className="text-3xl font-bold">Financeiro</h1><p className="text-sm text-graphite-500">{fmtMonth(month)}</p></div>
         <div className="flex items-center gap-2">
-          <input type="month" value={month} onChange={(e) => e.target.value && setMonth(e.target.value)} className="rounded-lg border border-nude-300 bg-white px-2 py-1.5 text-sm" aria-label="Mês" />
+          <input type="month" value={month} onChange={(e) => e.target.value && setMonth(e.target.value)} className="rounded-lg border border-mist-300 bg-white px-2 py-1.5 text-sm" aria-label="Mês" />
           <Button icon={Plus} onClick={() => setAdding(true)}><span className="sm:hidden">Despesa</span><span className="hidden sm:inline">Lançar despesa</span></Button>
         </div>
       </div>
@@ -61,7 +61,7 @@ export default function Finance() {
       <Card className="mt-4 p-4">
         <div className="mb-2 text-xs text-graphite-500">Recebido por forma de pagamento</div>
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-          {byMethod.map((m) => <div key={m.label} className="rounded-xl bg-nude-50 p-3"><div className="text-xs text-graphite-500">{m.label}</div><div className="font-semibold tabular-nums">{brl(m.value)}</div></div>)}
+          {byMethod.map((m) => <div key={m.label} className="rounded-xl bg-mist-50 p-3"><div className="text-xs text-graphite-500">{m.label}</div><div className="font-semibold tabular-nums">{brl(m.value)}</div></div>)}
         </div>
       </Card>
 
@@ -72,7 +72,7 @@ export default function Finance() {
             <>
               <Segmented size="sm" className="mb-3" value={flow} onChange={setFlow} options={[{ value: 'todos', label: 'Tudo' }, { value: 'entrada', label: 'Entradas' }, { value: 'saida', label: 'Saídas' }]} />
               {movements.length ? (
-                <Card className="divide-y divide-nude-100">
+                <Card className="divide-y divide-mist-100">
                   {movements.map((t) => (
                     <div key={t.id} className="flex items-center gap-3 px-4 py-3 text-sm">
                       <span className={cx('rounded-full p-1.5', t.type === 'entrada' ? 'bg-emerald-50 text-emerald-600' : 'bg-red-50 text-red-500')}>
@@ -83,7 +83,7 @@ export default function Finance() {
                         <div className="text-xs text-graphite-500">{fmtBR(t.paidAt)} · {t.type === 'entrada' ? INCOME_CATEGORIES[t.category] || t.category : t.category}{t.method && ` · ${PAYMENT_METHODS[t.method]}`}</div>
                       </div>
                       <span className={cx('font-semibold tabular-nums', t.type === 'entrada' ? 'text-emerald-700' : 'text-red-600')}>{t.type === 'entrada' ? '+' : '−'}{brl(t.amount)}</span>
-                      {t.type === 'saida' && <button type="button" onClick={() => window.confirm('Excluir este lançamento?') && tryAct('removeRow', { table: 'transactions', id: t.id }, 'Lançamento excluído.')} className="rounded-full p-1 text-graphite-300 hover:bg-nude-100 hover:text-graphite-600" aria-label="Excluir"><Trash2 className="h-4 w-4" /></button>}
+                      {t.type === 'saida' && <button type="button" onClick={() => window.confirm('Excluir este lançamento?') && tryAct('removeRow', { table: 'transactions', id: t.id }, 'Lançamento excluído.')} className="rounded-full p-1 text-graphite-300 hover:bg-mist-100 hover:text-graphite-600" aria-label="Excluir"><Trash2 className="h-4 w-4" /></button>}
                     </div>
                   ))}
                 </Card>
@@ -94,7 +94,7 @@ export default function Finance() {
             <>
               {overdue.length > 0 && <div className="mb-3 flex items-center gap-2 rounded-xl bg-red-50 px-3 py-2 text-sm text-red-800"><AlertCircle className="h-4 w-4" />{overdue.length} conta(s) vencida(s): {brl(overdue.reduce((s, t) => s + t.amount, 0))}</div>}
               {toPay.length ? (
-                <Card className="divide-y divide-nude-100">
+                <Card className="divide-y divide-mist-100">
                   {toPay.map((t) => (
                     <div key={t.id} className="flex flex-wrap items-center gap-3 px-4 py-3 text-sm">
                       <div className="min-w-0 flex-1"><div className="font-medium">{t.description}</div><div className="text-xs text-graphite-500">{t.category} · vence {fmtBR(t.dueDate)}</div></div>

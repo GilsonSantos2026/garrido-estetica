@@ -48,7 +48,7 @@ export default function Waitlist() {
                   <div className="flex flex-wrap justify-end gap-1"><Badge tone="rose">{s.name}</Badge><Badge>{w.preferredPeriod}</Badge></div>
                 </div>
                 {w.notes && <p className="mt-2 text-sm text-graphite-600">{w.notes}</p>}
-                <div className={cx('mt-3 flex items-center gap-2 rounded-xl px-3 py-2 text-sm', hint ? 'bg-emerald-50 text-emerald-800' : 'bg-nude-50 text-graphite-500')}>
+                <div className={cx('mt-3 flex items-center gap-2 rounded-xl px-3 py-2 text-sm', hint ? 'bg-emerald-50 text-emerald-800' : 'bg-mist-50 text-graphite-500')}>
                   <Zap className="h-4 w-4" />{hint ? `Vaga livre ${when} (${hint.count} horários)` : 'Sem vagas compatíveis hoje ou amanhã'}
                 </div>
                 <div className="mt-3 flex flex-wrap gap-2">
@@ -115,8 +115,8 @@ function FitDialog({ w, onClose }) {
         <div className="grid grid-cols-4 gap-2">
           {slots.map((s) => (
             <button key={s.time} type="button" onClick={() => fit(s)}
-              className={cx('rounded-xl border py-2 text-sm font-medium tabular-nums hover:border-rose-400',
-                w.preferredPeriod === 'Qualquer horário' || periodOf(s.time) === w.preferredPeriod ? 'border-rose-200 bg-rose-50 text-rose-800' : 'border-nude-300 bg-white')}>
+              className={cx('rounded-xl border py-2 text-sm font-medium tabular-nums hover:border-brand-400',
+                w.preferredPeriod === 'Qualquer horário' || periodOf(s.time) === w.preferredPeriod ? 'border-brand-200 bg-brand-50 text-brand-800' : 'border-mist-300 bg-white')}>
               {s.time}<span className="block text-[10px] font-normal text-graphite-500">{s.professionalIds.map((id) => L.professional(id).name.split(' ')[0]).join(', ')}</span>
             </button>
           ))}

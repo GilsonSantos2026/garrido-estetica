@@ -45,7 +45,7 @@ export default function Clients() {
             const portal = !!c.userId || db.users.some((u) => u.clientId === c.id);
             const risk = an && (an.allergies || an.health?.conditions?.length);
             return (
-              <button key={c.id} type="button" onClick={() => nav.openClient(c.id)} className="card p-4 text-left transition hover:border-rose-300 hover:shadow-md">
+              <button key={c.id} type="button" onClick={() => nav.openClient(c.id)} className="card p-4 text-left transition hover:border-brand-300 hover:shadow-md">
                 <div className="flex items-center gap-3">
                   <Avatar name={c.name} size={42} />
                   <div className="min-w-0">

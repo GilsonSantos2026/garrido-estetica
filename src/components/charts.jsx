@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { brl, fmtShort } from '../domain/time.js';
 import { cx } from './ui.jsx';
 
-// Cor de dados validada (scripts do skill dataviz: chroma e contraste OK sobre fundo claro).
-const BAR = '#b5576f';
+// Cor de dados (azul) validada (scripts do skill dataviz: chroma e contraste OK sobre fundo claro).
+const BAR = '#2f5597';
 
 /** Barras verticais de uma série (receita por dia). Hover mostra o valor; "Tabela" mostra os números. */
 export function DailyBars({ data, label = 'Entradas por dia' }) {
@@ -21,7 +21,7 @@ export function DailyBars({ data, label = 'Entradas por dia' }) {
       {table ? (
         <div className="max-h-56 overflow-y-auto text-sm">
           {data.filter((d) => d.value).map((d) => (
-            <div key={d.date} className="flex justify-between border-b border-nude-100 py-1"><span>{fmtShort(d.date)}</span><span className="tabular-nums">{brl(d.value)}</span></div>
+            <div key={d.date} className="flex justify-between border-b border-mist-100 py-1"><span>{fmtShort(d.date)}</span><span className="tabular-nums">{brl(d.value)}</span></div>
           ))}
           <div className="flex justify-between py-1 font-medium"><span>Total</span><span className="tabular-nums">{brl(total)}</span></div>
         </div>
@@ -40,7 +40,7 @@ export function DailyBars({ data, label = 'Entradas por dia' }) {
               </div>
             ))}
           </div>
-          <div className="mt-1 flex justify-between border-t border-nude-200 pt-1 text-[11px] text-graphite-400">
+          <div className="mt-1 flex justify-between border-t border-mist-200 pt-1 text-[11px] text-graphite-400">
             <span>{fmtShort(data[0].date)}</span><span>{fmtShort(data[Math.floor(data.length / 2)].date)}</span><span>{fmtShort(data.at(-1).date)}</span>
           </div>
           {hover !== null && (
@@ -68,7 +68,7 @@ export function RankBars({ items }) {
             <span className="truncate text-graphite-700">{i.label}</span>
             <span className="shrink-0 tabular-nums text-graphite-500">{i.detail} · <b className="text-graphite-800">{brl(i.value)}</b></span>
           </div>
-          <div className="h-2 rounded-full bg-nude-100">
+          <div className="h-2 rounded-full bg-mist-100">
             <div className="h-2 rounded-full" style={{ width: `${(i.value / max) * 100}%`, background: BAR }} />
           </div>
         </div>

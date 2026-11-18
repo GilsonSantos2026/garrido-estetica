@@ -35,11 +35,11 @@ export default function MyAppointments({ user, onReschedule, onNew }) {
               return (
                 <Card key={p.id} className="p-4">
                   <div className="flex items-start justify-between gap-2">
-                    <div className="flex items-center gap-2 font-medium"><Package className="h-4 w-4 text-rose-500" />{L.service(p.serviceId).name}</div>
-                    <span className="font-serif text-2xl font-bold text-rose-700">{bal}<span className="text-sm text-graphite-400">/{p.totalSessions}</span></span>
+                    <div className="flex items-center gap-2 font-medium"><Package className="h-4 w-4 text-brand-500" />{L.service(p.serviceId).name}</div>
+                    <span className="font-serif text-2xl font-bold text-brand-700">{bal}<span className="text-sm text-graphite-400">/{p.totalSessions}</span></span>
                   </div>
                   <div className="mt-2 flex gap-1">
-                    {Array.from({ length: p.totalSessions }, (_, i) => <span key={i} className={`h-2 flex-1 rounded-full ${i < p.usedSessions ? 'bg-graphite-300' : 'bg-rose-400'}`} />)}
+                    {Array.from({ length: p.totalSessions }, (_, i) => <span key={i} className={`h-2 flex-1 rounded-full ${i < p.usedSessions ? 'bg-graphite-300' : 'bg-brand-400'}`} />)}
                   </div>
                   <div className="mt-2 text-xs text-graphite-500">{bal ? `${bal} sessões disponíveis` : 'Pacote concluído'}{p.expiresAt && ` · válido até ${fmtBR(p.expiresAt)}`}</div>
                 </Card>
@@ -93,7 +93,7 @@ export default function MyAppointments({ user, onReschedule, onNew }) {
       {past.length > 0 && (
         <>
           <SectionTitle>Histórico</SectionTitle>
-          <Card className="divide-y divide-nude-100">
+          <Card className="divide-y divide-mist-100">
             {past.slice(0, 15).map((a) => (
               <div key={a.id} className="flex items-center justify-between gap-3 px-4 py-3 text-sm">
                 <div><div className="font-medium">{L.service(a.serviceId).name}</div><div className="text-xs text-graphite-500">{fmtBR(a.date)} · {a.start} · {L.professional(a.professionalId).name}</div></div>
