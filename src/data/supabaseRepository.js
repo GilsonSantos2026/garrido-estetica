@@ -104,7 +104,14 @@ export function createSupabaseRepository(client) {
     async commit(ops) {
       // Operações em sequência. Ações compostas (concluir = status + caixa + pacote) devem virar
       // funções RPC transacionais quando o volume crescer; os gatilhos do banco já validam as regras.
+      // Agendamento pelo link (visitante sem login): uma função segura do banco faz tudo de uma vez
+      if (ops[0]?.op === 'rpc' && ops[0].covers) {
+        const { error } = await client.rpc(ops[0].fn, ops[0].args);
+        if (error) throw new Error(friendly(error));
+        return;
+      }
       for (const o of ops) {
+        if (o.op === 'rpc') continue;
         if (o.op === 'settings') {
           const { businessHours, ...rest } = o.patch;
           if (Object.keys(rest).length) {

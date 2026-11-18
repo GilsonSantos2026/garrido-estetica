@@ -103,8 +103,8 @@
     <p>Passo a passo de cada atendimento no aplicativo: do agendamento online até o lançamento no caixa, com o que a cliente faz, o que a clínica faz e o que o sistema faz sozinho.</p>
   </div>
   <div class="capa-indice">
-    <div><b>1. Quem faz o quê</b><span>Portal da cliente × painel da clínica</span></div>
-    <div><b>2. Antes do atendimento</b><span>Agendar, confirmar, lembrar, remarcar</span></div>
+    <div><b>1. Quem faz o quê</b><span>Link da cliente × painel da clínica</span></div>
+    <div><b>2. Antes do atendimento</b><span>Enviar o link, agendar, confirmar, lembrar</span></div>
     <div><b>3. No dia do atendimento</b><span>Chegada, ficha, sessão e fotos</span></div>
     <div><b>4. Ao finalizar</b><span>Concluir, receber e baixar pacote</span></div>
     <div><b>5. Situações do dia a dia</b><span>Falta, cancelamento, encaixe, pacote</span></div>
@@ -117,44 +117,44 @@
 <section class="pagina">
   <div class="kicker">Parte 1</div>
   <h2>Quem faz o quê</h2>
-  <p class="lead">O mesmo aplicativo tem duas áreas. No topo da tela, o botão <span class="ui">Alternar visão: Profissional / Cliente</span> troca entre elas.</p>
+  <p class="lead">A profissional manda o <b>link da agenda dela</b> pelo WhatsApp. A cliente abre, escolhe o horário e pronto: sem baixar nada, sem cadastro e sem senha.</p>
 
   <div class="papeis">
     <div class="papel cli">
-      <h3><span class="ico">C</span>Cliente · Portal de agendamento</h3>
-      <p>Abre o link da clínica no celular, sem instalar nada.</p>
+      <h3><span class="ico">C</span>Cliente · Pelo link</h3>
+      <p>Abre o link que recebeu no WhatsApp, no próprio celular.</p>
       <ul>
-        <li>Escolhe procedimento, profissional, dia e horário</li>
-        <li>Cria a conta na primeira vez (nome, WhatsApp, e-mail, nascimento e senha)</li>
-        <li>Aceita o termo de consentimento quando o procedimento exige</li>
-        <li>Em <span class="ui">Meus agendamentos</span>: vê os horários, remarca ou cancela e acompanha o saldo de pacotes</li>
+        <li>Toca no procedimento (às vezes ele já vem escolhido no link)</li>
+        <li>Toca no dia e no horário livre</li>
+        <li>Digita <b>só nome e WhatsApp</b> e confirma</li>
+        <li>Para remarcar ou cancelar, chama a profissional no WhatsApp</li>
       </ul>
     </div>
     <div class="papel pro">
       <h3><span class="ico">P</span>Profissional · Painel da clínica</h3>
-      <p>Acesso com login da equipe. Menu: Agenda, Clientes, Espera, Pacotes, Financeiro e Dados.</p>
+      <p>Menu simples: <b>Agenda, Clientes, Caixa e Mais</b>.</p>
       <ul>
-        <li>Recebe os agendamentos online e lança os feitos por telefone ou balcão</li>
-        <li>Confirma e lembra pelo WhatsApp com um toque</li>
-        <li>Preenche anamnese, termo, fotos e evolução da sessão</li>
-        <li>Conclui o atendimento e registra o pagamento, que vai direto para o caixa</li>
+        <li>Envia o link com o botão <span class="ui">Enviar minha agenda</span></li>
+        <li>Vê na agenda quem marcou, confirma e lembra pelo WhatsApp</li>
+        <li>Preenche ficha, termo e fotos no atendimento</li>
+        <li>Conclui e registra o pagamento, que vai direto para o caixa</li>
       </ul>
     </div>
   </div>
 
   <h3>A jornada de um atendimento</h3>
   <div class="fases">
-    <div class="fase"><b>1</b>Agendamento</div>
+    <div class="fase"><b>1</b>Link e horário</div>
     <div class="fase"><b>2</b>Confirmação</div>
     <div class="fase"><b>3</b>Chegada</div>
     <div class="fase"><b>4</b>Atendimento</div>
     <div class="fase"><b>5</b>Pagamento</div>
   </div>
 
-  <div class="caixa info"><b>Cores na agenda.</b> Agendamentos feitos pela própria cliente no portal aparecem com a faixa <b>azul</b> (online). Os lançados pela clínica aparecem com a faixa <b>cinza</b> (interno). Assim a profissional sabe na hora o que chegou pela internet.</div>
+  <div class="caixa info"><b>Cores na agenda.</b> Agendamentos feitos pela própria cliente no link aparecem com a faixa <b>azul</b> (online). Os lançados pela clínica aparecem com a faixa <b>cinza</b> (interno). Assim a profissional sabe na hora o que chegou pela internet.</div>
 
   <h3>Legenda dos passos</h3>
-  <p><span class="tag cli">Cliente</span> o que a cliente faz no portal &nbsp; <span class="tag pro">Clínica</span> o que a profissional faz no painel &nbsp; <span class="tag auto">Automático</span> o que o sistema faz sozinho</p>
+  <p><span class="tag cli">Cliente</span> o que a cliente faz no link &nbsp; <span class="tag pro">Clínica</span> o que a profissional faz no painel &nbsp; <span class="tag auto">Automático</span> o que o sistema faz sozinho</p>
 </section>
 
 <!-- ============ 2. ANTES ============ -->
@@ -163,52 +163,43 @@
   <h2>Antes do atendimento</h2>
 
   <div class="passo"><div class="num">1</div><div>
-    <h3><span class="tag cli">Cliente</span>Agenda pelo portal</h3>
-    <ul>
-      <li>Abre o link e toca em <span class="ui">Agendar</span>. Escolhe o procedimento (valor e duração aparecem no cartão).</li>
-      <li>Se mais de uma profissional faz o procedimento, escolhe uma ou <span class="ui">Sem preferência</span>.</li>
-      <li>No calendário, só os dias com vaga ficam destacados. Ao tocar no dia, aparecem os horários livres separados em manhã, tarde e noite.</li>
-      <li>Na confirmação, cria a conta (na primeira vez) e, em procedimentos invasivos como peeling e microagulhamento, marca o aceite do <b>termo de consentimento</b>.</li>
-      <li>Toca em <span class="ui">Confirmar agendamento</span>.</li>
-    </ul>
+    <h3><span class="tag pro">Clínica</span>Envia o link da agenda</h3>
+    <p>Na <span class="ui">Agenda</span> (ou em <span class="ui">Mais</span>), toque em <span class="ui">Enviar minha agenda</span>. Se quiser, escolha um procedimento para a cliente já cair no calendário dele. Depois <span class="ui">Enviar pelo WhatsApp</span> (escolhe o contato) ou <span class="ui">Copiar link</span> (para Instagram, status…). Na ficha da cliente, <span class="ui">Enviar link da agenda</span> manda direto para ela.</p>
+    <div class="msg">“Oi! 😊 Aqui é a Larissa, da Garrido Estética. Escolha o melhor horário direto na minha agenda: gilsonsantos2026.github.io/garrido-estetica/#agendar”</div>
   </div></div>
 
   <div class="passo"><div class="num">2</div><div>
-    <h3><span class="tag auto">Automático</span>O sistema garante o horário</h3>
+    <h3><span class="tag cli">Cliente</span>Escolhe o horário em 3 toques</h3>
     <ul>
-      <li>Calcula as vagas pelo horário de funcionamento, almoço, folgas da profissional, duração do procedimento e agendamentos que já existem.</li>
-      <li>Bloqueia horário duplicado: se duas pessoas tentarem o mesmo horário ao mesmo tempo, só a primeira consegue.</li>
-      <li>O agendamento entra como <span class="st ag">Agendado</span>, marcado como <b>online</b>, e aparece na agenda da clínica.</li>
+      <li>Toca no procedimento (valor e duração aparecem no cartão).</li>
+      <li>No calendário, só os dias com vaga ficam destacados. Toca no dia e depois no horário.</li>
+      <li>Digita <b>nome e WhatsApp</b> e toca em <span class="ui">Confirmar agendamento</span>. Em peeling e microagulhamento, marca também o aceite do <b>termo de consentimento</b>.</li>
+      <li>Na tela final, o botão <span class="ui">Avisar a profissional no WhatsApp</span> manda o resumo do horário.</li>
+    </ul>
+  </div></div>
+
+  <div class="passo"><div class="num">3</div><div>
+    <h3><span class="tag auto">Automático</span>O sistema guarda o horário</h3>
+    <ul>
+      <li>Só oferece horários realmente livres (funcionamento, almoço, folgas, duração e outros agendamentos).</li>
+      <li>O mesmo WhatsApp sempre cai na <b>mesma ficha</b>: quem volta não vira cadastro repetido.</li>
+      <li>O horário entra como <span class="st ag">Agendado</span>, com a faixa azul de “online”, na agenda da profissional.</li>
     </ul>
   </div></div>
 
   <div class="passo"><div class="num">↺</div><div>
     <h3><span class="tag pro">Clínica</span>Ou: a clínica agenda pela cliente</h3>
-    <p>Para quem marca por telefone, WhatsApp ou no balcão: <span class="ui">Agenda → Novo agendamento</span> → busca ou cadastra a cliente → procedimento → profissional → data → toca num horário livre. Para um encaixe fora da grade, marque <span class="ui">encaixe manual</span> e digite a hora.</p>
-  </div></div>
-
-  <div class="passo"><div class="num">3</div><div>
-    <h3><span class="tag pro">Clínica</span>Pede a confirmação (na véspera)</h3>
-    <ul>
-      <li>Na <span class="ui">Agenda → Lista</span>, cada atendimento tem o botão verde <span class="ui">WhatsApp</span>, que abre a conversa com a mensagem pronta:</li>
-    </ul>
-    <div class="msg">“Olá, Marina! Aqui é da Garrido Estética. Confirmando seu horário de Limpeza de pele profunda em quinta-feira, 20 de novembro às 14:00. Podemos confirmar? Responda SIM 💗”</div>
-    <ul><li>Quando a cliente responder, toque em <span class="ui">Confirmar</span>: o status vira <span class="st co">Confirmado</span>.</li></ul>
+    <p>Para quem prefere marcar por mensagem ou no balcão: <span class="ui">Agenda → Novo agendamento</span> → cliente → procedimento → data → horário livre. Para um encaixe fora da grade, marque <span class="ui">encaixe manual</span>.</p>
   </div></div>
 
   <div class="passo"><div class="num">4</div><div>
-    <h3><span class="tag pro">Clínica</span>Envia o lembrete (no dia)</h3>
-    <p>Para quem já confirmou, o mesmo botão <span class="ui">WhatsApp</span> envia o lembrete:</p>
-    <div class="msg">“Oi, Marina! Passando para lembrar do seu Limpeza de pele profunda hoje às 14:00 na Garrido Estética. Até logo! ✨”</div>
+    <h3><span class="tag pro">Clínica</span>Confirma na véspera e lembra no dia</h3>
+    <p>Na <span class="ui">Agenda</span>, o botão verde <span class="ui">WhatsApp</span> de cada horário abre a mensagem pronta. Quando a cliente responder, toque em <span class="ui">Confirmar</span> (<span class="st co">Confirmado</span>); no dia, o mesmo botão envia o lembrete.</p>
   </div></div>
 
   <div class="passo"><div class="num">5</div><div>
-    <h3><span class="tag cli">Cliente</span>Se precisar, remarca ou cancela</h3>
-    <ul>
-      <li>Em <span class="ui">Meus agendamentos</span>: <span class="ui">Remarcar</span> (escolhe outro dia e horário livre) ou <span class="ui">Cancelar</span>.</li>
-      <li>Só é possível pelo portal com <b>pelo menos 24 horas</b> de antecedência. Depois disso aparece o botão <span class="ui">Falar com a clínica</span> (WhatsApp).</li>
-      <li>Ao cancelar, o horário volta a ficar livre na hora, para outra cliente ou para um encaixe da lista de espera.</li>
-    </ul>
+    <h3><span class="tag cli">Cliente</span>Precisa remarcar ou cancelar?</h3>
+    <p>Ela chama a profissional no WhatsApp. A profissional abre o horário na agenda e toca em <span class="ui">Remarcar</span> ou <span class="ui">Cancelar</span>; o horário livre volta na hora para outra cliente ou para a lista de espera.</p>
   </div></div>
 </section>
 
@@ -236,7 +227,7 @@
       <tr><td><b>Antes e depois</b></td><td><span class="ui">Adicionar foto</span> (abre a câmera): marque “Antes”, a área e a data.</td></tr>
       <tr><td><b>Resumo</b></td><td>Ficha rápida: alergias e anotações de preferências, sempre à mão.</td></tr>
     </table>
-    <div class="caixa alerta"><b>Termo de consentimento.</b> Se a cliente aceitou o termo ao agendar pelo portal, ele já aparece na aba Termos como “portal”. Se não, registre na clínica antes de procedimentos invasivos.</div>
+    <div class="caixa alerta"><b>Termo de consentimento.</b> Se a cliente aceitou o termo ao agendar pelo link, ele já aparece na aba Termos como “portal”. Se não, registre na clínica antes de procedimentos invasivos.</div>
   </div></div>
 
   <div class="passo"><div class="num">8</div><div>
@@ -267,9 +258,9 @@
     <h3><span class="tag auto">Automático</span>Depois do “Concluir”</h3>
     <ul>
       <li>O status vira <span class="st cn">Concluído</span> e o atendimento conta na ficha da cliente (visitas e total investido).</li>
-      <li>O <span class="ui">Financeiro</span> atualiza receitas do dia e do mês, resultado e ticket médio.</li>
-      <li>Em <span class="ui">Dados</span> entram os procedimentos mais rentáveis e a taxa de faltas.</li>
-      <li>No portal, a cliente vê o atendimento no histórico e o novo saldo do pacote.</li>
+      <li>O <span class="ui">Caixa</span> atualiza receitas do dia e do mês, resultado e ticket médio.</li>
+      <li>Em <span class="ui">Mais → Relatórios</span> entram os procedimentos mais rentáveis e a taxa de faltas.</li>
+      <li>Se for pacote, a sessão é baixada e o saldo aparece em <span class="ui">Mais → Pacotes</span>.</li>
     </ul>
   </div></div>
 
@@ -287,7 +278,7 @@
   </div>
   <table>
     <tr><th style="width:24%">Status</th><th style="width:38%">Quando usar</th><th>Efeito</th></tr>
-    <tr><td><span class="st ag">Agendado</span></td><td>Acabou de ser marcado (portal ou clínica)</td><td>Ocupa o horário na agenda</td></tr>
+    <tr><td><span class="st ag">Agendado</span></td><td>Acabou de ser marcado (pelo link ou pela clínica)</td><td>Ocupa o horário na agenda</td></tr>
     <tr><td><span class="st co">Confirmado</span></td><td>A cliente respondeu à confirmação</td><td>Botão de WhatsApp passa a enviar lembrete</td></tr>
     <tr><td><span class="st em">Em atendimento</span></td><td>A cliente chegou e a sessão começou</td><td>Mostra quem está na sala agora</td></tr>
     <tr><td><span class="st cn">Concluído</span></td><td>Sessão terminada e paga (ou abatida do pacote)</td><td>Lança no caixa ou baixa o pacote</td></tr>
@@ -306,14 +297,14 @@
       <h3><span class="ico">!</span>A cliente faltou</h3>
       <ol>
         <li>Abra o atendimento e toque em <span class="ui">Faltou</span>.</li>
-        <li>O horário fica livre e a falta aparece na ficha dela e em <span class="ui">Dados</span>.</li>
+        <li>O horário fica livre e a falta aparece na ficha dela e em <span class="ui">Mais → Relatórios</span>.</li>
         <li>Se quiser, use o botão de WhatsApp da ficha para remarcar.</li>
       </ol>
     </div>
     <div class="cartao">
       <h3><span class="ico">+</span>Desistência: encaixar alguém</h3>
       <ol>
-        <li>Menu <span class="ui">Espera</span>: cada pessoa da lista mostra se há <b>vaga compatível</b> hoje ou amanhã.</li>
+        <li><span class="ui">Mais → Lista de espera</span>: cada pessoa da lista mostra se há <b>vaga compatível</b> hoje ou amanhã.</li>
         <li><span class="ui">Avisar vaga</span> abre o WhatsApp com a mensagem pronta.</li>
         <li>Se ela aceitar, toque em <span class="ui">Encaixar</span> e escolha o horário. Ela sai da lista e, se não tinha cadastro, vira cliente.</li>
       </ol>
@@ -321,30 +312,30 @@
     <div class="cartao">
       <h3><span class="ico">10×</span>Venda de pacote</h3>
       <ol>
-        <li>Menu <span class="ui">Pacotes → Vender pacote</span>: cliente, pacote (ex.: Drenagem – 10 sessões), valor e forma de pagamento.</li>
+        <li><span class="ui">Mais → Pacotes → Vender pacote</span>: cliente, pacote (ex.: Drenagem – 10 sessões), valor e forma de pagamento.</li>
         <li>O valor entra no caixa no dia da venda.</li>
-        <li>A cada atendimento concluído com <span class="ui">Abater de pacote</span>, baixa uma sessão. A cliente vê o saldo no portal.</li>
+        <li>A cada atendimento concluído com <span class="ui">Abater de pacote</span>, baixa uma sessão e o saldo se atualiza.</li>
       </ol>
     </div>
     <div class="cartao">
       <h3><span class="ico">↻</span>Cliente pediu para remarcar</h3>
       <ol>
-        <li>Faltando mais de 24 h, ela mesma remarca pelo portal.</li>
-        <li>Faltando menos, abra o atendimento na agenda e toque em <span class="ui">Remarcar</span>: escolha a nova data e o horário.</li>
+        <li>Ela avisa pelo WhatsApp.</li>
+        <li>Abra o horário na agenda, toque em <span class="ui">Remarcar</span> e escolha a nova data. Se ela preferir escolher sozinha, mande o link da agenda de novo.</li>
       </ol>
     </div>
     <div class="cartao">
       <h3><span class="ico">R$</span>Despesas e contas</h3>
       <ol>
-        <li><span class="ui">Financeiro → Lançar despesa</span>: descrição, categoria (insumos, aluguel, comissões…), valor e data.</li>
+        <li><span class="ui">Caixa → Lançar despesa</span>: descrição, categoria (insumos, aluguel, comissões…), valor e data.</li>
         <li>Marque <b>“A pagar”</b> para uma conta futura: ela aparece em <span class="ui">Contas a pagar</span> e, ao pagar, toque em <span class="ui">Paguei</span>.</li>
       </ol>
     </div>
     <div class="cartao">
       <h3><span class="ico">—</span>Folga ou curso da profissional</h3>
       <ol>
-        <li><span class="ui">Ajustes → Equipe e bloqueios → Bloquear horário</span>: profissional, data, início, fim e motivo.</li>
-        <li>O portal deixa de oferecer esses horários na hora.</li>
+        <li><span class="ui">Mais → Ajustes → Equipe e bloqueios → Bloquear horário</span>: profissional, data, início, fim e motivo.</li>
+        <li>O link deixa de oferecer esses horários na hora.</li>
       </ol>
     </div>
   </div>
@@ -354,13 +345,13 @@
 <section class="pagina">
   <div class="kicker">Parte 6</div>
   <h2>Regras da agenda</h2>
-  <p class="lead">Valores atuais, todos ajustáveis em <span class="ui">Dados → Abrir ajustes → Clínica e regras</span>.</p>
+  <p class="lead">Valores atuais, todos ajustáveis em <span class="ui">Mais → Ajustes → Clínica e regras</span>.</p>
   <table>
     <tr><th style="width:36%">Regra</th><th style="width:18%">Valor</th><th>O que significa</th></tr>
-    <tr><td>Grade de horários</td><td><b>15 min</b></td><td>O portal oferece horários de 15 em 15 minutos (09:00, 09:15, 09:30…)</td></tr>
+    <tr><td>Grade de horários</td><td><b>15 min</b></td><td>O link oferece horários de 15 em 15 minutos (09:00, 09:15, 09:30…)</td></tr>
     <tr><td>Folga entre atendimentos</td><td><b>10 min</b></td><td>Tempo livre reservado depois de cada sessão para limpar e preparar a sala</td></tr>
     <tr><td>Antecedência mínima para agendar online</td><td><b>60 min</b></td><td>A cliente não consegue marcar para daqui a menos de uma hora</td></tr>
-    <tr><td>Cancelar ou remarcar pelo portal</td><td><b>até 24 h antes</b></td><td>Depois disso, só pela clínica (botão de WhatsApp no portal)</td></tr>
+    <tr><td>Cadastro da cliente</td><td><b>nome + WhatsApp</b></td><td>Sem e-mail e sem senha; o mesmo WhatsApp cai sempre na mesma ficha</td></tr>
     <tr><td>Janela de agendamento</td><td><b>60 dias</b></td><td>A cliente vê e marca horários até dois meses à frente</td></tr>
     <tr><td>Horário de funcionamento</td><td><b>Seg–Sex 9h–19h</b><br>Sáb 9h–14h</td><td>Almoço das 12h às 13h nos dias úteis; domingo fechado (ajuste em <span class="ui">Horário de funcionamento</span>)</td></tr>
   </table>
@@ -368,16 +359,16 @@
   <h3>Resumo de um atendimento em 10 passos</h3>
   <table>
     <tr><th style="width:8%">#</th><th style="width:18%">Quem</th><th>Ação</th></tr>
-    <tr><td>1</td><td><span class="tag cli">Cliente</span></td><td>Agenda pelo portal (ou <span class="tag pro">Clínica</span> lança no painel)</td></tr>
-    <tr><td>2</td><td><span class="tag auto">Sistema</span></td><td>Garante o horário e mostra na agenda como Agendado</td></tr>
+    <tr><td>1</td><td><span class="tag pro">Clínica</span></td><td>Envia o link da agenda pelo WhatsApp</td></tr>
+    <tr><td>2</td><td><span class="tag cli">Cliente</span></td><td>Escolhe procedimento, dia e horário e digita nome e WhatsApp</td></tr>
     <tr><td>3</td><td><span class="tag pro">Clínica</span></td><td>Véspera: WhatsApp de confirmação → <span class="ui">Confirmar</span></td></tr>
     <tr><td>4</td><td><span class="tag pro">Clínica</span></td><td>No dia: WhatsApp de lembrete</td></tr>
-    <tr><td>5</td><td><span class="tag cli">Cliente</span></td><td>Se precisar, remarca ou cancela (até 24 h antes)</td></tr>
+    <tr><td>5</td><td><span class="tag cli">Cliente</span></td><td>Se precisar remarcar ou cancelar, chama no WhatsApp</td></tr>
     <tr><td>6</td><td><span class="tag pro">Clínica</span></td><td>Chegada: <span class="ui">Iniciar atendimento</span> e conferir alertas da ficha</td></tr>
     <tr><td>7</td><td><span class="tag pro">Clínica</span></td><td>1ª visita: anamnese, termo assinado e foto “antes”</td></tr>
     <tr><td>8</td><td><span class="tag pro">Clínica</span></td><td>Registrar a sessão (protocolo) e foto “depois”</td></tr>
     <tr><td>9</td><td><span class="tag pro">Clínica</span></td><td><span class="ui">Concluir e receber</span>: forma de pagamento ou abater pacote</td></tr>
-    <tr><td>10</td><td><span class="tag auto">Sistema</span></td><td>Lança no caixa, atualiza ficha, financeiro, dados e saldo do pacote</td></tr>
+    <tr><td>10</td><td><span class="tag auto">Sistema</span></td><td>Lança no caixa, atualiza ficha, relatórios e saldo do pacote</td></tr>
   </table>
 
   <div class="caixa info"><b>Versão de teste × uso real.</b> No link dos testadores, os dados são fictícios e ficam só no aparelho de cada pessoa. No app ligado ao banco de dados da clínica, tudo fica salvo na nuvem: o que a cliente agenda no celular aparece na hora no painel da clínica.</div>

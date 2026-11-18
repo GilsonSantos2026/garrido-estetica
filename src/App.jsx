@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Briefcase, UserRound, Sparkles, RotateCcw, FlaskConical, Database, LogOut, AlertTriangle } from 'lucide-react';
 import { useStore } from './store/StoreContext.jsx';
 import { Button, Segmented, Toasts } from './components/ui.jsx';
@@ -16,9 +16,23 @@ const readView = () => {
 };
 export const isStaff = (session) => ['admin', 'professional'].includes(session?.role);
 
+/** Link de agendamento enviado pelo WhatsApp: #agendar ou #agendar?p=<profissional>&s=<procedimento> */
+export function readBookingLink(hash = window.location.hash) {
+  const m = hash.match(/^#agendar(?:\?(.*))?$/);
+  if (!m) return null;
+  const q = new URLSearchParams(m[1] || '');
+  return { professionalId: q.get('p') || null, serviceId: q.get('s') || null };
+}
+
 export default function App() {
   const { db, toasts, act, backendKind, session, authApi, loadError } = useStore();
   const [view, setView] = useState(readView);
+  const [link, setLink] = useState(() => readBookingLink());
+  useEffect(() => {
+    const onHash = () => setLink(readBookingLink());
+    window.addEventListener('hashchange', onHash);
+    return () => window.removeEventListener('hashchange', onHash);
+  }, []);
 
   const changeView = (v) => {
     setView(v);
@@ -45,7 +59,10 @@ export default function App() {
   }
 
   // No banco real, o painel exige login de equipe. No protótipo, fica aberto para testes.
-  const needsStaffLogin = backendKind === 'supabase' && view === 'admin' && !isStaff(session);
+  // Quem chega pelo link da agenda vê só o agendamento, sem o botão de trocar para o painel.
+  const linkMode = Boolean(link);
+  const shownView = linkMode ? 'client' : view;
+  const needsStaffLogin = backendKind === 'supabase' && shownView === 'admin' && !isStaff(session);
 
   return (
     <div className="min-h-screen">
@@ -54,16 +71,16 @@ export default function App() {
           <div className="min-w-0 leading-tight">
             <div className="truncate font-serif text-xl font-bold text-brand-500"><span aria-hidden="true">✿ </span>{db.settings.clinicName}</div>
             <div className="hidden text-[11px] text-graphite-400 sm:block">
-              {view === 'admin' ? 'Painel da clínica' : 'Agendamento online'} · {new Date().toLocaleDateString('pt-BR', { day: 'numeric', month: 'short' }).replace('.', '')}
+              {shownView === 'admin' ? 'Painel da clínica' : 'Agendamento online'} · {new Date().toLocaleDateString('pt-BR', { day: 'numeric', month: 'short' }).replace('.', '')}
             </div>
           </div>
-          <div className="flex w-full items-center gap-2 sm:w-auto">
+          {!linkMode && <div className="flex w-full items-center gap-2 sm:w-auto">
             <span className="text-xs text-graphite-400">Alternar visão:</span>
             <Segmented
               value={view} onChange={changeView} size="sm" className="ml-auto sm:ml-0"
               options={[{ value: 'admin', label: 'Profissional', icon: Briefcase }, { value: 'client', label: 'Cliente', icon: UserRound }]}
             />
-          </div>
+          </div>}
         </div>
         {backendKind === 'local' ? (
           <div className="flex items-center justify-center gap-2 bg-brand-50 px-4 py-1 text-[11px] text-brand-700">
@@ -75,14 +92,14 @@ export default function App() {
         ) : (
           <div className="flex items-center justify-center gap-2 bg-emerald-50 px-4 py-1 text-[11px] text-emerald-800">
             <Database className="h-3.5 w-3.5" /> Conectado ao banco de dados
-            {isStaff(session) && view === 'admin' && (
+            {isStaff(session) && shownView === 'admin' && (
               <button type="button" className="inline-flex items-center gap-1 underline" onClick={authApi.signOut}><LogOut className="h-3 w-3" />sair ({session.email})</button>
             )}
           </div>
         )}
       </header>
 
-      {view === 'client' ? <PortalApp /> : needsStaffLogin ? <StaffLogin /> : <AdminApp />}
+      {shownView === 'client' ? <PortalApp preset={link || {}} /> : needsStaffLogin ? <StaffLogin /> : <AdminApp />}
       <Toasts toasts={toasts} />
     </div>
   );

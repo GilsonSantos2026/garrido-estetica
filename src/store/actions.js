@@ -119,6 +119,42 @@ export function assertCanChange(db, a) {
   }
 }
 
+// ===== Agendamento pelo link (sem conta, só nome e WhatsApp) =====
+
+export const onlyDigits = (s) => String(s || '').replace(/\D/g, '');
+
+/**
+ * A cliente abre o link da agenda, escolhe o horário e informa só nome e WhatsApp.
+ * Se já existe ficha com esse WhatsApp, o agendamento entra nela; senão cria a ficha.
+ * O primeiro op ("rpc") permite ao banco real fazer tudo numa função segura (public_book),
+ * já que a visitante não tem login; no modo protótipo ele é ignorado e valem os demais ops.
+ */
+export function bookByLink(db, { name, whatsapp, serviceId, professionalId, date, start, notes = '', consent = false }) {
+  const nome = (name || '').trim();
+  const phone = onlyDigits(whatsapp);
+  if (nome.length < 2) throw new AppError('Informe seu nome.');
+  if (phone.length < 10 || phone.length > 11) throw new AppError('Informe o WhatsApp com DDD (ex.: 14 99999-9999).');
+  const service = need(get(db, 'services', serviceId), 'Escolha o procedimento.');
+  if (service.requiresConsent && !consent) throw new AppError('Para este procedimento é preciso aceitar o termo de consentimento.');
+
+  const ops = [];
+  let client = db.clients.find((c) => onlyDigits(c.whatsapp) === phone);
+  if (!client) {
+    client = { id: uid(), name: nome, whatsapp: phone, email: '', birthDate: '', notes: 'Agendou pelo link', createdAt: todayISO() };
+    ops.push({ op: 'insert', table: 'clients', row: client });
+  }
+  const { ops: aOps, result: appt } = createAppointment(db, { clientId: client.id, serviceId, professionalId, date, start, source: 'online', notes });
+  ops.push(...aOps);
+  if (service.requiresConsent) {
+    ops.push({ op: 'insert', table: 'consentTerms', row: { id: uid(), clientId: client.id, serviceId, appointmentId: appt.id, termText: db.settings.consentText, signature: null, acceptedAt: nowStamp(), acceptedVia: 'portal' } });
+  }
+  ops.unshift({ op: 'rpc', fn: 'public_book', covers: true, args: {
+    p_appointment_id: appt.id, p_client_id: client.id, p_name: nome, p_whatsapp: phone, p_service_id: serviceId,
+    p_professional_id: professionalId, p_date: date, p_start: start, p_notes: notes, p_consent: !!consent,
+  } });
+  return ok(ops, { appointment: appt, client });
+}
+
 // ===== Clientes, portal e prontuário =====
 
 export function createClient(db, { name, whatsapp = '', email = '', birthDate = '', notes = '' }) {

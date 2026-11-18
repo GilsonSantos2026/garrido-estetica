@@ -24,3 +24,20 @@ export const msgSlotOpen = (clinic, name, service, when) =>
   `Oi, ${firstName(name)}! Abriu um horário de ${service.name} na ${clinic}${when ? ` ${when}` : ''}. Quer que eu reserve para você? 💗`;
 
 export const periodOf = (hhmm) => (hhmm < '12:00' ? 'Manhã' : hhmm < '18:00' ? 'Tarde' : 'Noite');
+
+// ===== Link da agenda (enviado pela profissional no WhatsApp) =====
+// Endereço público do app. No APK (Capacitor) o endereço local não serve para outras pessoas,
+// então o link sempre aponta para o site publicado (ou para VITE_PUBLIC_URL, se configurado).
+export const PUBLIC_URL = (import.meta.env?.VITE_PUBLIC_URL || 'https://gilsonsantos2026.github.io/garrido-estetica/').replace(/\/?$/, '/');
+
+export function bookingLink({ professionalId, serviceId } = {}) {
+  const q = new URLSearchParams();
+  if (professionalId) q.set('p', professionalId);
+  if (serviceId) q.set('s', serviceId);
+  const qs = q.toString();
+  return `${PUBLIC_URL}#agendar${qs ? `?${qs}` : ''}`;
+}
+
+export const msgAgendaLink = ({ clinic, professional, service, client, link }) =>
+  `${client ? `Oi, ${firstName(client.name)}! ` : 'Oi! '}😊 ${professional ? `Aqui é a ${firstName(professional.name)}, da ${clinic}.` : `Aqui é da ${clinic}.`} `
+  + `Escolha o melhor horário${service ? ` para ${service.name}` : ''} direto na minha agenda: ${link}`;

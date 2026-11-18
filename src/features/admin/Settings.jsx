@@ -131,7 +131,7 @@ function Team() {
   const nameToId = Object.fromEntries(db.services.map((s) => [s.name, s.id]));
   return (
     <>
-      <div className="mb-3 flex justify-end"><Button size="sm" icon={Plus} onClick={() => setEdit({ name: '', title: '', color: '#2f5597', serviceIds: [] })}>Novo profissional</Button></div>
+      <div className="mb-3 flex justify-end"><Button size="sm" icon={Plus} onClick={() => setEdit({ name: '', title: '', whatsapp: '', color: '#2f5597', serviceIds: [] })}>Novo profissional</Button></div>
       <div className="grid gap-3 md:grid-cols-2">
         {db.professionals.map((p) => (
           <Card key={p.id} className="p-4">
@@ -164,6 +164,9 @@ function Team() {
               <Field label="Especialidade"><Input value={edit.title} onChange={(e) => setEdit({ ...edit, title: e.target.value })} /></Field>
               <Field label="Cor"><input type="color" className="h-[42px] w-full rounded-xl border border-mist-300" value={edit.color} onChange={(e) => setEdit({ ...edit, color: e.target.value })} /></Field>
             </div>
+            <Field label="WhatsApp da profissional (opcional)" hint="Recebe o aviso de quem agendou pelo link. Sem ele, vai para o WhatsApp da clínica.">
+              <Input inputMode="tel" value={edit.whatsapp || ''} onChange={(e) => setEdit({ ...edit, whatsapp: e.target.value.replace(/D/g, '') })} placeholder="14999999999" />
+            </Field>
             <Field label="Procedimentos que realiza">
               <Chips options={db.services.map((s) => s.name)} value={edit.serviceIds.map((id) => L.service(id).name)} onChange={(names) => setEdit({ ...edit, serviceIds: names.map((n) => nameToId[n]) })} />
             </Field>

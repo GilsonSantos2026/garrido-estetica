@@ -1,5 +1,5 @@
 import { createContext, useContext, useMemo, useState } from 'react';
-import { CalendarDays, Users, Hourglass, Package, Wallet, Settings, BarChart3 } from 'lucide-react';
+import { CalendarDays, Users, Wallet, LayoutGrid } from 'lucide-react';
 import { useStore } from '../../store/StoreContext.jsx';
 import { todayISO } from '../../domain/time.js';
 import { cx } from '../../components/ui.jsx';
@@ -14,17 +14,17 @@ import Packages from './Packages.jsx';
 import Finance from './Finance.jsx';
 import SettingsPage from './Settings.jsx';
 import Dados from './Dados.jsx';
+import MorePage from './MorePage.jsx';
 
+// Modo simples: só o essencial no menu. O resto fica em "Mais" (pacotes, espera, dados, ajustes).
 const PAGES = [
   { id: 'agenda', label: 'Agenda', icon: CalendarDays },
   { id: 'clientes', label: 'Clientes', icon: Users },
-  { id: 'espera', label: 'Espera', icon: Hourglass },
-  { id: 'pacotes', label: 'Pacotes', icon: Package },
-  { id: 'financeiro', label: 'Financeiro', icon: Wallet },
-  { id: 'dados', label: 'Dados', icon: BarChart3 },
+  { id: 'financeiro', label: 'Caixa', icon: Wallet },
+  { id: 'mais', label: 'Mais', icon: LayoutGrid },
 ];
-// Ajustes: no menu lateral do computador; no celular, pelo botão dentro de Dados
-const SIDE_EXTRA = [{ id: 'config', label: 'Ajustes', icon: Settings }];
+const UNDER_MORE = ['mais', 'espera', 'pacotes', 'dados', 'config'];
+const isActive = (tab, page) => tab === page || (tab === 'mais' && UNDER_MORE.includes(page));
 
 const AdminCtx = createContext(null);
 /** Navegação e diálogos globais do painel: openClient, openAppointment, newAppointment, complete. */
@@ -57,12 +57,12 @@ export default function AdminApp() {
       <div className="mx-auto flex max-w-7xl">
         {/* Menu lateral (computador) */}
         <aside className="sticky top-[86px] hidden h-[calc(100vh-86px)] w-56 shrink-0 flex-col gap-1 border-r border-mist-200 px-3 py-5 lg:flex">
-          {[...PAGES, ...SIDE_EXTRA].map((p) => (
+          {PAGES.map((p) => (
             <button key={p.id} type="button" onClick={() => nav.go(p.id)}
               className={cx('flex items-center gap-3 rounded-xl px-3 py-2.5 text-[15px] font-medium transition',
-                page === p.id ? 'bg-brand-100 text-brand-800' : 'text-graphite-600 hover:bg-mist-100')}>
+                isActive(p.id, page) ? 'bg-brand-100 text-brand-800' : 'text-graphite-600 hover:bg-mist-100')}>
               <p.icon className="h-5 w-5" strokeWidth={1.7} />{p.label}
-              {p.id === 'espera' && pending > 0 && <span className="ml-auto rounded-full bg-brand-500 px-1.5 text-[11px] text-white">{pending}</span>}
+              {p.id === 'mais' && pending > 0 && <span className="ml-auto rounded-full bg-brand-500 px-1.5 text-[11px] text-white" title="Pessoas na lista de espera">{pending}</span>}
             </button>
           ))}
         </aside>
@@ -75,6 +75,7 @@ export default function AdminApp() {
           {page === 'financeiro' && <Finance />}
           {page === 'dados' && <Dados />}
           {page === 'config' && <SettingsPage />}
+          {page === 'mais' && <MorePage />}
         </main>
       </div>
 
@@ -82,9 +83,9 @@ export default function AdminApp() {
       <nav className="fixed inset-x-0 bottom-0 z-40 flex border-t border-mist-200 bg-white/95 backdrop-blur lg:hidden" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
         {PAGES.map((p) => (
           <button key={p.id} type="button" onClick={() => nav.go(p.id)}
-            className={cx('relative flex flex-1 flex-col items-center gap-0.5 py-2 text-[10.5px] font-medium', page === p.id || (p.id === 'dados' && page === 'config') ? 'text-brand-500' : 'text-graphite-400')}>
-            <p.icon className="h-[22px] w-[22px]" strokeWidth={page === p.id ? 2 : 1.6} />{p.label}
-            {p.id === 'espera' && pending > 0 && <span className="absolute right-[calc(50%-18px)] top-1 h-2 w-2 rounded-full bg-brand-500" />}
+            className={cx('relative flex flex-1 flex-col items-center gap-0.5 py-2 text-[11.5px] font-medium', isActive(p.id, page) ? 'text-brand-500' : 'text-graphite-400')}>
+            <p.icon className="h-6 w-6" strokeWidth={isActive(p.id, page) ? 2 : 1.6} />{p.label}
+            {p.id === 'mais' && pending > 0 && <span className="absolute right-[calc(50%-18px)] top-1 h-2 w-2 rounded-full bg-brand-500" />}
           </button>
         ))}
       </nav>

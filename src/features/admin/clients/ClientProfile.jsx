@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowLeft, CalendarPlus, Pencil, Trash2, AlertTriangle, LayoutGrid, ClipboardList, Images, NotebookPen, ShieldCheck, History, Package, Mail, Cake } from 'lucide-react';
+import { ArrowLeft, Send, CalendarPlus, Pencil, Trash2, AlertTriangle, LayoutGrid, ClipboardList, Images, NotebookPen, ShieldCheck, History, Package, Mail, Cake } from 'lucide-react';
 import { useStore, useLookup } from '../../../store/StoreContext.jsx';
 import { useAdmin } from '../AdminApp.jsx';
 import { PAYMENT_METHODS } from '../../../domain/constants.js';
@@ -10,6 +10,7 @@ import AnamnesisForm from './AnamnesisForm.jsx';
 import Gallery from './Gallery.jsx';
 import ConsentTab from './ConsentTab.jsx';
 import SessionNotes from './SessionNotes.jsx';
+import ShareAgenda from '../ShareAgenda.jsx';
 
 export default function ClientProfile({ id, onBack }) {
   const { db, act, tryAct, notify } = useStore();
@@ -17,6 +18,7 @@ export default function ClientProfile({ id, onBack }) {
   const nav = useAdmin();
   const [tab, setTab] = useState('resumo');
   const [editing, setEditing] = useState(false);
+  const [sharing, setSharing] = useState(false);
   const c = db.clients.find((x) => x.id === id);
   const [form, setForm] = useState(c);
   if (!c) return <EmptyState title="Cliente não encontrado" />;
@@ -70,6 +72,7 @@ export default function ClientProfile({ id, onBack }) {
           <div className="flex flex-wrap gap-2">
             <WhatsAppLink phone={c.whatsapp} message={`Olá, ${c.name.split(' ')[0]}! Tudo bem? 💗`} />
             <Button size="sm" icon={CalendarPlus} onClick={() => nav.newAppointment({ clientId: id })}>Agendar</Button>
+            {c.whatsapp && <Button size="sm" variant="soft" icon={Send} onClick={() => setSharing(true)}>Enviar link da agenda</Button>}
             <Button size="sm" variant="outline" icon={Pencil} onClick={() => { setForm(c); setEditing(true); }}>Editar</Button>
           </div>
         </div>
@@ -136,6 +139,7 @@ export default function ClientProfile({ id, onBack }) {
 
       <div className="mt-8 flex justify-end"><Button variant="danger" size="sm" icon={Trash2} onClick={remove}>Excluir cliente</Button></div>
 
+      {sharing && <ShareAgenda client={c} onClose={() => setSharing(false)} />}
       <Modal open={editing} onClose={() => setEditing(false)} title="Editar cliente"
         footer={<><Button variant="ghost" onClick={() => setEditing(false)}>Cancelar</Button><Button onClick={saveEdit}>Salvar</Button></>}>
         {form && (

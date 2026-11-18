@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
-import { ChevronLeft, ChevronRight, Plus, CalendarDays, CalendarRange, List, Globe, Building2 } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Plus, CalendarDays, CalendarRange, List, Globe, Building2, Send } from 'lucide-react';
+import ShareAgenda from '../ShareAgenda.jsx';
 import { useStore, useLookup } from '../../../store/StoreContext.jsx';
 import { useAdmin } from '../AdminApp.jsx';
 import { ACTIVE_STATUS, SOURCE, STATUS } from '../../../domain/constants.js';
@@ -13,6 +14,7 @@ const PX = 1.15; // pixels por minuto na visão de dia
 export default function Agenda() {
   const { db } = useStore();
   const nav = useAdmin();
+  const [sharing, setSharing] = useState(false);
   const date = nav.agendaDate;
   const setDate = nav.setAgendaDate;
   const [mode, setMode] = useState(() => (window.innerWidth < 640 ? 'lista' : 'dia'));
@@ -46,6 +48,7 @@ export default function Agenda() {
 
       <div className="mb-3 flex flex-wrap items-center gap-2">
         <Button icon={Plus} onClick={() => nav.newAppointment({ date })}>Novo agendamento</Button>
+        <Button variant="whatsapp" icon={Send} onClick={() => setSharing(true)}>Enviar minha agenda</Button>
         {date !== today && <Button size="sm" variant="outline" onClick={() => setDate(today)}>Hoje</Button>}
         <input type="date" value={date} onChange={(e) => e.target.value && setDate(e.target.value)} className="hidden rounded-lg border border-mist-300 bg-white px-2 py-1.5 text-sm sm:block" aria-label="Ir para data" />
         <div className="flex w-full flex-wrap items-center gap-2 sm:ml-auto sm:w-auto">
@@ -67,6 +70,7 @@ export default function Agenda() {
       {mode === 'dia' && <DayView date={date} profs={profs} />}
       {mode === 'semana' && <WeekView date={date} profs={profs} />}
       {mode === 'lista' && <ListView date={date} profs={profs} />}
+      {sharing && <ShareAgenda onClose={() => setSharing(false)} />}
     </div>
   );
 }

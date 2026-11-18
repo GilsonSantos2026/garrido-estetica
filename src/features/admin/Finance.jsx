@@ -36,7 +36,7 @@ export default function Finance() {
   return (
     <div>
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-        <div><h1 className="text-3xl font-bold">Financeiro</h1><p className="text-sm text-graphite-500">{fmtMonth(month)}</p></div>
+        <div><h1 className="text-3xl font-bold">Caixa</h1><p className="text-sm text-graphite-500">{fmtMonth(month)}</p></div>
         <div className="flex items-center gap-2">
           <input type="month" value={month} onChange={(e) => e.target.value && setMonth(e.target.value)} className="rounded-lg border border-mist-300 bg-white px-2 py-1.5 text-sm" aria-label="Mês" />
           <Button icon={Plus} onClick={() => setAdding(true)}><span className="sm:hidden">Despesa</span><span className="hidden sm:inline">Lançar despesa</span></Button>

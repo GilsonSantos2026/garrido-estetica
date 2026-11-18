@@ -28,7 +28,7 @@ export default function Dados() {
   return (
     <div>
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-        <div><h1 className="text-3xl">Dados e procedimentos</h1><p className="text-sm text-graphite-500">Entenda o que mais rende · {fmtMonth(month)}</p></div>
+        <div><h1 className="text-3xl">Relatórios</h1><p className="text-sm text-graphite-500">Entenda o que mais rende · {fmtMonth(month)}</p></div>
         <input type="month" value={month} onChange={(e) => e.target.value && setMonth(e.target.value)} className="rounded-lg border border-mist-300 bg-white px-2 py-1.5 text-sm" aria-label="Mês" />
       </div>
 

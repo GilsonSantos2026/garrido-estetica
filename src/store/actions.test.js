@@ -82,3 +82,44 @@ test('venda de pacote entra no caixa', () => {
   const pkg = db.clientPackages.at(-1);
   assert.equal(db.transactions.find((t) => t.clientPackageId === pkg.id).amount, 1000);
 });
+
+// ===== Agendamento pelo link (só nome e WhatsApp) =====
+const nextTuesday = () => { let d = addDays(todayISO(), 7); while (new Date(`${d}T12:00`).getDay() !== 2) d = addDays(d, 1); return d; };
+
+test('link: cliente nova vira ficha com nome e WhatsApp', () => {
+  let db = fresh();
+  const before = db.clients.length;
+  let r;
+  ({ db, result: r } = run(db, A.bookByLink, { name: 'Bia Nova', whatsapp: '(14) 99123-4567', serviceId: 's3', professionalId: 'p1', date: nextTuesday(), start: '07:00' }));
+  assert.equal(db.clients.length, before + 1);
+  assert.equal(r.client.whatsapp, '14991234567');
+  const a = db.appointments.find((x) => x.id === r.appointment.id);
+  assert.equal(a.source, 'online');
+  assert.equal(a.status, 'agendado');
+});
+
+test('link: mesmo WhatsApp cai na ficha que já existe', () => {
+  let db = fresh();
+  const before = db.clients.length;
+  let r;
+  ({ db, result: r } = run(db, A.bookByLink, { name: 'Marina S.', whatsapp: '14 99111-2233', serviceId: 's3', professionalId: 'p1', date: nextTuesday(), start: '07:00' }));
+  assert.equal(db.clients.length, before);
+  assert.equal(r.client.id, 'c1');
+});
+
+test('link: valida nome, WhatsApp e termo', () => {
+  const db = fresh();
+  const base = { serviceId: 's3', professionalId: 'p1', date: nextTuesday(), start: '07:00' };
+  assert.throws(() => A.bookByLink(db, { ...base, name: 'A', whatsapp: '14991234567' }), A.AppError);
+  assert.throws(() => A.bookByLink(db, { ...base, name: 'Ana', whatsapp: '1234' }), A.AppError);
+  assert.throws(() => A.bookByLink(db, { ...base, serviceId: 's4', name: 'Ana', whatsapp: '14991234567' }), /termo/);
+  const ok = A.bookByLink(db, { ...base, serviceId: 's4', name: 'Ana', whatsapp: '14991234567', consent: true });
+  assert.ok(ok.ops.some((o) => o.table === 'consentTerms'), 'grava o aceite do termo');
+  assert.equal(ok.ops[0].op, 'rpc', 'no banco real vira uma chamada segura');
+});
+
+test('link: não deixa marcar horário ocupado', () => {
+  const db = fresh();
+  const busy = db.appointments.find((a) => a.date > todayISO() && ['agendado', 'confirmado'].includes(a.status));
+  assert.throws(() => A.bookByLink(db, { name: 'Ana', whatsapp: '14991234567', serviceId: busy.serviceId, professionalId: busy.professionalId, date: busy.date, start: busy.start }), A.AppError);
+});
